@@ -10,6 +10,14 @@ Schwertkampf/[Bb]uilds/
 Schwertkampf/[Ll]ogs/
 Schwertkampf/[Uu]ser[Ss]ettings/
 
+Tutorial-Map/[Ll]ibrary/
+Tutorial-Map/[Tt]emp/
+Tutorial-Map/[Oo]bj/
+Tutorial-Map/[Bb]uild/
+Tutorial-Map/[Bb]uilds/
+Tutorial-Map/[Ll]ogs/
+Tutorial-Map/[Uu]ser[Ss]ettings/
+
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
