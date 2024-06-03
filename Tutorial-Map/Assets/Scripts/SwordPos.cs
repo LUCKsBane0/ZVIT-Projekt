@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class SwordHandler : MonoBehaviour
 {
@@ -10,8 +10,8 @@ public class SwordHandler : MonoBehaviour
     private ConfigurableJoint swordJoint;
     private bool isSwordGrabbed = false;
 
-    // Input Action References
-    public InputActionReference grabAction;
+    // Reference to the XR Grab Interactable
+    private XRGrabInteractable grabInteractable;
 
     void Start()
     {
@@ -19,27 +19,39 @@ public class SwordHandler : MonoBehaviour
         sword.transform.position = backPosition.position;
         sword.transform.rotation = backPosition.rotation;
 
-        // Enable the grab action and set up callbacks
-        grabAction.action.performed += OnGrab;
-        grabAction.action.canceled += OnRelease;
-        grabAction.action.Enable();
+        // Get the XRGrabInteractable component on the sword
+        grabInteractable = sword.GetComponent<XRGrabInteractable>();
+
+        // Register for interaction events
+        grabInteractable.selectEntered.AddListener(OnGrab);
+        grabInteractable.selectExited.AddListener(OnRelease);
     }
 
     void OnDestroy()
     {
         // Clean up the callbacks
-        grabAction.action.performed -= OnGrab;
-        grabAction.action.canceled -= OnRelease;
+        if (grabInteractable != null)
+        {
+            grabInteractable.selectEntered.RemoveListener(OnGrab);
+            grabInteractable.selectExited.RemoveListener(OnRelease);
+        }
     }
 
-    private void OnGrab(InputAction.CallbackContext context)
+    private void OnGrab(SelectEnterEventArgs args)
     {
-        GrabSword();
+        if (args.interactorObject is XRDirectInteractor)
+        {
+            handTransform = args.interactorObject.transform;
+            GrabSword();
+        }
     }
 
-    private void OnRelease(InputAction.CallbackContext context)
+    private void OnRelease(SelectExitEventArgs args)
     {
-        ReleaseSword();
+        if (args.interactorObject is XRDirectInteractor)
+        {
+            ReleaseSword();
+        }
     }
 
     void GrabSword()
