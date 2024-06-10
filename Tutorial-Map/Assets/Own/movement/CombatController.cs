@@ -42,14 +42,18 @@ public class CombatController : MonoBehaviour
     {
         inCombat = true;
         waypointFollower.EnterCombat();
-
     }
 
     void ExitCombat()
     {
         inCombat = false;
         waypointFollower.ExitCombat();
-
     }
+
+    public bool InCombat()
+    {
+        return inCombat;
+    }
+
 }
 
