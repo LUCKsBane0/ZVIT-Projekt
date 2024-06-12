@@ -41,7 +41,7 @@ public class SwordHandler : MonoBehaviour
 
         // Check for grab button press
         bool isGrabButtonPressed = grabAction.action.ReadValue<float>() > 0.5f;
-        Debug.Log($"Grab button pressed: {isGrabButtonPressed}");
+        //Debug.Log($"Grab button pressed: {isGrabButtonPressed}");
 
         // If the grab button is pressed and the hand is touching the sword, grab the sword
         if (isGrabButtonPressed && isHandTouchingSword && !isSwordGrabbed)
@@ -113,7 +113,7 @@ public class SwordHandler : MonoBehaviour
 
     void PlaceSwordOnBack()
     {
-        Debug.Log("Placing sword on back");
+        //Debug.Log("Placing sword on back");
 
         // Disable sword physics
         swordRigidbody.useGravity = false;

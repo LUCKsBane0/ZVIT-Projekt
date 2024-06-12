@@ -24,6 +24,7 @@ public class EnemyController : MonoBehaviour
     {
         if (combatController != null && combatController.InCombat())
         {
+            Debug.Log("Took Damage");
             _currentHealth -= damage;
             HealthBar.Change(-damage);
 

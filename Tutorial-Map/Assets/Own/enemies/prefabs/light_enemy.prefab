@@ -3926,7 +3926,7 @@ GameObject:
   - component: {fileID: 8093610029266692319}
   m_Layer: 0
   m_Name: light_enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
