@@ -31,6 +31,7 @@ public class HitController : MonoBehaviour
         if (!canHit && lastHitEnemy != null)
         {
             float distance = Vector3.Distance(transform.position, lastHitEnemy.transform.position);
+            //Debug.Log(distance);
             if (distance >= minDistanceToRehit)
             {
                 canHit = true;
