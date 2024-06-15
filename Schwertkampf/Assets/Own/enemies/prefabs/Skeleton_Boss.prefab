@@ -2000,6 +2000,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2844427942596484993}
   - component: {fileID: 5950609595733960397}
+  - component: {fileID: 4171510562123394121}
   m_Layer: 0
   m_Name: Skeleton_Boss
   m_TagString: Untagged
@@ -2016,7 +2017,7 @@ Transform:
   m_GameObject: {fileID: 5459861422376020866}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7197566, z: -0, w: 0.69422656}
-  m_LocalPosition: {x: 774.3741, y: 11.591298, z: 823.8102}
+  m_LocalPosition: {x: 753.82, y: 11.662, z: 822.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2050,6 +2051,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4171510562123394121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5459861422376020866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bf7d03da403e0042bde80d815ffca85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orangeSpellPrefab: {fileID: 6415515185434185187, guid: 0afb3a3bc3b3fdd4f828337f4b8ea2c7, type: 3}
+  blueSpellPrefab: {fileID: 3042914401079987679, guid: 89a010c047d2dc64eaba89df9800bd5d, type: 3}
+  player: {fileID: 0}
+  detectionRange: 60
+  meleeRange: 3
+  spellCooldown: 3
+  meleeCooldown: 2
+  strafeSpeed: 2
+  meleeStrafeDistance: 2
+  rangedStrafeDistance: 10
+  strafePauseDuration: 0.5
+  rangedElevationHeight: 10
+  retreatDistance: 13
+  isInRangedPhase: 0
+  hasTwoPhases: 1
 --- !u!1 &5539815057841027115
 GameObject:
   m_ObjectHideFlags: 0
