@@ -1,144 +1,120 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.InputSystem;
 
 public class SwordHandler : MonoBehaviour
 {
     public Transform backPosition; // Reference to the sword's position on the back
     public GameObject sword; // Reference to the sword GameObject
     public Transform wristTransform; // Reference to the wrist transform
+    public Transform swordHandPosition; // Reference to the desired sword position in the hand
+    public InputActionReference grabAction; // Reference to the grab action
+    public XRBaseInteractor rightHandInteractor; // Reference to the XR interactor for the right hand
 
-    private ConfigurableJoint swordJoint;
-    private bool isSwordGrabbed = false;
-
-    // Reference to the XR Grab Interactable
-    private XRGrabInteractable grabInteractable;
     private Rigidbody swordRigidbody;
+    private bool isSwordGrabbed = false;
+    private bool isHandTouchingSword = false;
+    private ConfigurableJoint swordJoint;
 
     void Start()
     {
-        // Get the Rigidbody component on the sword
         swordRigidbody = sword.GetComponent<Rigidbody>();
-
         if (swordRigidbody == null)
         {
             Debug.LogError("No Rigidbody component found on the sword.");
             return;
         }
 
+        // Ensure grab action is enabled
+        grabAction.action.Enable();
+
         // Place the sword on the player's back initially
         PlaceSwordOnBack();
-
-        // Get the XRGrabInteractable component on the sword
-        grabInteractable = sword.GetComponent<XRGrabInteractable>();
-
-        if (grabInteractable == null)
-        {
-            Debug.LogError("No XRGrabInteractable component found on the sword.");
-            return;
-        }
-
-        // Register for interaction events
-        grabInteractable.selectEntered.AddListener(OnGrab);
-        grabInteractable.selectExited.AddListener(OnRelease);
-
-        Debug.Log("SwordHandler initialized. Sword placed at back position.");
     }
 
-    void OnDestroy()
+    void Update()
     {
-        // Clean up the callbacks
-        if (grabInteractable != null)
-        {
-            grabInteractable.selectEntered.RemoveListener(OnGrab);
-            grabInteractable.selectExited.RemoveListener(OnRelease);
-        }
-    }
-
-    private void Update()
-    {
-        // Update the sword's position to stay on the back if not grabbed
         if (!isSwordGrabbed)
         {
             PlaceSwordOnBack();
         }
-    }
 
-    private void OnGrab(SelectEnterEventArgs args)
-    {
-        if (args.interactorObject is XRDirectInteractor)
+        // Check for grab button press
+        bool isGrabButtonPressed = grabAction.action.ReadValue<float>() > 0.5f;
+        //Debug.Log($"Grab button pressed: {isGrabButtonPressed}");
+
+        // If the grab button is pressed and the hand is touching the sword, grab the sword
+        if (isGrabButtonPressed && isHandTouchingSword && !isSwordGrabbed)
         {
-            Debug.Log("Sword grabbed.");
-            Transform handTransform = args.interactorObject.transform;
-            GrabSword(handTransform);
+            Debug.Log("Grabbing sword");
+            GrabSword();
         }
-    }
 
-    private void OnRelease(SelectExitEventArgs args)
-    {
-        if (args.interactorObject is XRDirectInteractor)
+        // If the grab button is released and the sword is grabbed, release the sword
+        if (!isGrabButtonPressed && isSwordGrabbed)
         {
-            Debug.Log("Sword released.");
+            Debug.Log("Releasing sword");
             ReleaseSword();
         }
     }
 
-    void GrabSword(Transform handTransform)
+    private void OnTriggerEnter(Collider other)
     {
-        if (isSwordGrabbed)
+        if (other.CompareTag("Hand") && other is CapsuleCollider)
         {
-            Debug.LogWarning("Sword is already grabbed.");
-            return;
+            Debug.Log("Hand touched sword");
+            isHandTouchingSword = true;
         }
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Hand") && other is CapsuleCollider)
+        {
+            Debug.Log("Hand left sword");
+            isHandTouchingSword = false;
+        }
+    }
+
+    void GrabSword()
+    {
         isSwordGrabbed = true;
 
         // Enable sword physics
         swordRigidbody.useGravity = true;
         swordRigidbody.isKinematic = false;
 
-        // Detach the sword from any parent
-        sword.transform.SetParent(null);
+        // Set sword position and rotation to match the hand
+        sword.transform.SetParent(wristTransform);
+        sword.transform.localPosition = swordHandPosition.localPosition;
+        sword.transform.localRotation = swordHandPosition.localRotation;
 
-        // Move the sword to the hand's position and rotation
-        sword.transform.position = handTransform.position;
-        sword.transform.rotation = handTransform.rotation;
-
-        // Add and configure the joint
-        swordJoint = sword.AddComponent<ConfigurableJoint>();
-        ConfigureJoint(swordJoint);
-
-        Debug.Log("Sword joint created and configured.");
-
-        // Disable the XRGrabInteractable to prevent it from interfering with the joint
-        grabInteractable.enabled = false;
+        // Attach the sword to the wrist
+        CreateConfigurableJoint();
     }
 
     void ReleaseSword()
     {
-        if (!isSwordGrabbed)
-        {
-            Debug.LogWarning("Sword is not grabbed.");
-            return;
-        }
-
         isSwordGrabbed = false;
 
         // Destroy the joint
         if (swordJoint != null)
         {
+            Debug.Log("Destroying joint");
             Destroy(swordJoint);
-            Debug.Log("Sword joint destroyed.");
         }
+
+        // Detach the sword from the wrist
+        sword.transform.SetParent(null);
 
         // Place the sword back on the player's back
         PlaceSwordOnBack();
-
-        // Re-enable the XRGrabInteractable
-        grabInteractable.enabled = true;
     }
 
     void PlaceSwordOnBack()
     {
+        //Debug.Log("Placing sword on back");
+
         // Disable sword physics
         swordRigidbody.useGravity = false;
         swordRigidbody.isKinematic = true;
@@ -146,30 +122,28 @@ public class SwordHandler : MonoBehaviour
         // Move the sword to the back position
         sword.transform.position = backPosition.position;
         sword.transform.rotation = backPosition.rotation;
-
-        // Ensure the sword is not a child of any object
-        sword.transform.SetParent(null);
-
-        //Debug.Log("Sword placed at back position.");
     }
 
-    void ConfigureJoint(ConfigurableJoint joint)
+    void CreateConfigurableJoint()
     {
-        joint.connectedBody = wristTransform.GetComponent<Rigidbody>();
+        Debug.Log("Creating joint");
+
+        swordJoint = sword.AddComponent<ConfigurableJoint>();
+        swordJoint.connectedBody = wristTransform.GetComponent<Rigidbody>();
 
         // Configure anchor points
-        joint.anchor = Vector3.zero; // Adjust to the handle's position if necessary
-        joint.connectedAnchor = Vector3.zero;
+        swordJoint.anchor = Vector3.zero; // Adjust to the handle's position if necessary
+        swordJoint.connectedAnchor = Vector3.zero;
 
         // Lock linear motion
-        joint.xMotion = ConfigurableJointMotion.Locked;
-        joint.yMotion = ConfigurableJointMotion.Locked;
-        joint.zMotion = ConfigurableJointMotion.Locked;
+        swordJoint.xMotion = ConfigurableJointMotion.Locked;
+        swordJoint.yMotion = ConfigurableJointMotion.Locked;
+        swordJoint.zMotion = ConfigurableJointMotion.Locked;
 
         // Allow angular motion
-        joint.angularXMotion = ConfigurableJointMotion.Free;
-        joint.angularYMotion = ConfigurableJointMotion.Free;
-        joint.angularZMotion = ConfigurableJointMotion.Free;
+        swordJoint.angularXMotion = ConfigurableJointMotion.Free;
+        swordJoint.angularYMotion = ConfigurableJointMotion.Free;
+        swordJoint.angularZMotion = ConfigurableJointMotion.Free;
 
         // Configure linear drive (strong spring force)
         JointDrive linearDrive = new JointDrive
@@ -178,9 +152,9 @@ public class SwordHandler : MonoBehaviour
             positionDamper = 300f, // Adjusted damping to balance speed and stability
             maximumForce = Mathf.Infinity
         };
-        joint.xDrive = linearDrive;
-        joint.yDrive = linearDrive;
-        joint.zDrive = linearDrive;
+        swordJoint.xDrive = linearDrive;
+        swordJoint.yDrive = linearDrive;
+        swordJoint.zDrive = linearDrive;
 
         // Configure angular drive (weaker spring force)
         JointDrive angularDrive = new JointDrive
@@ -189,9 +163,9 @@ public class SwordHandler : MonoBehaviour
             positionDamper = 300f, // Adjusted damping to balance speed and stability
             maximumForce = Mathf.Infinity
         };
-        joint.angularXDrive = angularDrive;
-        joint.angularYZDrive = angularDrive;
-        joint.slerpDrive = angularDrive;
+        swordJoint.angularXDrive = angularDrive;
+        swordJoint.angularYZDrive = angularDrive;
+        swordJoint.slerpDrive = angularDrive;
 
         // Configure linear limit spring
         SoftJointLimitSpring linearLimitSpring = new SoftJointLimitSpring
@@ -199,7 +173,7 @@ public class SwordHandler : MonoBehaviour
             spring = 2000f, // Adjust as needed
             damper = 300f // Adjust as needed
         };
-        joint.linearLimitSpring = linearLimitSpring;
+        swordJoint.linearLimitSpring = linearLimitSpring;
 
         // Configure angular limit spring
         SoftJointLimitSpring angularLimitSpring = new SoftJointLimitSpring
@@ -207,9 +181,7 @@ public class SwordHandler : MonoBehaviour
             spring = 2000f, // Adjust as needed
             damper = 300f // Adjust as needed
         };
-        joint.angularXLimitSpring = angularLimitSpring;
-        joint.angularYZLimitSpring = angularLimitSpring;
-
-        Debug.Log("Joint configured with linear and angular drives.");
+        swordJoint.angularXLimitSpring = angularLimitSpring;
+        swordJoint.angularYZLimitSpring = angularLimitSpring;
     }
 }
