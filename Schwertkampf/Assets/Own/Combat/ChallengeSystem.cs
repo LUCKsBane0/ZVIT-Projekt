@@ -26,7 +26,6 @@ public class ChallengeSystem : MonoBehaviour
     void Update()
     {
         // Always draw a debug ray from the (0, 0, 0) position into the sky
-        Debug.DrawRay(Vector3.zero, Vector3.up * 10f, Color.blue); // 10 units up
 
         // Check if the button is pressed
         if (challengeAction.action.ReadValue<float>() > 0.5f && !inCombat)
@@ -34,7 +33,7 @@ public class ChallengeSystem : MonoBehaviour
             RaycastHit hit;
             Vector3 rayDirection = swordTip.forward;
             float rayLength = Mathf.Infinity;
-
+           // Debug.Log("Casting Ray!");
             Debug.DrawRay(swordTip.position, rayDirection * 10f, Color.red); // Draw the ray
 
             if (Physics.Raycast(swordTip.position, rayDirection, out hit, rayLength))
