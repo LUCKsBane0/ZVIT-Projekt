@@ -11,18 +11,18 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private HealthBar HealthBar;
 
-    private CombatController combatController;
+    public PlayerStates playerStates;
 
     private void Awake()
     {
         _currentHealth = MaxHealth;
         HealthBar.Initialize(MaxHealth, _currentHealth);
-        combatController = FindObjectOfType<CombatController>();
+       
     }
 
     public void TakeDamage(int damage)
     {
-        if (combatController != null && combatController.InCombat())
+        if (playerStates.inCombat)
         {
             Debug.Log("Took Damage");
             _currentHealth -= damage;
