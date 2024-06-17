@@ -3,9 +3,7 @@ using System.Collections;
 
 public class CombatSystem : MonoBehaviour
 {
-    public float deg1;
-    public float deg2;
-    public float deg3;
+    
     public Transform swordTip; // Reference to the tip of the player's sword
     public GameObject arrowPrefab; // Prefab for the arrow with particle effect
     public Transform enemy; // Reference to the enemy
@@ -22,16 +20,24 @@ public class CombatSystem : MonoBehaviour
     private GameObject lastHitEnemy; // Reference to the last hit enemy
     private GameObject currentArrow; // Reference to the current arrow
 
+    private bool blockStateChanged = true;
+
     void Update()
     {
         // Update the current enemy state
         // Assume stateController refers to the current enemy
-
+       
+        if (!stateController.isBlocking)
+        {
+            blockStateChanged = true;
+        }
         if (stateController.isBlocking)
         {
-            if (currentArrow == null)
+            
+            if (currentArrow == null && blockStateChanged)
             {
                 DisplayBlockingArrow();
+                blockStateChanged = false;
             }
             else
             {
@@ -104,26 +110,26 @@ public class CombatSystem : MonoBehaviour
     {
         // Determine the direction
         int direction = Random.Range(0, 3); // 0 = top, 1 = right, 2 = left
-        direction = 1;
+       
         Vector3 arrowPosition = enemy.position;
         Quaternion arrowRotation = Quaternion.identity;
 
         switch (direction)
         {
             case 0:
-                arrowPosition += Vector3.up * 2; // Adjust height as needed
+                arrowPosition += enemy.up * 2; // Adjust height as needed
                 arrowRotation = Quaternion.Euler(180, 90, 0);
-                attackDirection = Vector3.down;
+                attackDirection = -enemy.up;
                 break;
             case 1:
-                arrowPosition += Vector3.right * 2; // Adjust offset as needed
-                arrowRotation = Quaternion.Euler(deg1, deg2, deg3);
-                attackDirection = Vector3.left;
+                arrowPosition += enemy.right * 2; // Adjust offset as needed
+                arrowRotation = Quaternion.Euler(90, 0, 0);
+                attackDirection = -enemy.right;
                 break;
             case 2:
-                arrowPosition += Vector3.left * 2; // Adjust offset as needed
-                arrowRotation = Quaternion.Euler(0, 0, 90);
-                attackDirection = Vector3.right;
+                arrowPosition += -enemy.right* 2; // Adjust offset as needed
+                arrowRotation = Quaternion.Euler(-90,0,0);
+                attackDirection = enemy.right;
                 break;
         }
 

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Hand
   - Enemy
+  - Undefined
+  - Arrow
   layers:
   - Default
   - TransparentFX

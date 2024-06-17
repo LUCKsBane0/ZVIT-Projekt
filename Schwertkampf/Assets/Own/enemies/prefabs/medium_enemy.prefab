@@ -4207,8 +4207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c00d65973f7231742a71f55d2df47719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAttacking: 1
-  isBlocking: 0
+  isAttacking: 0
+  isBlocking: 1
   inCombat: 0
 --- !u!114 &5553270615091448277
 MonoBehaviour:
