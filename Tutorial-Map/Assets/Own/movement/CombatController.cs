@@ -5,7 +5,7 @@ using UnityEngine;
 public class CombatController : MonoBehaviour
 {
     private WaypointFollower waypointFollower;
-    private bool inCombat = false;
+    public bool inCombat = false;
     public bool enableAlternating = true; // Flag to enable/disable alternating combat state for testing
 
     void Start()
