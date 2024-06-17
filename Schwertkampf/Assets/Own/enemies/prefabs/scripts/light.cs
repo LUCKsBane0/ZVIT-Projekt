@@ -13,7 +13,9 @@ public class LightEnemy : MonoBehaviour
     public float moveSpeed = 4.5f;  // Speed at which the enemy moves towards the player
     public float strafeSpeed = 3.5f;  // Speed at which the enemy strafes left and right
     public float strafeDistance = 2.0f;  // Distance the enemy strafes from the center position
+    
     public float strafePauseDuration = 3.0f;  // Duration of pause between strafes
+    public StateController stateController;
     private string[] meleeAnimationTriggers = { "TrFastAttack3", "TrSpin3", "TrRight3", "TrLeft3", "TrFeint3" };  // Animation triggers for melee attacks
     private string blockAnimationTrigger = "TrBlock3";  // Animation trigger for blocking
     private string combatIdleTrigger = "TrComIdle3";  // Animation trigger for combat idle
@@ -80,6 +82,12 @@ public class LightEnemy : MonoBehaviour
 
     void PerformMeleeAttack()
     {
+
+        // isAttacking Fehlt!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
         // Select a random melee attack index
         int attackIndex = Random.Range(0, meleeAnimationTriggers.Length);
 
@@ -90,6 +98,7 @@ public class LightEnemy : MonoBehaviour
 
     IEnumerator PerformBlock()
     {
+        stateController.isBlocking = true;
         isBlocking = true;
         animator.SetTrigger(blockAnimationTrigger);
 
@@ -97,6 +106,7 @@ public class LightEnemy : MonoBehaviour
         yield return new WaitForSeconds(blockDuration);
 
         isBlocking = false;
+        stateController.isBlocking = false;
         animator.SetTrigger(combatIdleTrigger); // Transition back to combat idle
     }
 
@@ -142,6 +152,11 @@ public class LightEnemy : MonoBehaviour
             animator.SetTrigger("TrGetHit3");
             Debug.Log("Took damage!");
         }
+    }
+
+    void PushBack()
+    {
+
     }
 
     void Die()

@@ -449,9 +449,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1333427763644796078}
-    - targetCorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 556290733796695044}
     - targetCorrespondingSourceObject: {fileID: 1767192433, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       insertIndex: -1
@@ -577,20 +574,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
   m_PrefabInstance: {fileID: 7787463774127580753}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1333427763644796078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8918754095277377660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f42a50fb918d7c24db91b323e2b62612, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inCombat: 0
-  enableAlternating: 1
 --- !u!114 &556290733796695044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -606,7 +589,6 @@ MonoBehaviour:
   waypointManager: {fileID: 0}
   speed: 2
   reachThreshold: 0.1
-  loopWaypoints: 1
 --- !u!4 &8918754095277377663 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}

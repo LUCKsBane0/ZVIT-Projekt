@@ -14,6 +14,8 @@ public class HeavyEnemy : MonoBehaviour
     public float strafeSpeed = 1.0f;  // Speed at which the enemy strafes left and right
     public float strafeDistance = 1.0f;  // Distance the enemy strafes from the center position
     public float strafePauseDuration = 3.0f;  // Duration of pause between strafes
+
+    public StateController stateController;
     private string[] meleeAnimationTriggers = { "TrMelee2", "TrSpin2", "TrReverseHit2" };  // Animation triggers for melee attacks
     private string blockAnimationTrigger = "TrBlock2";  // Animation trigger for blocking
     private string combatIdleTrigger = "TrComIdle2";  // Animation trigger for combat idle
@@ -98,12 +100,14 @@ public class HeavyEnemy : MonoBehaviour
     IEnumerator PerformBlock()
     {
         isBlocking = true;
+        stateController.isBlocking = true;
         animator.SetTrigger(blockAnimationTrigger);
 
         // Wait for the duration of the block
         yield return new WaitForSeconds(blockDuration);
 
         isBlocking = false;
+        stateController.isBlocking = false;
         animator.SetTrigger(combatIdleTrigger); // Transition back to combat idle
         Debug.Log("Block finished, returning to combat idle.");
     }
@@ -167,6 +171,10 @@ public class HeavyEnemy : MonoBehaviour
         isInCombat = true;
         animator.SetTrigger("TrCombat2");
         Debug.Log("Entered combat.");
+    }
+    void PushBack()
+    {
+
     }
 
     public void ExitCombat()

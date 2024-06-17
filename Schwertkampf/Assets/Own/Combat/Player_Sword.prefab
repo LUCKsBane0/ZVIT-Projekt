@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 9015053123226386716}
   - component: {fileID: 2693948872931669131}
   - component: {fileID: 3181328924176734964}
-  - component: {fileID: 2614936814292051075}
   - component: {fileID: 796837793247684911}
   m_Layer: 0
   m_Name: Player_Sword
@@ -194,20 +193,6 @@ CapsuleCollider:
   m_Height: 0.3
   m_Direction: 1
   m_Center: {x: -0.00015930833, y: 0.05, z: 0.00000032782557}
---- !u!114 &2614936814292051075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 960989565008651041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 850a73300d0862445ad6e75bc442ee61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldownTime: 3
-  minDistanceToRehit: 1.5
 --- !u!114 &796837793247684911
 MonoBehaviour:
   m_ObjectHideFlags: 0

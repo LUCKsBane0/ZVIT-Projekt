@@ -10,16 +10,16 @@ public class ChallengeSystem : MonoBehaviour
     public GameObject progressRingPrefab; // Prefab for the progress ring
     public Transform handTransform; // Reference to the hand holding the sword
 
-    private bool inCombat = false; // Reference to the inCombat bool in another script
+   
     private GameObject currentRing;
     private Image ringImage;
     private float challengeTime = 2f; // Time it takes to complete the challenge
     private float challengeProgress = 0f;
     private bool isChallenging = false;
-    public CombatController Combat_Controller;
+    public PlayerStates playerStates;
     void Start()
     {
-        inCombat = Combat_Controller.inCombat;
+        
         challengeAction.action.Enable();
     }
 
@@ -28,12 +28,12 @@ public class ChallengeSystem : MonoBehaviour
         // Always draw a debug ray from the (0, 0, 0) position into the sky
 
         // Check if the button is pressed
-        if (challengeAction.action.ReadValue<float>() > 0.5f && !inCombat)
+        if (challengeAction.action.ReadValue<float>() > 0.5f && !playerStates.inCombat)
         {
             RaycastHit hit;
             Vector3 rayDirection = swordTip.forward;
             float rayLength = Mathf.Infinity;
-           // Debug.Log("Casting Ray!");
+            Debug.Log("Casting Ray!");
             Debug.DrawRay(swordTip.position, rayDirection * 10f, Color.red); // Draw the ray
 
             if (Physics.Raycast(swordTip.position, rayDirection, out hit, rayLength))
@@ -103,8 +103,8 @@ public class ChallengeSystem : MonoBehaviour
 
     void CompleteChallenge()
     {
-        Combat_Controller.inCombat = true;
-        inCombat = true;
+        playerStates.inCombat = true;
+       
         Destroy(currentRing);
         isChallenging = false;
     }

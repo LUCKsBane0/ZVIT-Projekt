@@ -4053,6 +4053,7 @@ GameObject:
   - component: {fileID: 7812019251245291101}
   - component: {fileID: 5229887883396391023}
   - component: {fileID: 5620665405293520656}
+  - component: {fileID: 8136952929352552739}
   m_Layer: 0
   m_Name: medium_enemy
   m_TagString: Untagged
@@ -4068,7 +4069,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6622451532306003427}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.8237717, z: -0, w: -0.56692165}
+  m_LocalRotation: {x: -0, y: -0.82377, z: 0, w: -0.5669242}
   m_LocalPosition: {x: 759.63, y: 11.591284, z: 822.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4142,6 +4143,21 @@ MonoBehaviour:
   strafeSpeed: 2
   strafeDistance: 2
   strafePauseDuration: 2
+--- !u!114 &8136952929352552739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6622451532306003427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c00d65973f7231742a71f55d2df47719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAttacking: 0
+  isBlocking: 0
+  inCombat: 0
 --- !u!1 &6680841973441437958
 GameObject:
   m_ObjectHideFlags: 0

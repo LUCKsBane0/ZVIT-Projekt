@@ -5,7 +5,11 @@ using UnityEngine;
 public class CombatController : MonoBehaviour
 {
    
-    public bool inCombat = false;
+    public bool inCombat = false; // Relocate to PlayerStates!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
     public bool enableAlternating = true; // Flag to enable/disable alternating combat state for testing
 
     void Start()

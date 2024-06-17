@@ -14,6 +14,7 @@ public class MediumEnemy : MonoBehaviour
     public float strafeSpeed = 2.0f;  // Speed at which the enemy strafes left and right
     public float strafeDistance = 2.0f;  // Distance the enemy strafes from the center position
     public float strafePauseDuration = 2.0f;  // Duration of pause between strafes
+    public StateController stateController;
     private string[] meleeAnimationTriggers = { "TrMelee", "TrSpin", "TrPunch" };  // Animation triggers for melee attacks
     private string blockAnimationTrigger = "TrBlock";  // Animation trigger for blocking
     private string combatIdleTrigger = "TrComIdle";  // Animation trigger for combat idle
@@ -90,6 +91,7 @@ public class MediumEnemy : MonoBehaviour
 
     IEnumerator PerformBlock()
     {
+        stateController.isBlocking = true;
         isBlocking = true;
         animator.SetTrigger(blockAnimationTrigger);
 
@@ -97,6 +99,7 @@ public class MediumEnemy : MonoBehaviour
         yield return new WaitForSeconds(blockDuration);
 
         isBlocking = false;
+        stateController.isBlocking = false;
         animator.SetTrigger(combatIdleTrigger); // Transition back to combat idle
     }
 
@@ -149,6 +152,11 @@ public class MediumEnemy : MonoBehaviour
         animator.SetTrigger("TrDeath");
         isAlive = false;  // Mark the enemy as dead
         isInCombat = false;  // Mark the enemy as out of combat
+    }
+
+    void PushBack()
+    {
+
     }
 
     public void EnterCombat()

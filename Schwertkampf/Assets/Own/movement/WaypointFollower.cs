@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class PathFollower : MonoBehaviour
 {
+
+
+    //AUS DEM PLAYERSTATES SKRIPTHOLEN
+
+
+
+
     public WaypointManager waypointManager;
     public float speed = 2.0f;
     public float reachThreshold = 0.1f;
     private int currentWaypointIndex = 0;
     private bool isMoving = true; // Flag to control movement
-
+    
     void Update()
     {
         if (!isMoving || waypointManager.waypoints.Length == 0)
