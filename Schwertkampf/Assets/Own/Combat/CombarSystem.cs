@@ -121,6 +121,7 @@ public class CombatSystem : MonoBehaviour
         // Placeholder function for pushing back the enemy
         Debug.Log("Enemy pushed back");
         // Implement logic to push back the enemy
+        playerStates.currentEnemy.GetComponent<MediumEnemy>().PushBack();
     }
 
     void DisplayBlockingArrow()
