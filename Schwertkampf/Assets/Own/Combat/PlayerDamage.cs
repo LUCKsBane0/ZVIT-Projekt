@@ -1,11 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerDamage : MonoBehaviour
 {
     public int HealthPoints = 100;
     public Material handMaterial; // Reference to the hand material
+    public Image vignetteImage; // Reference to the vignette image
 
     private Color originalColor;
 
@@ -20,6 +21,16 @@ public class PlayerDamage : MonoBehaviour
         {
             Debug.LogError("Hand material is not assigned.");
         }
+
+        // Ensure the vignette image is initially transparent
+        if (vignetteImage != null)
+        {
+            vignetteImage.color = new Color(vignetteImage.color.r, vignetteImage.color.g, vignetteImage.color.b, 0);
+        }
+        else
+        {
+            Debug.LogError("Vignette image is not assigned.");
+        }
     }
 
     void Update()
@@ -32,6 +43,12 @@ public class PlayerDamage : MonoBehaviour
     {
         HealthPoints -= amount;
         HealthPoints = Mathf.Clamp(HealthPoints, 0, 100); // Ensure HealthPoints stay within bounds
+
+        // Trigger vignette effect
+        if (vignetteImage != null)
+        {
+            StartCoroutine(ShowVignetteEffect());
+        }
     }
 
     void UpdateHandColor()
@@ -45,5 +62,42 @@ public class PlayerDamage : MonoBehaviour
             // Apply the new color to the material
             handMaterial.color = newColor;
         }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("EnemySword"))
+        {
+            Debug.Log("Taking Damage");
+
+            TakeDamage(10);
+        }
+    }
+
+    IEnumerator ShowVignetteEffect()
+    {
+        float duration = 0.5f; // Duration of the vignette effect
+        float elapsed = 0f;
+
+        // Fade in the vignette effect
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            vignetteImage.color = new Color(vignetteImage.color.r, vignetteImage.color.g, vignetteImage.color.b, Mathf.Lerp(0, 0.5f, elapsed / duration));
+            yield return null;
+        }
+
+        elapsed = 0f;
+
+        // Fade out the vignette effect
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            vignetteImage.color = new Color(vignetteImage.color.r, vignetteImage.color.g, vignetteImage.color.b, Mathf.Lerp(0.5f, 0, elapsed / duration));
+            yield return null;
+        }
+
+        // Ensure the vignette is fully transparent after the effect
+        vignetteImage.color = new Color(vignetteImage.color.r, vignetteImage.color.g, vignetteImage.color.b, 0);
     }
 }

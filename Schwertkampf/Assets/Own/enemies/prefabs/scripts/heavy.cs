@@ -84,7 +84,6 @@ public class HeavyEnemy : MonoBehaviour
 
     IEnumerator PerformMeleeAttack()
     {
-        Debug.Log("juhu");
         // Select a random melee attack index
         int attackIndex = Random.Range(0, meleeAnimationTriggers.Length);
 
