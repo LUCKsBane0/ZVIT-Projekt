@@ -7,14 +7,13 @@ public class MediumEnemy : MonoBehaviour
     public Transform player;  // Reference to the player
     public float detectionRange = 30.0f;  // Detection range to engage the player
     public float meleeRange = 3.0f;  // Range to perform melee attacks
-    public float meleeCooldown = 1.5f;  // Cooldown between melee attacks
+    public float meleeCooldown = 2.0f;  // Cooldown between melee attacks MIN 1.2f
     public float blockCooldown = 5.0f;  // Cooldown between blocks
     public float blockDuration = 2.0f;  // Duration of the block
     public float moveSpeed = 2.5f;  // Speed at which the enemy moves towards the player
     public float strafeSpeed = 2.0f;  // Speed at which the enemy strafes left and right
     public float strafeDistance = 2.0f;  // Distance the enemy strafes from the center position
     public float strafePauseDuration = 2.0f;  // Duration of pause between strafes
-    public StateController stateController;
     private string[] meleeAnimationTriggers = { "TrMelee", "TrSpin", "TrPunch" };  // Animation triggers for melee attacks
     private string blockAnimationTrigger = "TrBlock";  // Animation trigger for blocking
     private string combatIdleTrigger = "TrComIdle";  // Animation trigger for combat idle
@@ -23,11 +22,15 @@ public class MediumEnemy : MonoBehaviour
     private float lastMeleeAttackTime;  // Time when the last melee attack was made
     private float lastBlockTime;  // Time when the last block was made
     private bool isBlocking = false;  // Indicates if the enemy is currently blocking
+    private bool isAttacking = false; //Indicates if enemy is in attacking animation
     private bool isAlive = true;  // Indicates if the enemy is alive
-    private bool isInCombat = false;  // Indicates if the enemy is in combat
+    private bool isInCombat = true;  // Indicates if the enemy is in combat
     private bool isStrafingRight = true;  // Indicates the current strafe direction
     private bool isStrafingPaused = false;  // Indicates if strafing is currently paused
     private Vector3 initialPosition;  // Initial position to calculate strafing
+    
+    public StateController stateController;
+    public PlayerStates playerStates;
 
     void Start()
     {
@@ -52,9 +55,9 @@ public class MediumEnemy : MonoBehaviour
             if (distanceToPlayer <= meleeRange)
             {
                 // Perform melee attack if within melee range and cooldown period has passed
-                if (Time.time - lastMeleeAttackTime > meleeCooldown)
+                if (Time.time - lastMeleeAttackTime > meleeCooldown && !isBlocking)
                 {
-                    PerformMeleeAttack();
+                    StartCoroutine(PerformMeleeAttack());
                     lastMeleeAttackTime = Time.time;  // Update last attack time
                 }
 
@@ -71,7 +74,7 @@ public class MediumEnemy : MonoBehaviour
             }
 
             // Block occasionally if not already blocking and cooldown period has passed
-            if (!isBlocking && Time.time - lastBlockTime > blockCooldown)
+            if (!isBlocking && Time.time - lastBlockTime > blockCooldown && !isAttacking)
             {
                 StartCoroutine(PerformBlock());
                 lastBlockTime = Time.time;  // Update last block time
@@ -79,14 +82,24 @@ public class MediumEnemy : MonoBehaviour
         }
     }
 
-    void PerformMeleeAttack()
+    IEnumerator PerformMeleeAttack()
     {
+        Debug.Log("juhu");
         // Select a random melee attack index
         int attackIndex = Random.Range(0, meleeAnimationTriggers.Length);
 
         // Trigger the corresponding animation immediately
         string selectedTrigger = meleeAnimationTriggers[attackIndex];
+        isAttacking = true;
+        stateController.isAttacking = true;
         animator.SetTrigger(selectedTrigger);
+
+        //waiting Time depending on animation
+
+        yield return new WaitForSeconds(1.0f);
+
+        isAttacking = false;
+        stateController.isAttacking = false;
     }
 
     IEnumerator PerformBlock()
@@ -147,26 +160,29 @@ public class MediumEnemy : MonoBehaviour
         }
     }
 
-    void Die()
-    {
-        animator.SetTrigger("TrDeath");
-        isAlive = false;  // Mark the enemy as dead
-        isInCombat = false;  // Mark the enemy as out of combat
-    }
-
     void PushBack()
     {
 
     }
 
+    void Die()
+    {
+        animator.SetTrigger("TrDeath");
+        isAlive = false;  // Mark the enemy as dead
+        ExitCombat();
+        playerStates.currentEnemy = null;
+    }
+
     public void EnterCombat()
     {
         isInCombat = true;
+        stateController.inCombat = true;
         animator.SetTrigger("TrCombat");
     }
 
     public void ExitCombat()
     {
         isInCombat = false;
+        stateController.inCombat = false;
     }
 }

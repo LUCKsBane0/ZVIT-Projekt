@@ -7,7 +7,7 @@ public class LightEnemy : MonoBehaviour
     public Transform player;  // Reference to the player
     public float detectionRange = 30.0f;  // Detection range to engage the player
     public float meleeRange = 3.0f;  // Range to perform melee attacks
-    public float meleeCooldown = 1.0f;  // Cooldown between melee attacks
+    public float meleeCooldown = 2.0f;  // Cooldown between melee attacks MIN 1.7f
     public float blockCooldown = 5.0f;  // Cooldown between blocks
     public float blockDuration = 2.0f;  // Duration of the block
     public float moveSpeed = 4.5f;  // Speed at which the enemy moves towards the player
@@ -15,7 +15,6 @@ public class LightEnemy : MonoBehaviour
     public float strafeDistance = 2.0f;  // Distance the enemy strafes from the center position
     
     public float strafePauseDuration = 3.0f;  // Duration of pause between strafes
-    public StateController stateController;
     private string[] meleeAnimationTriggers = { "TrFastAttack3", "TrSpin3", "TrRight3", "TrLeft3", "TrFeint3" };  // Animation triggers for melee attacks
     private string blockAnimationTrigger = "TrBlock3";  // Animation trigger for blocking
     private string combatIdleTrigger = "TrComIdle3";  // Animation trigger for combat idle
@@ -25,10 +24,14 @@ public class LightEnemy : MonoBehaviour
     private float lastBlockTime;  // Time when the last block was made
     private bool isBlocking = false;  // Indicates if the enemy is currently blocking
     private bool isAlive = true;  // Indicates if the enemy is alive
-    private bool isInCombat = false;  // Indicates if the enemy is in combat
+    private bool isAttacking = false; //Indicates if enemy is in attacking animation
+    private bool isInCombat = true;  // Indicates if the enemy is in combat
     private bool isStrafingRight = true;  // Indicates the current strafe direction
     private bool isStrafingPaused = false;  // Indicates if strafing is currently paused
     private Vector3 initialPosition;  // Initial position to calculate strafing
+    
+    public StateController stateController;
+    public PlayerStates playerStates;
 
     void Start()
     {
@@ -53,9 +56,9 @@ public class LightEnemy : MonoBehaviour
             if (distanceToPlayer <= meleeRange)
             {
                 // Perform melee attack if within melee range and cooldown period has passed
-                if (Time.time - lastMeleeAttackTime > meleeCooldown)
+                if (Time.time - lastMeleeAttackTime > meleeCooldown && !isBlocking)
                 {
-                    PerformMeleeAttack();
+                    StartCoroutine(PerformMeleeAttack());
                     lastMeleeAttackTime = Time.time;  // Update last attack time
                 }
 
@@ -72,7 +75,7 @@ public class LightEnemy : MonoBehaviour
             }
 
             // Block occasionally if not already blocking and cooldown period has passed
-            if (!isBlocking && Time.time - lastBlockTime > blockCooldown)
+            if (!isBlocking && Time.time - lastBlockTime > blockCooldown && !isAttacking)
             {
                 StartCoroutine(PerformBlock());
                 lastBlockTime = Time.time;  // Update last block time
@@ -80,20 +83,43 @@ public class LightEnemy : MonoBehaviour
         }
     }
 
-    void PerformMeleeAttack()
+    IEnumerator PerformMeleeAttack()
     {
-
-        // isAttacking Fehlt!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
-
+        Debug.Log("juhu");
         // Select a random melee attack index
         int attackIndex = Random.Range(0, meleeAnimationTriggers.Length);
 
         // Trigger the corresponding animation immediately
         string selectedTrigger = meleeAnimationTriggers[attackIndex];
+        isAttacking = true;
+        stateController.isAttacking = true;
         animator.SetTrigger(selectedTrigger);
+
+        //waiting Time depending on animation
+
+        if(attackIndex==4)
+        {
+            yield return new WaitForSeconds(1.5f);
+        }
+        else if(attackIndex==3)
+        {
+            yield return new WaitForSeconds(1.0f);
+        }
+        else if(attackIndex==2)
+        {
+            yield return new WaitForSeconds(1.0f);
+        }
+        else if(attackIndex==1)
+        {
+            yield return new WaitForSeconds(1.5f);
+        }
+        else if (attackIndex==0)
+        {
+            yield return new WaitForSeconds(0.7f);
+        }
+
+        isAttacking = false;
+        stateController.isAttacking = false;
     }
 
     IEnumerator PerformBlock()
@@ -163,17 +189,20 @@ public class LightEnemy : MonoBehaviour
     {
         animator.SetTrigger("TrDeath3");
         isAlive = false;  // Mark the enemy as dead
-        isInCombat = false;  // Mark the enemy as out of combat
+        ExitCombat();
+        playerStates.currentEnemy = null;
     }
 
     public void EnterCombat()
     {
         isInCombat = true;
+        stateController.inCombat = true;
         animator.SetTrigger("TrCombat3");
     }
 
     public void ExitCombat()
     {
         isInCombat = false;
+        stateController.inCombat = false;
     }
 }
