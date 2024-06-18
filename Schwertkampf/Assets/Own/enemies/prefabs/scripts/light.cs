@@ -13,7 +13,9 @@ public class LightEnemy : MonoBehaviour
     public float moveSpeed = 4.5f;  // Speed at which the enemy moves towards the player
     public float strafeSpeed = 3.5f;  // Speed at which the enemy strafes left and right
     public float strafeDistance = 2.0f;  // Distance the enemy strafes from the center position
-    
+    public float pushBackDistance = 5.0f;  // Distance to push the enemy back from the player
+
+
     public float strafePauseDuration = 3.0f;  // Duration of pause between strafes
     private string[] meleeAnimationTriggers = { "TrFastAttack3", "TrSpin3", "TrRight3", "TrLeft3", "TrFeint3" };  // Animation triggers for melee attacks
     private string blockAnimationTrigger = "TrBlock3";  // Animation trigger for blocking
@@ -25,7 +27,7 @@ public class LightEnemy : MonoBehaviour
     private bool isBlocking = false;  // Indicates if the enemy is currently blocking
     private bool isAlive = true;  // Indicates if the enemy is alive
     private bool isAttacking = false; //Indicates if enemy is in attacking animation
-    private bool isInCombat = true;  // Indicates if the enemy is in combat
+    private bool isInCombat = false;  // Indicates if the enemy is in combat
     private bool isStrafingRight = true;  // Indicates the current strafe direction
     private bool isStrafingPaused = false;  // Indicates if strafing is currently paused
     private Vector3 initialPosition;  // Initial position to calculate strafing
@@ -179,9 +181,13 @@ public class LightEnemy : MonoBehaviour
         }
     }
 
-    void PushBack()
+    public void PushBack()
     {
-
+        Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
+        directionAwayFromPlayer.y = 0; // Ignore Y axis
+        Vector3 newPosition = transform.position + directionAwayFromPlayer * pushBackDistance;
+        transform.position = newPosition;
+        animator.SetTrigger("TrCancel3"); // Set the cancel trigger if needed
     }
 
     void Die()
