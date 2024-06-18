@@ -10,13 +10,15 @@ public class ChallengeSystem : MonoBehaviour
     public GameObject progressRingPrefab; // Prefab for the progress ring
     public Transform handTransform; // Reference to the hand holding the sword
 
+    public PlayerStates playerStates;
    
     private GameObject currentRing;
     private Image ringImage;
+    private GameObject enemyObject;
     private float challengeTime = 2f; // Time it takes to complete the challenge
     private float challengeProgress = 0f;
     private bool isChallenging = false;
-    public PlayerStates playerStates;
+
     void Start()
     {
         
@@ -40,9 +42,14 @@ public class ChallengeSystem : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Enemy"))
                 {
+                    
+                    
                     if (!isChallenging)
                     {
+                        
                         StartChallenge();
+                        enemyObject = hit.collider.gameObject;
+                       
                     }
                 }
                 else
@@ -106,7 +113,26 @@ public class ChallengeSystem : MonoBehaviour
         playerStates.inCombat = true;
        
         Destroy(currentRing);
+        if (enemyObject.GetComponent<LightEnemy>() != null)
+        {
+            enemyObject.GetComponent<LightEnemy>().EnterCombat();
+                            
+        }
+                        
+        if (enemyObject.GetComponent<MediumEnemy>() != null)
+        {
+            enemyObject.GetComponent<MediumEnemy>().EnterCombat();
+        }
+        if (enemyObject.GetComponent<HeavyEnemy>() != null)
+        {
+            enemyObject.GetComponent<HeavyEnemy>().EnterCombat();
+        }
+                       
+        playerStates.currentEnemy = enemyObject;
         isChallenging = false;
+        
+        
+        
     }
 
     void ResetChallenge()
