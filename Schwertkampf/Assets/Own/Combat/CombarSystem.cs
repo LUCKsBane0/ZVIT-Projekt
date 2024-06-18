@@ -74,38 +74,46 @@ public class CombatSystem : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("EnemySword") && stateController.isAttacking)
+        if (stateController != null)
         {
-            PushBackEnemy();
-        }
-        
-        else if (other.CompareTag("Enemy") && stateController.isAttacking && canHit)
-        {
-            PushBackEnemy();
-            EnemyController enemyController = other.GetComponent<EnemyController>();
-            Debug.Log("Successful Hit!");
-            enemyController.GetComponent<EnemyController>().TakeDamage(10);
-        }
-        
-        //Das hier muss getestet werden
-        else if (other.CompareTag("Enemy") && stateController.isBlocking && canHit)
-        {
-            Vector3 hitDirection = (other.transform.position - swordTip.position).normalized;
-            if (Vector3.Dot(hitDirection, attackDirection) > 0.8f) // Adjust threshold as needed
+
+
+
+            if (other.CompareTag("EnemySword") && stateController.isAttacking)
             {
+                PushBackEnemy();
+            }
+
+            else if (other.CompareTag("Enemy") && stateController.isAttacking && canHit)
+            {
+                PushBackEnemy();
                 EnemyController enemyController = other.GetComponent<EnemyController>();
                 Debug.Log("Successful Hit!");
                 enemyController.GetComponent<EnemyController>().TakeDamage(10);
+            }
 
-                StartCoroutine(HitCooldown());
-                lastHitPosition = swordTip.position;
-                lastHitEnemy = other.gameObject;
-            }
-            else
+            //Das hier muss getestet werden
+            else if (other.CompareTag("Enemy") && stateController.isBlocking && canHit)
             {
-                Debug.Log("Failed Hit. Wrong Direction!");
+                Vector3 hitDirection = (other.transform.position - swordTip.position).normalized;
+                if (Vector3.Dot(hitDirection, attackDirection) > 0.8f) // Adjust threshold as needed
+                {
+                    EnemyController enemyController = other.GetComponent<EnemyController>();
+                    Debug.Log("Successful Hit!");
+                    enemyController.GetComponent<EnemyController>().TakeDamage(10);
+
+                    StartCoroutine(HitCooldown());
+                    lastHitPosition = swordTip.position;
+                    lastHitEnemy = other.gameObject;
+                }
+                else
+                {
+                    Debug.Log("Failed Hit. Wrong Direction!");
+                }
             }
+
         }
+
     }
 
     void PushBackEnemy()

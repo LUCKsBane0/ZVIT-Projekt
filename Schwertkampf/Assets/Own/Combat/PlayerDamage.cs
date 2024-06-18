@@ -72,6 +72,11 @@ public class PlayerDamage : MonoBehaviour
 
             TakeDamage(10);
         }
+        Debug.Log(other);
+
+
+
+
     }
 
     IEnumerator ShowVignetteEffect()
