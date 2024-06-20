@@ -6,7 +6,8 @@ public class LightEnemy : MonoBehaviour
 {
     public Transform player;  // Reference to the player
     public float detectionRange = 30.0f;  // Detection range to engage the player
-    public float meleeRange = 3.0f;  // Range to perform melee attacks
+    public float desiredDistance = 3.0f;  // Desired distance to keep from the player
+    public float meleeDistance = 3.5f;    //Melee Range
     public float meleeCooldown = 2.0f;  // Cooldown between melee attacks MIN 1.7f
     public float blockCooldown = 5.0f;  // Cooldown between blocks
     public float blockDuration = 2.0f;  // Duration of the block
@@ -51,29 +52,30 @@ public class LightEnemy : MonoBehaviour
         // Check distance to player
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
+        // Make the enemy look at the player
+        LookAtPlayer();
+
         if (distanceToPlayer <= detectionRange)
         {
             // Engage the player if within detection range
 
-            if (distanceToPlayer <= meleeRange)
+            // Adjust position to maintain the desired distance
+            if (Mathf.Abs(distanceToPlayer - desiredDistance) > 0.1f)
             {
-                // Perform melee attack if within melee range and cooldown period has passed
-                if (Time.time - lastMeleeAttackTime > meleeCooldown && !isBlocking)
-                {
-                    StartCoroutine(PerformMeleeAttack());
-                    lastMeleeAttackTime = Time.time;  // Update last attack time
-                }
-
-                // Strafe left and right with a pause between strafes
-                if (!isStrafingPaused)
-                {
-                    Strafe(strafeDistance);
-                }
+                MaintainDistanceFromPlayer(distanceToPlayer);
             }
-            else
+
+            // Perform melee attack if within melee range and cooldown period has passed
+            if (distanceToPlayer <= meleeDistance && Time.time - lastMeleeAttackTime > meleeCooldown && !isBlocking)
             {
-                // Move towards the player if not in melee range
-                MoveTowardsPlayer();
+                StartCoroutine(PerformMeleeAttack());
+                lastMeleeAttackTime = Time.time;  // Update last attack time
+            }
+
+            // Strafe left and right with a pause between strafes
+            if (distanceToPlayer <= desiredDistance && !isStrafingPaused)
+            {
+                Strafe(strafeDistance);
             }
 
             // Block occasionally if not already blocking and cooldown period has passed
@@ -150,12 +152,31 @@ public class LightEnemy : MonoBehaviour
         }
     }
 
-    void MoveTowardsPlayer()
+    void MaintainDistanceFromPlayer(float distanceToPlayer)
     {
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
         directionToPlayer.y = 0; // Ignore Y axis
-        Vector3 newPosition = transform.position + directionToPlayer * moveSpeed * Time.deltaTime;
-        transform.position = newPosition;
+
+        if (distanceToPlayer > desiredDistance)
+        {
+            // Move closer to the player
+            Vector3 newPosition = transform.position + directionToPlayer * moveSpeed * Time.deltaTime;
+            transform.position = newPosition;
+        }
+        else if (distanceToPlayer < desiredDistance)
+        {
+            // Move away from the player
+            Vector3 newPosition = transform.position - directionToPlayer * moveSpeed * Time.deltaTime;
+            transform.position = newPosition;
+        }
+    }
+
+    void LookAtPlayer()
+    {
+        Vector3 direction = (player.position - transform.position).normalized;
+        direction.y = 0; // Ignore Y axis
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * moveSpeed);
     }
 
     IEnumerator PauseStrafing()
