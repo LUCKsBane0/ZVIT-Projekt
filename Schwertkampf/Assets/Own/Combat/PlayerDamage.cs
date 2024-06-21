@@ -44,12 +44,24 @@ public class PlayerDamage : MonoBehaviour
         HealthPoints -= amount;
         HealthPoints = Mathf.Clamp(HealthPoints, 0, 100); // Ensure HealthPoints stay within bounds
 
+
+        if(HealthPoints <= 0)
+        {
+            Die();
+        }
+
         // Trigger vignette effect
         if (vignetteImage != null)
         {
             StartCoroutine(ShowVignetteEffect());
         }
     }
+
+    void Die()
+    {
+        //handle death
+    }
+
 
     void UpdateHandColor()
     {
