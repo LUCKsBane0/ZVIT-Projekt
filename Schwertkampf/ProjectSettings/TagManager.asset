@@ -8,6 +8,10 @@ TagManager:
   - Enemy
   - Undefined
   - Arrow
+  - EnemySword
+  - LeftHitbox
+  - RightHitbox
+  - TopHitbox
   layers:
   - Default
   - TransparentFX
