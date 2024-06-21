@@ -3,7 +3,6 @@ using System.Collections;
 
 public class CombatSystem : MonoBehaviour
 {
-    
     public Transform swordTip; // Reference to the tip of the player's sword
     public GameObject arrowPrefab; // Prefab for the arrow with particle effect
     private Transform enemy; // Reference to the enemy
@@ -13,9 +12,7 @@ public class CombatSystem : MonoBehaviour
     public float arrowMoveSpeed = 1.5f; // Speed at which the arrow moves
 
     private StateController stateController; // Reference to the state controller (for enemy states)
-
     public PlayerStates playerStates;
-    private Vector3 attackDirection; // Direction from which the enemy is vulnerable
     private bool canHit = true; // Controls if the player can hit the enemy
     private Vector3 lastHitPosition; // Position of the last hit
     private GameObject lastHitEnemy; // Reference to the last hit enemy
@@ -23,17 +20,16 @@ public class CombatSystem : MonoBehaviour
 
     private bool blockStateChanged = true;
 
+    private Vector3 attackDirection; // Direction from which the enemy is vulnerable
+
     void Update()
     {
-        
-        
-        
         // Update the current enemy state
-        // Assume stateController refers to the current enemy
         if (playerStates.currentEnemy != null)
         {
             stateController = playerStates.currentEnemy.GetComponent<StateController>();
             enemy = playerStates.currentEnemy.GetComponent<Transform>();
+
             if (!stateController.isBlocking)
             {
                 blockStateChanged = true;
@@ -41,7 +37,6 @@ public class CombatSystem : MonoBehaviour
 
             if (stateController.isBlocking)
             {
-
                 if (currentArrow == null && blockStateChanged)
                 {
                     DisplayBlockingArrow();
@@ -58,6 +53,7 @@ public class CombatSystem : MonoBehaviour
                 {
                     Destroy(currentArrow);
                 }
+                stateController.DisableAllColliders();
             }
 
             if (!canHit && lastHitEnemy != null)
@@ -76,14 +72,10 @@ public class CombatSystem : MonoBehaviour
     {
         if (stateController != null)
         {
-
-
-
             if (other.CompareTag("EnemySword") && stateController.isAttacking)
             {
                 PushBackEnemy();
             }
-
             else if (other.CompareTag("Enemy") && stateController.isAttacking && canHit)
             {
                 PushBackEnemy();
@@ -91,46 +83,53 @@ public class CombatSystem : MonoBehaviour
                 Debug.Log("Successful Hit!");
                 enemyController.GetComponent<EnemyController>().TakeDamage(10);
             }
-
-            //Das hier muss getestet werden
-            else if (other.CompareTag("Enemy") && stateController.isBlocking && canHit)
+           
+            else if (other.CompareTag("LeftHitbox") && stateController.isBlocking && canHit)
             {
-                Vector3 hitDirection = (other.transform.position - swordTip.position).normalized;
-                if (Vector3.Dot(hitDirection, attackDirection) > 0.8f) // Adjust threshold as needed
-                {
-                    EnemyController enemyController = other.GetComponent<EnemyController>();
-                    Debug.Log("Successful Hit!");
-                    enemyController.GetComponent<EnemyController>().TakeDamage(10);
-
-                    StartCoroutine(HitCooldown());
-                    lastHitPosition = swordTip.position;
-                    lastHitEnemy = other.gameObject;
-                }
-                else
-                {
-                    Debug.Log("Failed Hit. Wrong Direction!");
-                }
+                SuccessfulHit(other);
             }
-
+            else if (other.CompareTag("TopHitbox") && stateController.isBlocking && canHit)
+            {
+                SuccessfulHit(other);
+            }
+            else if (other.CompareTag("RightHitbox") && stateController.isBlocking && canHit)
+            {
+                SuccessfulHit(other);
+            }
         }
+    }
 
+    void SuccessfulHit(Collider other)
+    {
+        EnemyController enemyController = other.GetComponentInParent<EnemyController>();
+        Debug.Log("Successful Hit!");
+        enemyController.TakeDamage(10);
+
+        StartCoroutine(HitCooldown());
+        lastHitPosition = swordTip.position;
+        lastHitEnemy = other.transform.parent.gameObject;
     }
 
     void PushBackEnemy()
     {
-        // Placeholder function for pushing back the enemy
         Debug.Log("Enemy pushed back");
-        // Implement logic to push back the enemy
         playerStates.currentEnemy.GetComponent<MediumEnemy>().PushBack();
     }
 
     void DisplayBlockingArrow()
     {
-        // Determine the direction
         int direction = Random.Range(0, 3); // 0 = top, 1 = right, 2 = left
-       
-        Vector3 arrowPosition = enemy.position;
+
+        Transform arrowPos = enemy.Find("Arrow_Pos");
+        if (arrowPos == null)
+        {
+            Debug.LogError("Arrow_Pos child object not found in the enemy.");
+            return;
+        }
+
+        Vector3 arrowPosition = arrowPos.position;
         Quaternion arrowRotation = Quaternion.identity;
+        string colliderDirection = "";
 
         switch (direction)
         {
@@ -138,22 +137,27 @@ public class CombatSystem : MonoBehaviour
                 arrowPosition += enemy.up * 2; // Adjust height as needed
                 arrowRotation = Quaternion.Euler(180, 90, 0);
                 attackDirection = -enemy.up;
+                colliderDirection = "top";
                 break;
             case 1:
                 arrowPosition += enemy.right * 2; // Adjust offset as needed
                 arrowRotation = Quaternion.Euler(90, 0, 0);
                 attackDirection = -enemy.right;
+                colliderDirection = "right";
                 break;
             case 2:
-                arrowPosition += -enemy.right* 2; // Adjust offset as needed
-                arrowRotation = Quaternion.Euler(-90,0,0);
+                arrowPosition += -enemy.right * 2; // Adjust offset as needed
+                arrowRotation = Quaternion.Euler(-90, 0, 0);
                 attackDirection = enemy.right;
+                colliderDirection = "left";
                 break;
         }
 
         currentArrow = Instantiate(arrowPrefab, arrowPosition, arrowRotation, enemy);
         currentArrow.tag = "Arrow";
         StartCoroutine(DespawnArrowAfterTime(arrowDespawnTime));
+
+        stateController.EnableCollider(colliderDirection);
     }
 
     void MoveArrow()
@@ -161,7 +165,6 @@ public class CombatSystem : MonoBehaviour
         if (currentArrow != null)
         {
             currentArrow.transform.position += attackDirection * arrowMoveSpeed * Time.deltaTime;
-
         }
     }
 
@@ -178,5 +181,6 @@ public class CombatSystem : MonoBehaviour
     {
         canHit = false;
         yield return new WaitForSeconds(cooldownTime);
+        canHit = true;
     }
 }

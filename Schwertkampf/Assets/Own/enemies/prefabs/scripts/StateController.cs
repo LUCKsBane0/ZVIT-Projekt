@@ -1,21 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StateController : MonoBehaviour
 {
-    public bool isAttacking;
+    public Collider leftCollider;
+    public Collider topCollider;
+    public Collider rightCollider;
+
     public bool isBlocking;
-    public bool inCombat;
-    // Start is called before the first frame update
-    void Start()
+    public bool isAttacking;
+    public bool inCombat = false;
+    // Method to enable a specific collider
+    public void EnableCollider(string direction)
     {
-        
+        DisableAllColliders();
+
+        switch (direction)
+        {
+            case "left":
+                leftCollider.enabled = true;
+                break;
+            case "top":
+                topCollider.enabled = true;
+                break;
+            case "right":
+                rightCollider.enabled = true;
+                break;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    // Method to disable all colliders
+    public void DisableAllColliders()
     {
-        
+        leftCollider.enabled = false;
+        topCollider.enabled = false;
+        rightCollider.enabled = false;
     }
 }
