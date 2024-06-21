@@ -89,7 +89,7 @@ public class ChallengeSystem : MonoBehaviour
             Destroy(currentRing);
         }
 
-        currentRing = Instantiate(progressRingPrefab, handTransform.position, Quaternion.identity, handTransform);
+        currentRing = Instantiate(progressRingPrefab, handTransform.position, Quaternion.Euler(0, 90, 0), handTransform);
         ringImage = currentRing.GetComponentInChildren<Image>();
         ringImage.color = Color.red; // Set the color of the ring to red
         ringImage.fillAmount = 0f;
