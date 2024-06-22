@@ -89,6 +89,8 @@ public class SwordHandler : MonoBehaviour
         sword.transform.localPosition = swordHandPosition.localPosition;
         sword.transform.localRotation = swordHandPosition.localRotation;
 
+        SoundEffectsManager.instance.PlayGrabSwordSound();
+
         // Attach the sword to the wrist
         CreateConfigurableJoint();
     }
@@ -96,6 +98,8 @@ public class SwordHandler : MonoBehaviour
     void ReleaseSword()
     {
         isSwordGrabbed = false;
+
+        SoundEffectsManager.instance.PlayReleaseSwordSound();
 
         // Destroy the joint
         if (swordJoint != null)

@@ -5,7 +5,12 @@ using UnityEngine;
 public class SoundEffectsManager : MonoBehaviour
 {
     public static SoundEffectsManager instance;
-    public AudioSource[] audioSources; 
+    public AudioSource footstepAudioSource; 
+    public AudioSource hitAudioSource;
+    public AudioSource dyingAudioSource;
+    public AudioSource lowHealthAudioSource;
+    public AudioSource grabSwordAudioSource;
+    public AudioSource releaseSwordAudioSource;
 
     void Awake()
     {
@@ -19,15 +24,60 @@ public class SoundEffectsManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        audioSources = GetComponentsInChildren<AudioSource>();
     }
 
     public void SetVolume(float volume)
     {
-        foreach (AudioSource source in audioSources)
+        footstepAudioSource.volume = volume;
+        hitAudioSource.volume = volume;
+        dyingAudioSource.volume = volume;
+        lowHealthAudioSource.volume = volume;
+        grabSwordAudioSource.volume = volume;
+        releaseSwordAudioSource.volume = volume;
+    }
+
+    private void PlaySound(AudioSource audioSource)
+    {
+        if (audioSource != null && !audioSource.isPlaying)
         {
-            source.volume = volume;
+            audioSource.Play();
         }
     }
-}
 
+    public void PlayFootstepSound()
+    {
+        PlaySound(footstepAudioSource);
+    }
+
+    public void StopFootstepSound()
+    {
+        if (footstepAudioSource != null && footstepAudioSource.isPlaying)
+        {
+            footstepAudioSource.Stop();
+        }
+    }
+
+    public void PlayHitSound()
+    {
+        PlaySound(hitAudioSource);
+    }
+
+    public void PlayDyingSound()
+    {
+        PlaySound(dyingAudioSource);
+    }
+
+    public void PlayLowHealthSound()
+    {
+        PlaySound(lowHealthAudioSource);
+    }
+
+    public void PlayGrabSwordSound()
+    {
+        PlaySound(grabSwordAudioSource);
+    }
+    public void PlayReleaseSwordSound()
+    {
+        PlaySound(releaseSwordAudioSource);
+    }
+}

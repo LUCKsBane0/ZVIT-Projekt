@@ -22,6 +22,7 @@ public class CombatSystem : MonoBehaviour
 
     private Vector3 attackDirection; // Direction from which the enemy is vulnerable
 
+
     void Update()
     {
         // Update the current enemy state
@@ -82,8 +83,9 @@ public class CombatSystem : MonoBehaviour
                 EnemyController enemyController = other.GetComponent<EnemyController>();
                 Debug.Log("Successful Hit!");
                 enemyController.GetComponent<EnemyController>().TakeDamage(10);
+                SoundEffectsManager.instance.PlayHitSound();
             }
-           
+
             else if (other.CompareTag("LeftHitbox") && stateController.isBlocking && canHit)
             {
                 SuccessfulHit(other);
@@ -104,6 +106,8 @@ public class CombatSystem : MonoBehaviour
         EnemyController enemyController = other.GetComponentInParent<EnemyController>();
         Debug.Log("Successful Hit!");
         enemyController.TakeDamage(10);
+
+        SoundEffectsManager.instance.PlayHitSound();
 
         StartCoroutine(HitCooldown());
         lastHitPosition = swordTip.position;
