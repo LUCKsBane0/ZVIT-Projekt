@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class CombatSystem : MonoBehaviour
 {
@@ -20,8 +21,10 @@ public class CombatSystem : MonoBehaviour
     private GameObject currentArrow; // Reference to the current arrow
 
     private bool blockStateChanged = true;
-
     private Vector3 attackDirection; // Direction from which the enemy is vulnerable
+
+    // Reference to the right hand controller
+    public XRBaseController rightHandController;
 
     void Update()
     {
@@ -76,18 +79,17 @@ public class CombatSystem : MonoBehaviour
             if (other.CompareTag("EnemySword") && stateController.isAttacking)
             {
                 PushBackEnemy();
+                TriggerHapticFeedback();
             }
-
-
-            else if(other.CompareTag("Enemy") && !stateController.isAttacking && !stateController.isBlocking)
+            else if (other.CompareTag("Enemy") && !stateController.isAttacking && !stateController.isBlocking)
             {
                 SuccessfulHit(other);
+                TriggerHapticFeedback();
             }
-
-
             else if (other.CompareTag("Enemy") && stateController.isAttacking && canHit && canHitDistance)
             {
                 PushBackEnemy();
+                TriggerHapticFeedback();
                 EnemyController enemyController = other.GetComponent<EnemyController>();
                 Debug.Log("Successful Hit!");
                 Debug.Log("WAOUFH()AWFHFOUWAHFOUAH");
@@ -107,20 +109,21 @@ public class CombatSystem : MonoBehaviour
                 }
 
                 StartCoroutine(HitCooldown());
-
             }
-
             else if (other.CompareTag("LeftHitbox") && stateController.isBlocking && canHit && canHitDistance)
             {
                 SuccessfulHit(other);
+                TriggerHapticFeedback();
             }
             else if (other.CompareTag("TopHitbox") && stateController.isBlocking && canHit && canHitDistance)
             {
                 SuccessfulHit(other);
+                TriggerHapticFeedback();
             }
             else if (other.CompareTag("RightHitbox") && stateController.isBlocking && canHit && canHitDistance)
             {
                 SuccessfulHit(other);
+                TriggerHapticFeedback();
             }
         }
     }
@@ -164,8 +167,6 @@ public class CombatSystem : MonoBehaviour
         {
             playerStates.currentEnemy.GetComponent<HeavyEnemy>().PushBack();
         }
-
-
     }
 
     void DisplayBlockingArrow()
@@ -205,8 +206,6 @@ public class CombatSystem : MonoBehaviour
                 break;
         }
 
-
-
         currentArrow = Instantiate(arrowPrefab, arrowPosition, arrowRotation, enemy);
         currentArrow.tag = "Arrow";
         StartCoroutine(DespawnArrowAfterTime(arrowDespawnTime));
@@ -236,5 +235,13 @@ public class CombatSystem : MonoBehaviour
         canHit = false;
         yield return new WaitForSeconds(cooldownTime);
         canHit = true;
+    }
+
+    void TriggerHapticFeedback()
+    {
+        if (rightHandController != null)
+        {
+            rightHandController.SendHapticImpulse(0.5f, 0.2f); // Adjust amplitude and duration as needed
+        }
     }
 }
