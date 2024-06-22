@@ -30,8 +30,33 @@ public class EnemyController : MonoBehaviour
 
             if (_currentHealth <= 0)
             {
-                Destroy(gameObject);
+                playerStates.inCombat = false;
+
+                if (gameObject.GetComponent<MediumEnemy>() != null)
+                {
+                    gameObject.GetComponent<MediumEnemy>().Die();
+                    StartCoroutine(DeathTimer());
+                }
+                if (gameObject.GetComponent<LightEnemy>() != null)
+                {
+                    gameObject.GetComponent<LightEnemy>().Die();
+                    StartCoroutine(DeathTimer());
+                }
+                if (gameObject.GetComponent<HeavyEnemy>() != null)
+                {
+                    gameObject.GetComponent<HeavyEnemy>().Die();
+                    StartCoroutine(DeathTimer());
+                }
+
+
+
             }
         }
+    }
+
+    IEnumerator DeathTimer()
+    {
+        yield return new WaitForSeconds(2.2f);
+        Destroy(gameObject);
     }
 }

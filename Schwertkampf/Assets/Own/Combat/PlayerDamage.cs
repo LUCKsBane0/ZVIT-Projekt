@@ -10,7 +10,6 @@ public class PlayerDamage : MonoBehaviour
 
     private Color originalColor;
 
-
     void Start()
     {
         // Store the original color of the hands
@@ -49,9 +48,8 @@ public class PlayerDamage : MonoBehaviour
         {
             SoundEffectsManager.instance.PlayLowHealthSound();
         }
-
-
-        if (HealthPoints <= 0)
+        
+        if(HealthPoints <= 0)
         {
             Die();
         }
@@ -66,7 +64,6 @@ public class PlayerDamage : MonoBehaviour
     void Die()
     {
         //handle death
-
         SoundEffectsManager.instance.PlayDyingSound();
     }
 
@@ -92,7 +89,7 @@ public class PlayerDamage : MonoBehaviour
 
             TakeDamage(10);
         }
-        Debug.Log(other);
+     
 
 
 

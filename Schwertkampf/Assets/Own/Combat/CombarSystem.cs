@@ -14,6 +14,7 @@ public class CombatSystem : MonoBehaviour
     private StateController stateController; // Reference to the state controller (for enemy states)
     public PlayerStates playerStates;
     private bool canHit = true; // Controls if the player can hit the enemy
+    private bool canHitDistance = true;
     private Vector3 lastHitPosition; // Position of the last hit
     private GameObject lastHitEnemy; // Reference to the last hit enemy
     private GameObject currentArrow; // Reference to the current arrow
@@ -21,7 +22,6 @@ public class CombatSystem : MonoBehaviour
     private bool blockStateChanged = true;
 
     private Vector3 attackDirection; // Direction from which the enemy is vulnerable
-
 
     void Update()
     {
@@ -57,12 +57,12 @@ public class CombatSystem : MonoBehaviour
                 stateController.DisableAllColliders();
             }
 
-            if (!canHit && lastHitEnemy != null)
+            if (!canHitDistance && lastHitEnemy != null)
             {
                 float distance = Vector3.Distance(swordTip.position, lastHitEnemy.transform.position);
                 if (distance >= minDistanceToRehit)
                 {
-                    canHit = true;
+                    canHitDistance = true;
                     lastHitEnemy = null; // Reset the last hit enemy
                 }
             }
@@ -77,24 +77,48 @@ public class CombatSystem : MonoBehaviour
             {
                 PushBackEnemy();
             }
-            else if (other.CompareTag("Enemy") && stateController.isAttacking && canHit)
+
+
+            else if(other.CompareTag("Enemy") && !stateController.isAttacking && !stateController.isBlocking)
+            {
+                SuccessfulHit(other);
+            }
+
+
+            else if (other.CompareTag("Enemy") && stateController.isAttacking && canHit && canHitDistance)
             {
                 PushBackEnemy();
                 EnemyController enemyController = other.GetComponent<EnemyController>();
                 Debug.Log("Successful Hit!");
+                Debug.Log("WAOUFH()AWFHFOUWAHFOUAH");
+
                 enemyController.GetComponent<EnemyController>().TakeDamage(10);
-                SoundEffectsManager.instance.PlayHitSound();
+                if (playerStates.currentEnemy.GetComponent<MediumEnemy>() != null)
+                {
+                      playerStates.currentEnemy.GetComponent<MediumEnemy>().TakeDamage();
+                }
+                if (playerStates.currentEnemy.GetComponent<LightEnemy>() != null)
+                {
+                    playerStates.currentEnemy.GetComponent<LightEnemy>().TakeDamage();
+                }
+                if (playerStates.currentEnemy.GetComponent<HeavyEnemy>() != null)
+                {
+                    playerStates.currentEnemy.GetComponent<HeavyEnemy>().TakeDamage();
+                }
+
+                StartCoroutine(HitCooldown());
+
             }
 
-            else if (other.CompareTag("LeftHitbox") && stateController.isBlocking && canHit)
+            else if (other.CompareTag("LeftHitbox") && stateController.isBlocking && canHit && canHitDistance)
             {
                 SuccessfulHit(other);
             }
-            else if (other.CompareTag("TopHitbox") && stateController.isBlocking && canHit)
+            else if (other.CompareTag("TopHitbox") && stateController.isBlocking && canHit && canHitDistance)
             {
                 SuccessfulHit(other);
             }
-            else if (other.CompareTag("RightHitbox") && stateController.isBlocking && canHit)
+            else if (other.CompareTag("RightHitbox") && stateController.isBlocking && canHit && canHitDistance)
             {
                 SuccessfulHit(other);
             }
@@ -106,9 +130,20 @@ public class CombatSystem : MonoBehaviour
         EnemyController enemyController = other.GetComponentInParent<EnemyController>();
         Debug.Log("Successful Hit!");
         enemyController.TakeDamage(10);
-
         SoundEffectsManager.instance.PlayHitSound();
 
+        if (playerStates.currentEnemy.GetComponent<MediumEnemy>() != null)
+        {
+            playerStates.currentEnemy.GetComponent<MediumEnemy>().TakeDamage();
+        }
+        if (playerStates.currentEnemy.GetComponent<LightEnemy>() != null)
+        {
+            playerStates.currentEnemy.GetComponent<LightEnemy>().TakeDamage();
+        }
+        if (playerStates.currentEnemy.GetComponent<HeavyEnemy>() != null)
+        {
+            playerStates.currentEnemy.GetComponent<HeavyEnemy>().TakeDamage();
+        }
         StartCoroutine(HitCooldown());
         lastHitPosition = swordTip.position;
         lastHitEnemy = other.transform.parent.gameObject;
@@ -117,7 +152,20 @@ public class CombatSystem : MonoBehaviour
     void PushBackEnemy()
     {
         Debug.Log("Enemy pushed back");
-        playerStates.currentEnemy.GetComponent<MediumEnemy>().PushBack();
+        if (playerStates.currentEnemy.GetComponent<MediumEnemy>() != null)
+        {
+            playerStates.currentEnemy.GetComponent<MediumEnemy>().PushBack();
+        }
+        if (playerStates.currentEnemy.GetComponent<LightEnemy>() != null)
+        {
+            playerStates.currentEnemy.GetComponent<LightEnemy>().PushBack();
+        }
+        if (playerStates.currentEnemy.GetComponent<HeavyEnemy>() != null)
+        {
+            playerStates.currentEnemy.GetComponent<HeavyEnemy>().PushBack();
+        }
+
+
     }
 
     void DisplayBlockingArrow()
@@ -139,23 +187,25 @@ public class CombatSystem : MonoBehaviour
         {
             case 0:
                 arrowPosition += enemy.up * 2; // Adjust height as needed
-                arrowRotation = Quaternion.Euler(180, 90, 0);
+                arrowRotation = Quaternion.LookRotation(-enemy.up, enemy.forward);
                 attackDirection = -enemy.up;
                 colliderDirection = "top";
                 break;
             case 1:
                 arrowPosition += enemy.right * 2; // Adjust offset as needed
-                arrowRotation = Quaternion.Euler(90, 0, 0);
+                arrowRotation = Quaternion.LookRotation(-enemy.right, enemy.up);
                 attackDirection = -enemy.right;
                 colliderDirection = "right";
                 break;
             case 2:
                 arrowPosition += -enemy.right * 2; // Adjust offset as needed
-                arrowRotation = Quaternion.Euler(-90, 0, 0);
+                arrowRotation = Quaternion.LookRotation(enemy.right, enemy.up);
                 attackDirection = enemy.right;
                 colliderDirection = "left";
                 break;
         }
+
+
 
         currentArrow = Instantiate(arrowPrefab, arrowPosition, arrowRotation, enemy);
         currentArrow.tag = "Arrow";

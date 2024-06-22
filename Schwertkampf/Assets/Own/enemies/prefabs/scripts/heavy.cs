@@ -178,19 +178,15 @@ public class HeavyEnemy : MonoBehaviour
         isStrafingPaused = false;
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage()
     {
-        if (isBlocking)
-        {
-            // Handle the case where the enemy is blocking (e.g., reduce damage or ignore it)
-            Debug.Log("Blocked the attack!");
-        }
-        else
-        {
+       
+        
+        
             // Handle taking damage normally
             animator.SetTrigger("TrGetHit2");
             Debug.Log("Took damage!");
-        }
+        
     }
 
     public void PushBack()
@@ -202,7 +198,7 @@ public class HeavyEnemy : MonoBehaviour
         animator.SetTrigger("TrCancel2"); // Set the cancel trigger if needed
     }
 
-    void Die()
+   public void Die()
     {
         animator.SetTrigger("TrDeath2");
         isAlive = false;  // Mark the enemy as dead

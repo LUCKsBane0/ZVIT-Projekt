@@ -165,19 +165,14 @@ public class MediumEnemy : MonoBehaviour
         isStrafingPaused = false;
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage()
     {
-        if (isBlocking)
-        {
-            // Handle the case where the enemy is blocking (e.g., reduce damage or ignore it)
-            Debug.Log("Blocked the attack!");
-        }
-        else
-        {
+       
+        
             // Handle taking damage normally
             animator.SetTrigger("TrGetHit");
             Debug.Log("Took damage!");
-        }
+        
     }
 
     public void PushBack()
@@ -189,7 +184,7 @@ public class MediumEnemy : MonoBehaviour
         animator.SetTrigger("TrCancel"); // Set the cancel trigger if needed
     }
 
-    void Die()
+   public void Die()
     {
         animator.SetTrigger("TrDeath");
         isAlive = false;  // Mark the enemy as dead

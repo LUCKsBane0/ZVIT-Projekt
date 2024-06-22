@@ -187,19 +187,13 @@ public class LightEnemy : MonoBehaviour
         isStrafingPaused = false;
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage()
     {
-        if (isBlocking)
-        {
-            // Handle the case where the enemy is blocking (e.g., reduce damage or ignore it)
-            Debug.Log("Blocked the attack!");
-        }
-        else
-        {
+        
             // Handle taking damage normally
             animator.SetTrigger("TrGetHit3");
             Debug.Log("Took damage!");
-        }
+        
     }
 
     public void PushBack()
@@ -211,7 +205,7 @@ public class LightEnemy : MonoBehaviour
         animator.SetTrigger("TrCancel3"); // Set the cancel trigger if needed
     }
 
-    void Die()
+   public void Die()
     {
         animator.SetTrigger("TrDeath3");
         isAlive = false;  // Mark the enemy as dead
