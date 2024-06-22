@@ -1970,6 +1970,9 @@ GameObject:
   - component: {fileID: 7814675800975657681}
   - component: {fileID: 8181346622206745856}
   - component: {fileID: 8506509755785463263}
+  - component: {fileID: 4979799237554643042}
+  - component: {fileID: 1073386101703485857}
+  - component: {fileID: 7568335584165735406}
   m_Layer: 0
   m_Name: ChestMail
   m_TagString: Untagged
@@ -1985,7 +1988,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4936883399660730784}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.298, z: -0.386}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2032,6 +2035,69 @@ MonoBehaviour:
   headTransform: {fileID: 0}
   positionOffset: {x: 0, y: -2, z: 0}
   rotationOffsetY: 0
+--- !u!114 &4979799237554643042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4936883399660730784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d2c4c1e7d2d8046aedd797fd46952c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthPoints: 100
+  handMaterial: {fileID: 2100000, guid: 1eed0e546b0063242b1e5bfc8b9fdffd, type: 2}
+  vignetteImage: {fileID: 0}
+--- !u!65 &1073386101703485857
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4936883399660730784}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.4, y: 0.7, z: 0.3}
+  m_Center: {x: 0, y: 1.4, z: 0}
+--- !u!54 &7568335584165735406
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4936883399660730784}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5304092547572013834
 GameObject:
   m_ObjectHideFlags: 0

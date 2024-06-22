@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2693948872931669131}
   - component: {fileID: 3181328924176734964}
   - component: {fileID: 796837793247684911}
+  - component: {fileID: 5866306480922074273}
   m_Layer: 0
   m_Name: Player_Sword
   m_TagString: Untagged
@@ -32,9 +33,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 960989565008651041}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 1.877, z: -0.377}
-  m_LocalScale: {x: 0.30000007, y: 0.3, z: 0.30000007}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1612800146994866626}
@@ -205,11 +206,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbd20968756a884d97ad72d6f8323fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  challengeAction: {fileID: -3599823989380923159, guid: 0be0028c24f2a4c14a96b6aa39055933, type: 3}
+  challengeAction: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   swordTip: {fileID: 1612800146994866626}
   progressRingPrefab: {fileID: 841561137270098501, guid: 9197dab9644343b4e92dafcc6eb0c2fe, type: 3}
   handTransform: {fileID: 0}
-  Combat_Controller: {fileID: 0}
+  playerStates: {fileID: 0}
+--- !u!114 &5866306480922074273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960989565008651041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f9e3717e7621b042914a51190d02487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swordTip: {fileID: 1612800146994866626}
+  arrowPrefab: {fileID: 2613462060424995206, guid: 101a8868c1adc5b40bdaf7526f47b7b5, type: 3}
+  cooldownTime: 1
+  minDistanceToRehit: 1
+  arrowDespawnTime: 1.5
+  arrowMoveSpeed: 5
+  playerStates: {fileID: 0}
+  rightHandController: {fileID: 0}
 --- !u!1 &4496180337301082946
 GameObject:
   m_ObjectHideFlags: 0
