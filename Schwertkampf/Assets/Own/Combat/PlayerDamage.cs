@@ -11,6 +11,9 @@ public class PlayerDamage : MonoBehaviour
     private Color originalColor;
     private Vector3 initialSpawnPosition;
 
+    private Transform cameraTransform;
+	private bool hasDied = false;
+
     void Start()
     {
         // Store the original color of the hands
@@ -67,8 +70,13 @@ public class PlayerDamage : MonoBehaviour
 
     void Die()
     {
-        SoundEffectsManager.instance.PlayDyingSound();
+		if(!hasDied)
+		{
+		SoundEffectsManager.instance.PlayDyingSound();
         StartCoroutine(HandleDeath());
+		hasDied = true;
+		}
+        
     }
 
     void UpdateHandColor()
@@ -123,6 +131,7 @@ public class PlayerDamage : MonoBehaviour
 
     IEnumerator HandleDeath()
     {
+		
         float grayVignetteDuration = 1f;
         float blackScreenDuration = 1f;
         float elapsed = 0f;
