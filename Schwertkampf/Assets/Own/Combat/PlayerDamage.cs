@@ -10,7 +10,9 @@ public class PlayerDamage : MonoBehaviour
 
     private Color originalColor;
     private Vector3 initialSpawnPosition;
+
     private Transform cameraTransform;
+	private bool hasDied = false;
 
     void Start()
     {
@@ -36,12 +38,6 @@ public class PlayerDamage : MonoBehaviour
 
         // Store the initial spawn position
         initialSpawnPosition = transform.position;
-
-        // Get the main camera's transform
-        cameraTransform = Camera.main.transform;
-
-        // Instantiate the vignette canvas as a child of the camera
-        InstantiateVignetteCanvas();
     }
 
     void Update()
@@ -74,8 +70,13 @@ public class PlayerDamage : MonoBehaviour
 
     void Die()
     {
-        SoundEffectsManager.instance.PlayDyingSound();
+		if(!hasDied)
+		{
+		SoundEffectsManager.instance.PlayDyingSound();
         StartCoroutine(HandleDeath());
+		hasDied = true;
+		}
+        
     }
 
     void UpdateHandColor()
@@ -98,27 +99,6 @@ public class PlayerDamage : MonoBehaviour
             Debug.Log("Taking Damage");
             TakeDamage(10);
         }
-    }
-
-    void InstantiateVignetteCanvas()
-    {
-        Canvas canvas = new GameObject("VignetteCanvas").AddComponent<Canvas>();
-        canvas.renderMode = RenderMode.WorldSpace;
-
-        CanvasScaler canvasScaler = canvas.gameObject.AddComponent<CanvasScaler>();
-        canvasScaler.dynamicPixelsPerUnit = 10f;
-
-        RectTransform rectTransform = canvas.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(4000, 4000); // Adjust size to fit your needs
-        rectTransform.SetParent(cameraTransform, false);
-        rectTransform.localPosition = new Vector3(0, 0, 0.5f); // Adjust position to be in front of the camera
-
-        Image image = new GameObject("Vignette").AddComponent<Image>();
-        image.transform.SetParent(canvas.transform, false);
-        image.rectTransform.sizeDelta = rectTransform.sizeDelta;
-
-        vignetteImage = image;
-        vignetteImage.color = new Color(255, 0, 0, 0);
     }
 
     IEnumerator ShowVignetteEffect()
@@ -151,6 +131,7 @@ public class PlayerDamage : MonoBehaviour
 
     IEnumerator HandleDeath()
     {
+		
         float grayVignetteDuration = 1f;
         float blackScreenDuration = 1f;
         float elapsed = 0f;
