@@ -166,7 +166,7 @@ public class LightEnemy : MonoBehaviour
         else if (distanceToPlayer < desiredDistance)
         {
             // Move away from the player
-            Vector3 newPosition = transform.position - directionToPlayer * moveSpeed * Time.deltaTime;
+            Vector3 newPosition = transform.position - directionToPlayer * moveSpeed * 0.5f * Time.deltaTime;
             transform.position = newPosition;
         }
     }
@@ -198,12 +198,30 @@ public class LightEnemy : MonoBehaviour
 
     public void PushBack()
     {
-        Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
-        directionAwayFromPlayer.y = 0; // Ignore Y axis
-        Vector3 newPosition = transform.position + directionAwayFromPlayer * pushBackDistance;
-        transform.position = newPosition;
-        animator.SetTrigger("TrCancel3"); // Set the cancel trigger if needed
+    Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
+    directionAwayFromPlayer.y = 0; // Ignore Y axis
+    StartCoroutine(MoveBackOverTime(directionAwayFromPlayer));
     }
+
+    IEnumerator MoveBackOverTime(Vector3 direction)
+    {
+        float duration = 0.2f; // Duration of the pushback in seconds
+        float elapsedTime = 0f;
+        Vector3 startPosition = transform.position;
+        Vector3 targetPosition = transform.position + direction * pushBackDistance;
+
+        animator.SetTrigger("TrCancel3"); // Set the cancel trigger if needed
+
+        while (elapsedTime < duration)
+        {
+            transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = targetPosition;
+    }
+
 
    public void Die()
     {
