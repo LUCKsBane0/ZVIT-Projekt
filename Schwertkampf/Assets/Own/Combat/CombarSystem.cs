@@ -92,7 +92,7 @@ public class CombatSystem : MonoBehaviour
                 TriggerHapticFeedback();
                 EnemyController enemyController = other.GetComponent<EnemyController>();
                 Debug.Log("Successful Hit!");
-                Debug.Log("WAOUFH()AWFHFOUWAHFOUAH");
+               
 
                 enemyController.GetComponent<EnemyController>().TakeDamage(10);
                 if (playerStates.currentEnemy.GetComponent<MediumEnemy>() != null)
@@ -106,6 +106,11 @@ public class CombatSystem : MonoBehaviour
                 if (playerStates.currentEnemy.GetComponent<HeavyEnemy>() != null)
                 {
                     playerStates.currentEnemy.GetComponent<HeavyEnemy>().TakeDamage();
+                }
+				if (playerStates.currentEnemy.GetComponent<TutorialEnemy>() != null)
+                {
+					enemyController.GetComponent<EnemyController>().TakeDamage(40);
+                    playerStates.currentEnemy.GetComponent<TutorialEnemy>().TakeDamage();
                 }
 
                 StartCoroutine(HitCooldown());
@@ -147,6 +152,11 @@ public class CombatSystem : MonoBehaviour
         {
             playerStates.currentEnemy.GetComponent<HeavyEnemy>().TakeDamage();
         }
+		if (playerStates.currentEnemy.GetComponent<TutorialEnemy>() != null)
+        {
+            playerStates.currentEnemy.GetComponent<TutorialEnemy>().TakeDamage();
+			enemyController.TakeDamage(40);
+        }
         StartCoroutine(HitCooldown());
         lastHitPosition = swordTip.position;
         lastHitEnemy = other.transform.parent.gameObject;
@@ -166,6 +176,11 @@ public class CombatSystem : MonoBehaviour
         if (playerStates.currentEnemy.GetComponent<HeavyEnemy>() != null)
         {
             playerStates.currentEnemy.GetComponent<HeavyEnemy>().PushBack();
+        }
+
+		if (playerStates.currentEnemy.GetComponent<TutorialEnemy>() != null)
+        {
+            playerStates.currentEnemy.GetComponent<TutorialEnemy>().PushBack();
         }
     }
 

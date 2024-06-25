@@ -48,11 +48,15 @@ public class TutorialEnemy : MonoBehaviour
         // Make the enemy look at the player
         LookAtPlayer();
 
-        if(succesfullBlockCount < 2)
+        if(succesfullBlockCount > 2)
         {
             BlocksDone = true;
+           
         }
 
+       
+        
+        
         if (distanceToPlayer <= detectionRange)
         {
             // Engage the player if within detection range
@@ -66,8 +70,11 @@ public class TutorialEnemy : MonoBehaviour
             // Perform melee attack if within melee range and cooldown period has passed
             if (distanceToPlayer <= meleeDistance && Time.time - lastMeleeAttackTime > meleeCooldown && !isBlocking && !BlocksDone)
             {
+                
+                //hehe
                 StartCoroutine(PerformMeleeAttack());
                 lastMeleeAttackTime = Time.time;  // Update last attack time
+                
             }
 
             

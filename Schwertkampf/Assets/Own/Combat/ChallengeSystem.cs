@@ -127,6 +127,10 @@ public class ChallengeSystem : MonoBehaviour
         {
             enemyObject.GetComponent<HeavyEnemy>().EnterCombat();
         }
+		if (enemyObject.GetComponent<TutorialEnemy>() != null)
+        {
+            enemyObject.GetComponent<TutorialEnemy>().EnterCombat();
+        }
                        
         playerStates.currentEnemy = enemyObject;
         isChallenging = false;
