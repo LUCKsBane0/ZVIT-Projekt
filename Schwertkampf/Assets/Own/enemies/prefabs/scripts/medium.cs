@@ -7,7 +7,7 @@ public class MediumEnemy : MonoBehaviour
     public Transform player;  // Reference to the player
     public float detectionRange = 30.0f;  // Detection range to engage the player
     public float desiredDistance = 3.0f;  // Desired distance to keep from the player
-    public float meleeDistance = 3.5f;    //Melee Range
+    public float meleeDistance = 3.5f;    // Melee Range
     public float meleeCooldown = 2.0f;  // Cooldown between melee attacks MIN 1.2f
     public float blockCooldown = 5.0f;  // Cooldown between blocks
     public float blockDuration = 2.0f;  // Duration of the block
@@ -19,6 +19,8 @@ public class MediumEnemy : MonoBehaviour
     private string[] meleeAnimationTriggers = { "TrMelee", "TrSpin", "TrPunch" };  // Animation triggers for melee attacks
     private string blockAnimationTrigger = "TrBlock";  // Animation trigger for blocking
     private string combatIdleTrigger = "TrComIdle";  // Animation trigger for combat idle
+    private string moveTrigger = "TrMove";  // Animation trigger for moving
+    private string moveEndTrigger = "TrMoveEnd";  // Animation trigger for stopping moving
 
     private Animator animator;
     private float lastMeleeAttackTime;  // Time when the last melee attack was made
@@ -30,6 +32,7 @@ public class MediumEnemy : MonoBehaviour
     private bool isStrafingRight = true;  // Indicates the current strafe direction
     private bool isStrafingPaused = false;  // Indicates if strafing is currently paused
     private Vector3 initialPosition;  // Initial position to calculate strafing
+    private bool isMoving = false;  // Indicates if the enemy is moving
 
     public StateController stateController;
     public PlayerStates playerStates;
@@ -61,6 +64,10 @@ public class MediumEnemy : MonoBehaviour
             if (Mathf.Abs(distanceToPlayer - desiredDistance) > 0.1f)
             {
                 MaintainDistanceFromPlayer(distanceToPlayer);
+            }
+            else if (isMoving)
+            {
+                StopMoving();
             }
 
             // Perform melee attack if within melee range and cooldown period has passed
@@ -128,6 +135,8 @@ public class MediumEnemy : MonoBehaviour
             isStrafingRight = !isStrafingRight;
             StartCoroutine(PauseStrafing());
         }
+
+        StartMoving();
     }
 
     void MaintainDistanceFromPlayer(float distanceToPlayer)
@@ -140,12 +149,14 @@ public class MediumEnemy : MonoBehaviour
             // Move closer to the player
             Vector3 newPosition = transform.position + directionToPlayer * moveSpeed * Time.deltaTime;
             transform.position = newPosition;
+            StartMoving();
         }
         else if (distanceToPlayer < desiredDistance)
         {
             // Move away from the player
             Vector3 newPosition = transform.position - directionToPlayer * moveSpeed * 0.5f * Time.deltaTime;
             transform.position = newPosition;
+            StartMoving();
         }
     }
 
@@ -167,19 +178,16 @@ public class MediumEnemy : MonoBehaviour
 
     public void TakeDamage()
     {
-       
-        
-            // Handle taking damage normally
-            animator.SetTrigger("TrGetHit");
-            Debug.Log("Took damage!");
-        
+        // Handle taking damage normally
+        animator.SetTrigger("TrGetHit");
+        Debug.Log("Took damage!");
     }
 
     public void PushBack()
     {
-    Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
-    directionAwayFromPlayer.y = 0; // Ignore Y axis
-    StartCoroutine(MoveBackOverTime(directionAwayFromPlayer));
+        Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
+        directionAwayFromPlayer.y = 0; // Ignore Y axis
+        StartCoroutine(MoveBackOverTime(directionAwayFromPlayer));
     }
 
     IEnumerator MoveBackOverTime(Vector3 direction)
@@ -195,14 +203,15 @@ public class MediumEnemy : MonoBehaviour
         {
             transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
+            StartMoving();
             yield return null;
         }
 
         transform.position = targetPosition;
+        StopMoving();
     }
 
-
-   public void Die()
+    public void Die()
     {
         animator.SetTrigger("TrDeath");
         isAlive = false;  // Mark the enemy as dead
@@ -215,11 +224,30 @@ public class MediumEnemy : MonoBehaviour
         isInCombat = true;
         stateController.inCombat = true;
         animator.SetTrigger("TrCombat");
+        animator.SetTrigger("TrCombatMove");
     }
 
     public void ExitCombat()
     {
         isInCombat = false;
         stateController.inCombat = false;
+    }
+
+    void StartMoving()
+    {
+        if (!isMoving)
+        {
+            isMoving = true;
+            animator.SetTrigger(moveTrigger);
+        }
+    }
+
+    void StopMoving()
+    {
+        if (isMoving)
+        {
+            isMoving = false;
+            animator.SetTrigger(moveEndTrigger);
+        }
     }
 }

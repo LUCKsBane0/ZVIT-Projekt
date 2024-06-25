@@ -7,7 +7,7 @@ public class LightEnemy : MonoBehaviour
     public Transform player;  // Reference to the player
     public float detectionRange = 30.0f;  // Detection range to engage the player
     public float desiredDistance = 3.0f;  // Desired distance to keep from the player
-    public float meleeDistance = 3.5f;    //Melee Range
+    public float meleeDistance = 3.5f;    // Melee Range
     public float meleeCooldown = 2.0f;  // Cooldown between melee attacks MIN 1.7f
     public float blockCooldown = 5.0f;  // Cooldown between blocks
     public float blockDuration = 2.0f;  // Duration of the block
@@ -15,24 +15,26 @@ public class LightEnemy : MonoBehaviour
     public float strafeSpeed = 3.5f;  // Speed at which the enemy strafes left and right
     public float strafeDistance = 2.0f;  // Distance the enemy strafes from the center position
     public float pushBackDistance = 5.0f;  // Distance to push the enemy back from the player
-
-
     public float strafePauseDuration = 3.0f;  // Duration of pause between strafes
+
     private string[] meleeAnimationTriggers = { "TrFastAttack3", "TrSpin3", "TrRight3", "TrLeft3", "TrFeint3" };  // Animation triggers for melee attacks
     private string blockAnimationTrigger = "TrBlock3";  // Animation trigger for blocking
     private string combatIdleTrigger = "TrComIdle3";  // Animation trigger for combat idle
+    private string moveTrigger = "TrMove3";  // Animation trigger for moving
+    private string moveEndTrigger = "TrMoveEnd3";  // Animation trigger for stopping moving
 
     private Animator animator;
     private float lastMeleeAttackTime;  // Time when the last melee attack was made
     private float lastBlockTime;  // Time when the last block was made
     private bool isBlocking = false;  // Indicates if the enemy is currently blocking
     private bool isAlive = true;  // Indicates if the enemy is alive
-    private bool isAttacking = false; //Indicates if enemy is in attacking animation
+    private bool isAttacking = false; // Indicates if enemy is in attacking animation
     private bool isInCombat = false;  // Indicates if the enemy is in combat
     private bool isStrafingRight = true;  // Indicates the current strafe direction
     private bool isStrafingPaused = false;  // Indicates if strafing is currently paused
     private Vector3 initialPosition;  // Initial position to calculate strafing
-    
+    private bool isMoving = false;  // Indicates if the enemy is moving
+
     public StateController stateController;
     public PlayerStates playerStates;
 
@@ -63,6 +65,10 @@ public class LightEnemy : MonoBehaviour
             if (Mathf.Abs(distanceToPlayer - desiredDistance) > 0.1f)
             {
                 MaintainDistanceFromPlayer(distanceToPlayer);
+            }
+            else if (isMoving)
+            {
+                StopMoving();
             }
 
             // Perform melee attack if within melee range and cooldown period has passed
@@ -99,24 +105,23 @@ public class LightEnemy : MonoBehaviour
         animator.SetTrigger(selectedTrigger);
 
         //waiting Time depending on animation
-
-        if(attackIndex==4)
+        if (attackIndex == 4)
         {
             yield return new WaitForSeconds(1.5f);
         }
-        else if(attackIndex==3)
+        else if (attackIndex == 3)
         {
             yield return new WaitForSeconds(1.0f);
         }
-        else if(attackIndex==2)
+        else if (attackIndex == 2)
         {
             yield return new WaitForSeconds(1.0f);
         }
-        else if(attackIndex==1)
+        else if (attackIndex == 1)
         {
             yield return new WaitForSeconds(1.5f);
         }
-        else if (attackIndex==0)
+        else if (attackIndex == 0)
         {
             yield return new WaitForSeconds(0.7f);
         }
@@ -150,6 +155,8 @@ public class LightEnemy : MonoBehaviour
             isStrafingRight = !isStrafingRight;
             StartCoroutine(PauseStrafing());
         }
+
+        StartMoving();
     }
 
     void MaintainDistanceFromPlayer(float distanceToPlayer)
@@ -162,12 +169,14 @@ public class LightEnemy : MonoBehaviour
             // Move closer to the player
             Vector3 newPosition = transform.position + directionToPlayer * moveSpeed * Time.deltaTime;
             transform.position = newPosition;
+            StartMoving();
         }
         else if (distanceToPlayer < desiredDistance)
         {
             // Move away from the player
             Vector3 newPosition = transform.position - directionToPlayer * moveSpeed * 0.5f * Time.deltaTime;
             transform.position = newPosition;
+            StartMoving();
         }
     }
 
@@ -189,18 +198,16 @@ public class LightEnemy : MonoBehaviour
 
     public void TakeDamage()
     {
-        
-            // Handle taking damage normally
-            animator.SetTrigger("TrGetHit3");
-            Debug.Log("Took damage!");
-        
+        // Handle taking damage normally
+        animator.SetTrigger("TrGetHit3");
+        Debug.Log("Took damage!");
     }
 
     public void PushBack()
     {
-    Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
-    directionAwayFromPlayer.y = 0; // Ignore Y axis
-    StartCoroutine(MoveBackOverTime(directionAwayFromPlayer));
+        Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
+        directionAwayFromPlayer.y = 0; // Ignore Y axis
+        StartCoroutine(MoveBackOverTime(directionAwayFromPlayer));
     }
 
     IEnumerator MoveBackOverTime(Vector3 direction)
@@ -216,14 +223,15 @@ public class LightEnemy : MonoBehaviour
         {
             transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
+            StartMoving();
             yield return null;
         }
 
         transform.position = targetPosition;
+        StopMoving();
     }
 
-
-   public void Die()
+    public void Die()
     {
         animator.SetTrigger("TrDeath3");
         isAlive = false;  // Mark the enemy as dead
@@ -236,11 +244,31 @@ public class LightEnemy : MonoBehaviour
         isInCombat = true;
         stateController.inCombat = true;
         animator.SetTrigger("TrCombat3");
+        animator.SetTrigger("TrCombatMove3");
     }
 
     public void ExitCombat()
     {
         isInCombat = false;
         stateController.inCombat = false;
+        StopMoving();
+    }
+
+    private void StartMoving()
+    {
+        if (!isMoving)
+        {
+            isMoving = true;
+            animator.SetTrigger(moveTrigger);
+        }
+    }
+
+    private void StopMoving()
+    {
+        if (isMoving)
+        {
+            isMoving = false;
+            animator.SetTrigger(moveEndTrigger);
+        }
     }
 }

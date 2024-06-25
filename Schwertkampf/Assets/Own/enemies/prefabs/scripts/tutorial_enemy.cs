@@ -7,7 +7,7 @@ public class TutorialEnemy : MonoBehaviour
     public Transform player;  // Reference to the player
     public float detectionRange = 30.0f;  // Detection range to engage the player
     public float desiredDistance = 3.0f;  // Desired distance to keep from the player
-    public float meleeDistance = 3.5f;    //Melee Range
+    public float meleeDistance = 3.5f;    // Melee Range
     public float meleeCooldown = 2.0f;  // Cooldown between melee attacks MIN 1.2f
     public float blockCooldown = 5.0f;  // Cooldown between blocks
     public float blockDuration = 2.0f;  // Duration of the block
@@ -16,6 +16,8 @@ public class TutorialEnemy : MonoBehaviour
     private string blockAnimationTrigger = "TrBlock4";  // Animation trigger for blocking
     private string combatIdleTrigger = "TrComIdle4";  // Animation trigger for combat idle
     private string meleeTrigger = "TrMelee4";  // Animation trigger for combat idle
+    private string moveTrigger = "TrMove";  // Animation trigger for moving
+    private string moveEndTrigger = "TrMoveEnd";  // Animation trigger for stopping moving
     private int succesfullBlockCount = 0;
     public bool BlocksDone = false;
 
@@ -26,7 +28,8 @@ public class TutorialEnemy : MonoBehaviour
     private bool isAttacking = false;  // Indicates if the enemy is in attacking animation
     private bool isAlive = true;  // Indicates if the enemy is alive
     private bool isInCombat = false;  // Indicates if the enemy is in combat
-    
+    private bool isMoving = false;  // Indicates if the enemy is moving
+
     public StateController stateController;
     public PlayerStates playerStates;
 
@@ -48,15 +51,11 @@ public class TutorialEnemy : MonoBehaviour
         // Make the enemy look at the player
         LookAtPlayer();
 
-        if(succesfullBlockCount > 2)
+        if (succesfullBlockCount >= 2)
         {
             BlocksDone = true;
-           
         }
 
-       
-        
-        
         if (distanceToPlayer <= detectionRange)
         {
             // Engage the player if within detection range
@@ -66,18 +65,18 @@ public class TutorialEnemy : MonoBehaviour
             {
                 MaintainDistanceFromPlayer(distanceToPlayer);
             }
+            else if (isMoving)
+            {
+                StopMoving();
+            }
 
             // Perform melee attack if within melee range and cooldown period has passed
             if (distanceToPlayer <= meleeDistance && Time.time - lastMeleeAttackTime > meleeCooldown && !isBlocking && !BlocksDone)
             {
-                
-                //hehe
                 StartCoroutine(PerformMeleeAttack());
                 lastMeleeAttackTime = Time.time;  // Update last attack time
-                
             }
 
-            
             // Block occasionally if not already blocking and cooldown period has passed
             if (!isBlocking && Time.time - lastBlockTime > blockCooldown && !isAttacking && BlocksDone)
             {
@@ -114,7 +113,6 @@ public class TutorialEnemy : MonoBehaviour
         animator.SetTrigger(combatIdleTrigger); // Transition back to combat idle
     }
 
-
     void MaintainDistanceFromPlayer(float distanceToPlayer)
     {
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
@@ -125,12 +123,14 @@ public class TutorialEnemy : MonoBehaviour
             // Move closer to the player
             Vector3 newPosition = transform.position + directionToPlayer * moveSpeed * Time.deltaTime;
             transform.position = newPosition;
+            StartMoving();
         }
         else if (distanceToPlayer < desiredDistance)
         {
             // Move away from the player
             Vector3 newPosition = transform.position - directionToPlayer * moveSpeed * 0.5f * Time.deltaTime;
             transform.position = newPosition;
+            StartMoving();
         }
     }
 
@@ -142,25 +142,23 @@ public class TutorialEnemy : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * moveSpeed);
     }
 
-
     public void TakeDamage()
     {
-            // Handle taking damage normally
-            animator.SetTrigger("TrGetHit4");
-            Debug.Log("Took damage!");      
+        // Handle taking damage normally
+        animator.SetTrigger("TrGetHit4");
+        Debug.Log("Took damage!");
     }
 
     public void PushBack()
     {
+        if (BlocksDone == false)
+        {
+            succesfullBlockCount++;
+        }
 
-    if(BlocksDone==false)
-    {
-        succesfullBlockCount++;
-    }
-    
-    Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
-    directionAwayFromPlayer.y = 0; // Ignore Y axis
-    StartCoroutine(MoveBackOverTime(directionAwayFromPlayer));
+        Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
+        directionAwayFromPlayer.y = 0; // Ignore Y axis
+        StartCoroutine(MoveBackOverTime(directionAwayFromPlayer));
     }
 
     IEnumerator MoveBackOverTime(Vector3 direction)
@@ -176,14 +174,15 @@ public class TutorialEnemy : MonoBehaviour
         {
             transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
+            StartMoving();
             yield return null;
         }
 
         transform.position = targetPosition;
+        StopMoving();
     }
 
-
-   public void Die()
+    public void Die()
     {
         animator.SetTrigger("TrDeath4");
         isAlive = false;  // Mark the enemy as dead
@@ -196,11 +195,31 @@ public class TutorialEnemy : MonoBehaviour
         isInCombat = true;
         stateController.inCombat = true;
         animator.SetTrigger("TrCombat4");
+        animator.SetTrigger("TrCombatMove4");
     }
 
     public void ExitCombat()
     {
         isInCombat = false;
         stateController.inCombat = false;
+        StopMoving();
+    }
+
+    private void StartMoving()
+    {
+        if (!isMoving)
+        {
+            isMoving = true;
+            animator.SetTrigger(moveTrigger);
+        }
+    }
+
+    private void StopMoving()
+    {
+        if (isMoving)
+        {
+            isMoving = false;
+            animator.SetTrigger(moveEndTrigger);
+        }
     }
 }

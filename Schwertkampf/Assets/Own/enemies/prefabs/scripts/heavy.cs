@@ -7,7 +7,7 @@ public class HeavyEnemy : MonoBehaviour
     public Transform player;  // Reference to the player
     public float detectionRange = 30.0f;  // Detection range to engage the player
     public float desiredDistance = 3.0f;  // Desired distance to keep from the player
-    public float meleeDistance = 3.5f;    //Melee Range
+    public float meleeDistance = 3.5f;    // Melee Range
     public float meleeCooldown = 2.2f;  // Cooldown between melee attacks MIN 2.2f
     public float blockCooldown = 5.0f;  // Cooldown between blocks
     public float blockDuration = 3.0f;  // Duration of the block
@@ -16,20 +16,24 @@ public class HeavyEnemy : MonoBehaviour
     public float strafeDistance = 1.0f;  // Distance the enemy strafes from the center position
     public float strafePauseDuration = 3.0f;  // Duration of pause between strafes
     public float pushBackDistance = 5.0f;  // Distance to push the enemy back from the player
+
     private string[] meleeAnimationTriggers = { "TrMelee2", "TrSpin2", "TrReverseHit2" };  // Animation triggers for melee attacks
     private string blockAnimationTrigger = "TrBlock2";  // Animation trigger for blocking
     private string combatIdleTrigger = "TrComIdle2";  // Animation trigger for combat idle
+    private string moveTrigger = "TrMove2";  // Animation trigger for moving
+    private string moveEndTrigger = "TrMoveEnd2";  // Animation trigger for stopping moving
 
     private Animator animator;
     private float lastMeleeAttackTime;  // Time when the last melee attack was made
     private float lastBlockTime;  // Time when the last block was made
     private bool isBlocking = false;  // Indicates if the enemy is currently blocking
-    private bool isAttacking = false; //Indicates if enemy is in attacking animation
+    private bool isAttacking = false;  // Indicates if the enemy is in attacking animation
     private bool isAlive = true;  // Indicates if the enemy is alive
     private bool isInCombat = false;  // Indicates if the enemy is in combat
     private bool isStrafingRight = true;  // Indicates the current strafe direction
     private bool isStrafingPaused = false;  // Indicates if strafing is currently paused
     private Vector3 initialPosition;  // Initial position to calculate strafing
+    private bool isMoving = false;  // Indicates if the enemy is moving
 
     public StateController stateController;
     public PlayerStates playerStates;
@@ -61,6 +65,10 @@ public class HeavyEnemy : MonoBehaviour
             if (Mathf.Abs(distanceToPlayer - desiredDistance) > 0.1f)
             {
                 MaintainDistanceFromPlayer(distanceToPlayer);
+            }
+            else if (isMoving)
+            {
+                StopMoving();
             }
 
             // Perform melee attack if within melee range and cooldown period has passed
@@ -96,17 +104,16 @@ public class HeavyEnemy : MonoBehaviour
         stateController.isAttacking = true;
         animator.SetTrigger(selectedTrigger);
 
-        //waiting Time depending on animation
-
-        if(attackIndex==2)
+        // Waiting time depending on animation
+        if (attackIndex == 2)
         {
             yield return new WaitForSeconds(1.5f);
         }
-        else if(attackIndex==1)
+        else if (attackIndex == 1)
         {
             yield return new WaitForSeconds(1.5f);
         }
-        else if (attackIndex==0)
+        else if (attackIndex == 0)
         {
             yield return new WaitForSeconds(2.0f);
         }
@@ -126,7 +133,7 @@ public class HeavyEnemy : MonoBehaviour
 
         isBlocking = false;
         stateController.isBlocking = false;
-        animator.SetTrigger(combatIdleTrigger); // Transition back to combat idle
+        animator.SetTrigger(combatIdleTrigger);  // Transition back to combat idle
         Debug.Log("Block finished, returning to combat idle.");
     }
 
@@ -141,31 +148,35 @@ public class HeavyEnemy : MonoBehaviour
             isStrafingRight = !isStrafingRight;
             StartCoroutine(PauseStrafing());
         }
+
+        StartMoving();
     }
 
     void MaintainDistanceFromPlayer(float distanceToPlayer)
     {
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
-        directionToPlayer.y = 0; // Ignore Y axis
+        directionToPlayer.y = 0;  // Ignore Y axis
 
         if (distanceToPlayer > desiredDistance)
         {
             // Move closer to the player
             Vector3 newPosition = transform.position + directionToPlayer * moveSpeed * Time.deltaTime;
             transform.position = newPosition;
+            StartMoving();
         }
         else if (distanceToPlayer < desiredDistance)
         {
             // Move away from the player
-            Vector3 newPosition = transform.position - directionToPlayer * moveSpeed * 0.5f* Time.deltaTime;
+            Vector3 newPosition = transform.position - directionToPlayer * moveSpeed * 0.5f * Time.deltaTime;
             transform.position = newPosition;
+            StartMoving();
         }
     }
 
     void LookAtPlayer()
     {
         Vector3 direction = (player.position - transform.position).normalized;
-        direction.y = 0; // Ignore Y axis
+        direction.y = 0;  // Ignore Y axis
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * moveSpeed);
     }
@@ -180,43 +191,40 @@ public class HeavyEnemy : MonoBehaviour
 
     public void TakeDamage()
     {
-       
-        
-        
-            // Handle taking damage normally
-            animator.SetTrigger("TrGetHit2");
-            Debug.Log("Took damage!");
-        
+        // Handle taking damage normally
+        animator.SetTrigger("TrGetHit2");
+        Debug.Log("Took damage!");
     }
 
     public void PushBack()
     {
-    Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
-    directionAwayFromPlayer.y = 0; // Ignore Y axis
-    StartCoroutine(MoveBackOverTime(directionAwayFromPlayer));
+        Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
+        directionAwayFromPlayer.y = 0;  // Ignore Y axis
+        StartCoroutine(MoveBackOverTime(directionAwayFromPlayer));
     }
 
     IEnumerator MoveBackOverTime(Vector3 direction)
     {
-        float duration = 0.2f; // Duration of the pushback in seconds
+        float duration = 0.2f;  // Duration of the pushback in seconds
         float elapsedTime = 0f;
         Vector3 startPosition = transform.position;
         Vector3 targetPosition = transform.position + direction * pushBackDistance;
 
-        animator.SetTrigger("TrCancel2"); // Set the cancel trigger if needed
+        animator.SetTrigger("TrCancel2");  // Set the cancel trigger if needed
 
         while (elapsedTime < duration)
         {
             transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
+            StartMoving();
             yield return null;
         }
 
         transform.position = targetPosition;
+        StopMoving();
     }
 
-
-   public void Die()
+    public void Die()
     {
         animator.SetTrigger("TrDeath2");
         isAlive = false;  // Mark the enemy as dead
@@ -229,11 +237,31 @@ public class HeavyEnemy : MonoBehaviour
         isInCombat = true;
         stateController.inCombat = true;
         animator.SetTrigger("TrCombat2");
+        animator.SetTrigger("TrCombatMove2");
     }
 
     public void ExitCombat()
     {
         isInCombat = false;
         stateController.inCombat = false;
+        StopMoving();
+    }
+
+    private void StartMoving()
+    {
+        if (!isMoving)
+        {
+            isMoving = true;
+            animator.SetTrigger(moveTrigger);
+        }
+    }
+
+    private void StopMoving()
+    {
+        if (isMoving)
+        {
+            isMoving = false;
+            animator.SetTrigger(moveEndTrigger);
+        }
     }
 }
