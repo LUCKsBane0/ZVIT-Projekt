@@ -5,13 +5,15 @@ using UnityEngine;
 public class SoundEffectsManager : MonoBehaviour
 {
     public static SoundEffectsManager instance;
-    public AudioSource footstepAudioSource; 
+    public AudioSource footstepAudioSource;
     public AudioSource hitAudioSource;
     public AudioSource dyingAudioSource;
     public AudioSource lowHealthAudioSource;
     public AudioSource grabSwordAudioSource;
     public AudioSource releaseSwordAudioSource;
     public AudioSource blockingAudioSource;
+    public AudioSource gameOverAudioSource;
+    public AudioSource buttonAudioSource;
 
     void Awake()
     {
@@ -39,10 +41,12 @@ public class SoundEffectsManager : MonoBehaviour
 
     private void PlaySound(AudioSource audioSource)
     {
-        if (audioSource != null && !audioSource.isPlaying)
+        audioSource.Play();
+
+        /*if (audioSource != null && !audioSource.isPlaying)
         {
             audioSource.Play();
-        }
+        }*/
     }
 
     public void PlayFootstepSound()
@@ -84,6 +88,29 @@ public class SoundEffectsManager : MonoBehaviour
 
     public void PlayBlockingSound()
     {
-        PlaySound(blockingAudioSource); 
+        PlaySound(blockingAudioSource);
     }
+
+    public void PlayGameOverSound()
+    {
+        PlaySound(gameOverAudioSource);
+    }
+
+    public void PlayButtonSound()
+    {
+        if (!buttonAudioSource.enabled)
+        {
+            buttonAudioSource.enabled = true;
+        }
+
+        buttonAudioSource.PlayOneShot(buttonAudioSource.clip);
+        StartCoroutine(ResetButtonAudioSource());
+    }
+
+    private IEnumerator ResetButtonAudioSource()
+    {
+        yield return new WaitForSeconds(buttonAudioSource.clip.length + 0.1f); // Warte etwas länger als die Länge des Clip
+        buttonAudioSource.enabled = false; // Deaktiviere die AudioSource wieder
+    }
+
 }

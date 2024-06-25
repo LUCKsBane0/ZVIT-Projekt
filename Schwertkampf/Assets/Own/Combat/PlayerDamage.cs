@@ -14,6 +14,7 @@ public class PlayerDamage : MonoBehaviour
     private Transform cameraTransform;
     
     private bool hasDied = false;
+    private SceneChanger sceneLoader;
 
     void Start()
     {
@@ -25,6 +26,13 @@ public class PlayerDamage : MonoBehaviour
         else
         {
             Debug.LogError("Hand material is not assigned.");
+        }
+
+        sceneLoader = FindObjectOfType<SceneChanger>();
+
+        if (sceneLoader == null)
+        {
+            Debug.LogError("SceneChanger not found in the scene.");
         }
 
         // Ensure the vignette image is initially transparent
@@ -83,7 +91,12 @@ public class PlayerDamage : MonoBehaviour
                     StartCoroutine(HandleDeath());
             hasDied = true;
         }
-        
+
+        SoundEffectsManager.instance.PlayDyingSound();
+        StartCoroutine(HandleDeath());
+        hasDied = true;
+        sceneLoader.ChangeScene("GameOver");
+        SoundEffectsManager.instance.PlayGameOverSound();
     }
 
     void UpdateHandColor()
