@@ -96,13 +96,14 @@ public class PlayerDamage : MonoBehaviour
     IEnumerator ShowVignetteEffect()
     {
         float duration = 0.5f; // Duration of the vignette effect
+        float maxAlpha = 0.3f; // Maximum alpha value for the vignette effect (adjust for transparency)
         float elapsed = 0f;
 
         // Fade in the vignette effect
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            vignetteImage.color = new Color(vignetteImage.color.r, vignetteImage.color.g, vignetteImage.color.b, Mathf.Lerp(0, 0.5f, elapsed / duration));
+            vignetteImage.color = new Color(vignetteImage.color.r, vignetteImage.color.g, vignetteImage.color.b, Mathf.Lerp(0, maxAlpha, elapsed / duration));
             yield return null;
         }
 
@@ -112,7 +113,7 @@ public class PlayerDamage : MonoBehaviour
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            vignetteImage.color = new Color(vignetteImage.color.r, vignetteImage.color.g, vignetteImage.color.b, Mathf.Lerp(0.5f, 0, elapsed / duration));
+            vignetteImage.color = new Color(vignetteImage.color.r, vignetteImage.color.g, vignetteImage.color.b, Mathf.Lerp(maxAlpha, 0, elapsed / duration));
             yield return null;
         }
 
