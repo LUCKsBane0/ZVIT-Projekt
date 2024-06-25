@@ -11,6 +11,7 @@ public class SoundEffectsManager : MonoBehaviour
     public AudioSource lowHealthAudioSource;
     public AudioSource grabSwordAudioSource;
     public AudioSource releaseSwordAudioSource;
+    public AudioSource blockingAudioSource;
 
     void Awake()
     {
@@ -79,5 +80,10 @@ public class SoundEffectsManager : MonoBehaviour
     public void PlayReleaseSwordSound()
     {
         PlaySound(releaseSwordAudioSource);
+    }
+
+    public void PlayBlockingSound()
+    {
+        PlaySound(blockingAudioSource); 
     }
 }
