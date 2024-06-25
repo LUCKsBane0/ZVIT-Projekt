@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.InputSystem;
+using System.Collections;
+using System.Collections.Generic;
 
 public class ChallengeSystem : MonoBehaviour
 {
@@ -11,46 +13,51 @@ public class ChallengeSystem : MonoBehaviour
     public Transform handTransform; // Reference to the hand holding the sword
 
     public PlayerStates playerStates;
-   
+
     private GameObject currentRing;
     private Image ringImage;
     private GameObject enemyObject;
     private float challengeTime = 2f; // Time it takes to complete the challenge
     private float challengeProgress = 0f;
     private bool isChallenging = false;
-	private GameObject ChallengeColliderObject;
+    private GameObject ChallengeColliderObject;
+
+    private LineRenderer lineRenderer;
+    private Coroutine fadeCoroutine;
+
     void Start()
     {
-        
         challengeAction.action.Enable();
     }
 
     void Update()
     {
-        // Always draw a debug ray from the (0, 0, 0) position into the sky
-
         // Check if the button is pressed
         if (challengeAction.action.ReadValue<float>() > 0.5f && !playerStates.inCombat)
         {
+            if (lineRenderer == null)
+            {
+                CreateLineRenderer();
+                fadeCoroutine = StartCoroutine(FadeLineRenderer(lineRenderer, 0f, 1f, 0.5f));
+            }
+
             RaycastHit hit;
             Vector3 rayDirection = swordTip.forward;
             float rayLength = Mathf.Infinity;
             Debug.Log("Casting Ray!");
-            Debug.DrawRay(swordTip.position, rayDirection * 10f, Color.red); // Draw the ray
+
+            lineRenderer.SetPosition(0, swordTip.position);
+            lineRenderer.SetPosition(1, swordTip.position + rayDirection * 20f);
 
             if (Physics.Raycast(swordTip.position, rayDirection, out hit, rayLength))
             {
                 if (hit.collider.CompareTag("ChallengeHitbox"))
                 {
-                    
-                    
                     if (!isChallenging)
                     {
-                        
                         StartChallenge();
-						ChallengeColliderObject = hit.collider.gameObject;
+                        ChallengeColliderObject = hit.collider.gameObject;
                         enemyObject = hit.collider.gameObject.transform.parent.gameObject;
-                       
                     }
                 }
                 else
@@ -71,6 +78,16 @@ public class ChallengeSystem : MonoBehaviour
         }
         else
         {
+            if (lineRenderer != null)
+            {
+                if (fadeCoroutine != null)
+                {
+                    StopCoroutine(fadeCoroutine);
+                }
+                fadeCoroutine = StartCoroutine(FadeOutAndDestroyLineRenderer(lineRenderer, 1f, 0f, 0.5f));
+                lineRenderer = null;
+            }
+
             if (isChallenging)
             {
                 ResetChallenge();
@@ -81,6 +98,40 @@ public class ChallengeSystem : MonoBehaviour
         {
             UpdateChallenge();
         }
+    }
+
+    void CreateLineRenderer()
+    {
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer.startWidth = 0.02f;
+        lineRenderer.endWidth = 0.02f;
+        lineRenderer.positionCount = 2;
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default")); // Use a default sprite shader material
+        lineRenderer.startColor = new Color(1, 0, 0, 0); // Start with red color and fully transparent
+        lineRenderer.endColor = new Color(1, 0, 0, 0);   // Start with red color and fully transparent
+    }
+
+    IEnumerator FadeLineRenderer(LineRenderer lr, float startAlpha, float endAlpha, float duration)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / duration);
+            lr.startColor = new Color(1, 0, 0, alpha);
+            lr.endColor = new Color(1, 0, 0, alpha);
+            yield return null;
+        }
+
+        lr.startColor = new Color(1, 0, 0, endAlpha);
+        lr.endColor = new Color(1, 0, 0, endAlpha);
+    }
+
+    IEnumerator FadeOutAndDestroyLineRenderer(LineRenderer lr, float startAlpha, float endAlpha, float duration)
+    {
+        yield return FadeLineRenderer(lr, startAlpha, endAlpha, duration);
+        Destroy(lr);
     }
 
     void StartChallenge()
@@ -117,9 +168,8 @@ public class ChallengeSystem : MonoBehaviour
         if (enemyObject.GetComponent<LightEnemy>() != null)
         {
             enemyObject.GetComponent<LightEnemy>().EnterCombat();
-                            
         }
-                        
+
         if (enemyObject.GetComponent<MediumEnemy>() != null)
         {
             enemyObject.GetComponent<MediumEnemy>().EnterCombat();
@@ -128,16 +178,13 @@ public class ChallengeSystem : MonoBehaviour
         {
             enemyObject.GetComponent<HeavyEnemy>().EnterCombat();
         }
-		if (enemyObject.GetComponent<TutorialEnemy>() != null)
+        if (enemyObject.GetComponent<TutorialEnemy>() != null)
         {
             enemyObject.GetComponent<TutorialEnemy>().EnterCombat();
         }
-                       
+
         playerStates.currentEnemy = enemyObject;
         isChallenging = false;
-        
-        
-        
     }
 
     void ResetChallenge()
