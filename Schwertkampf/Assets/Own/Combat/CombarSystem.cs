@@ -80,6 +80,8 @@ public class CombatSystem : MonoBehaviour
             {
                 PushBackEnemy();
                 TriggerHapticFeedback();
+                Debug.Log("Blocken");
+                SoundEffectsManager.instance.PlayBlockingSound();
             }
             else if (other.CompareTag("Enemy") && !stateController.isAttacking && !stateController.isBlocking)
             {
