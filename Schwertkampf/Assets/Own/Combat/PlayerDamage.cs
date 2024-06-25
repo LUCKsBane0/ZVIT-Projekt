@@ -9,6 +9,7 @@ public class PlayerDamage : MonoBehaviour
     public Image vignetteImage; // Reference to the vignette image
 
     private Color originalColor;
+    private Vector3 initialSpawnPosition;
 
     void Start()
     {
@@ -31,6 +32,9 @@ public class PlayerDamage : MonoBehaviour
         {
             Debug.LogError("Vignette image is not assigned.");
         }
+
+        // Store the initial spawn position
+        initialSpawnPosition = transform.position;
     }
 
     void Update()
@@ -44,12 +48,12 @@ public class PlayerDamage : MonoBehaviour
         HealthPoints -= amount;
         HealthPoints = Mathf.Clamp(HealthPoints, 0, 100); // Ensure HealthPoints stay within bounds
 
-        if(HealthPoints <= 20)
+        if (HealthPoints <= 20)
         {
             SoundEffectsManager.instance.PlayLowHealthSound();
         }
-        
-        if(HealthPoints <= 0)
+
+        if (HealthPoints <= 0)
         {
             Die();
         }
@@ -63,10 +67,9 @@ public class PlayerDamage : MonoBehaviour
 
     void Die()
     {
-        //handle death
         SoundEffectsManager.instance.PlayDyingSound();
+        StartCoroutine(HandleDeath());
     }
-
 
     void UpdateHandColor()
     {
@@ -86,14 +89,8 @@ public class PlayerDamage : MonoBehaviour
         if (other.CompareTag("EnemySword"))
         {
             Debug.Log("Taking Damage");
-
             TakeDamage(10);
         }
-     
-
-
-
-
     }
 
     IEnumerator ShowVignetteEffect()
@@ -120,6 +117,55 @@ public class PlayerDamage : MonoBehaviour
         }
 
         // Ensure the vignette is fully transparent after the effect
+        vignetteImage.color = new Color(vignetteImage.color.r, vignetteImage.color.g, vignetteImage.color.b, 0);
+    }
+
+    IEnumerator HandleDeath()
+    {
+        float grayVignetteDuration = 1f;
+        float blackScreenDuration = 1f;
+        float elapsed = 0f;
+
+        // Fade to gray vignette
+        while (elapsed < grayVignetteDuration)
+        {
+            elapsed += Time.deltaTime;
+            vignetteImage.color = new Color(0.5f, 0.5f, 0.5f, Mathf.Lerp(0, 1, elapsed / grayVignetteDuration));
+            yield return null;
+        }
+
+        // Ensure the vignette is fully gray
+        vignetteImage.color = new Color(0.5f, 0.5f, 0.5f, 1);
+
+        elapsed = 0f;
+
+        // Fade to full black screen
+        while (elapsed < blackScreenDuration)
+        {
+            elapsed += Time.deltaTime;
+            vignetteImage.color = new Color(0, 0, 0, Mathf.Lerp(1, 1, elapsed / blackScreenDuration));
+            yield return null;
+        }
+
+        // Ensure the screen is fully black
+        vignetteImage.color = new Color(0, 0, 0, 1);
+
+        // Teleport the player back to the initial spawn position
+        transform.position = initialSpawnPosition;
+
+        // Reset health
+        HealthPoints = 100;
+
+        // Fade out the black screen back to transparent
+        elapsed = 0f;
+        while (elapsed < blackScreenDuration)
+        {
+            elapsed += Time.deltaTime;
+            vignetteImage.color = new Color(0, 0, 0, Mathf.Lerp(1, 0, elapsed / blackScreenDuration));
+            yield return null;
+        }
+
+        // Ensure the vignette is fully transparent
         vignetteImage.color = new Color(vignetteImage.color.r, vignetteImage.color.g, vignetteImage.color.b, 0);
     }
 }
