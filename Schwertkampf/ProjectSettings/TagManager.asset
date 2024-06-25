@@ -12,6 +12,7 @@ TagManager:
   - LeftHitbox
   - RightHitbox
   - TopHitbox
+  - ChallengeHitbox
   layers:
   - Default
   - TransparentFX

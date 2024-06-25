@@ -18,7 +18,7 @@ public class ChallengeSystem : MonoBehaviour
     private float challengeTime = 2f; // Time it takes to complete the challenge
     private float challengeProgress = 0f;
     private bool isChallenging = false;
-
+	private GameObject ChallengeColliderObject;
     void Start()
     {
         
@@ -40,7 +40,7 @@ public class ChallengeSystem : MonoBehaviour
 
             if (Physics.Raycast(swordTip.position, rayDirection, out hit, rayLength))
             {
-                if (hit.collider.CompareTag("Enemy"))
+                if (hit.collider.CompareTag("ChallengeHitbox"))
                 {
                     
                     
@@ -48,7 +48,8 @@ public class ChallengeSystem : MonoBehaviour
                     {
                         
                         StartChallenge();
-                        enemyObject = hit.collider.gameObject;
+						ChallengeColliderObject = hit.collider.gameObject;
+                        enemyObject = hit.collider.gameObject.transform.parent.gameObject;
                        
                     }
                 }
@@ -111,7 +112,7 @@ public class ChallengeSystem : MonoBehaviour
     void CompleteChallenge()
     {
         playerStates.inCombat = true;
-       
+        ChallengeColliderObject.GetComponent<BoxCollider>().enabled = false;
         Destroy(currentRing);
         if (enemyObject.GetComponent<LightEnemy>() != null)
         {

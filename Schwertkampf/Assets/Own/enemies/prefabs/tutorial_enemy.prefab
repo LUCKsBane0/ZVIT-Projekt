@@ -467,6 +467,59 @@ Transform:
   - {fileID: 7623651269591325632}
   m_Father: {fileID: 37870932701030792}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &505509285707544176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5085686407581956813}
+  - component: {fileID: 3035374855741559708}
+  m_Layer: 0
+  m_Name: ChallengeHitbox
+  m_TagString: ChallengeHitbox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5085686407581956813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505509285707544176}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6515184520786419417}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3035374855741559708
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505509285707544176}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &600887923387874964
 GameObject:
   m_ObjectHideFlags: 0
@@ -2436,6 +2489,7 @@ Transform:
   - {fileID: 2991571507839789496}
   - {fileID: 5530527770138424836}
   - {fileID: 5555271331565766998}
+  - {fileID: 5085686407581956813}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 470.928, z: 0}
 --- !u!95 &7831601961845460982
@@ -2556,7 +2610,7 @@ MonoBehaviour:
   moveSpeed: 2.5
   pushBackDistance: 5
   BlocksDone: 0
-  stateController: {fileID: 0}
+  stateController: {fileID: 3504994675387852107}
   playerStates: {fileID: 0}
 --- !u!1 &4590121326728366036
 GameObject:
