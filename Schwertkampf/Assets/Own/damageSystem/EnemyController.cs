@@ -11,12 +11,13 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private HealthBar HealthBar;
 
-    public PlayerStates playerStates;
+    private PlayerStates playerStates;
 
     private void Awake()
     {
         _currentHealth = MaxHealth;
         HealthBar.Initialize(MaxHealth, _currentHealth);
+		playerStates = GameObject.FindGameObjectWithTag("XROrigin").GetComponent<PlayerStates>();
        
     }
 
