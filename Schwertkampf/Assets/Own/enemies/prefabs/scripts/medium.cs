@@ -35,7 +35,7 @@ public class MediumEnemy : MonoBehaviour
     private bool isMoving = false;  // Indicates if the enemy is moving
 
     public StateController stateController;
-    public PlayerStates playerStates;
+    private PlayerStates playerStates;
 
     void Start()
     {
@@ -44,6 +44,8 @@ public class MediumEnemy : MonoBehaviour
         lastMeleeAttackTime = -meleeCooldown;  // Set initial attack time to allow immediate first attack
         lastBlockTime = -blockCooldown;  // Set initial block time to allow immediate first block
         initialPosition = transform.position;  // Store the initial position for strafing
+        playerStates = GameObject.FindGameObjectWithTag("XROrigin").GetComponent<PlayerStates>();
+
     }
 
     void Update()

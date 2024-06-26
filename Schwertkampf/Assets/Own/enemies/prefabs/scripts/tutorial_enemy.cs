@@ -31,11 +31,12 @@ public class TutorialEnemy : MonoBehaviour
     private bool isMoving = false;  // Indicates if the enemy is moving
 
     public StateController stateController;
-    public PlayerStates playerStates;
+    private PlayerStates playerStates;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+		playerStates = GameObject.FindGameObjectWithTag("XROrigin").GetComponent<PlayerStates>();
         player = GameObject.FindGameObjectWithTag("Player").transform;  // Find the player by tag
         lastMeleeAttackTime = -meleeCooldown;  // Set initial attack time to allow immediate first attack
         lastBlockTime = -blockCooldown;  // Set initial block time to allow immediate first block

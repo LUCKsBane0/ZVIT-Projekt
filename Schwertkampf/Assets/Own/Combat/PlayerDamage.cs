@@ -8,7 +8,7 @@ public class PlayerDamage : MonoBehaviour
     public Material handMaterial; // Reference to the hand material
     public Image vignetteImage; // Reference to the vignette image
 
-    public PlayerStates playerStates;
+    private PlayerStates playerStates;
     private Color originalColor;
     private Vector3 initialSpawnPosition;
     private Transform cameraTransform;
@@ -18,6 +18,8 @@ public class PlayerDamage : MonoBehaviour
 
     void Start()
     {
+		playerStates = GameObject.FindGameObjectWithTag("XROrigin").GetComponent<PlayerStates>();
+
         // Store the original color of the hands
         if (handMaterial != null)
         {

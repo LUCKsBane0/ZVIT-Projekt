@@ -36,12 +36,14 @@ public class LightEnemy : MonoBehaviour
     private bool isMoving = false;  // Indicates if the enemy is moving
 
     public StateController stateController;
-    public PlayerStates playerStates;
+    private PlayerStates playerStates;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;  // Find the player by tag
+        player = GameObject.FindGameObjectWithTag("Player").transform; 
+		playerStates = GameObject.FindGameObjectWithTag("XROrigin").GetComponent<PlayerStates>();
+		 // Find the player by tag
         lastMeleeAttackTime = -meleeCooldown;  // Set initial attack time to allow immediate first attack
         lastBlockTime = -blockCooldown;  // Set initial block time to allow immediate first block
         initialPosition = transform.position;  // Store the initial position for strafing

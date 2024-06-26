@@ -13,6 +13,7 @@ TagManager:
   - RightHitbox
   - TopHitbox
   - ChallengeHitbox
+  - XROrigin
   layers:
   - Default
   - TransparentFX

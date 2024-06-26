@@ -12,7 +12,7 @@ public class ChallengeSystem : MonoBehaviour
     public GameObject progressRingPrefab; // Prefab for the progress ring
     public Transform handTransform; // Reference to the hand holding the sword
 
-    public PlayerStates playerStates;
+    private PlayerStates playerStates;
 
     private GameObject currentRing;
     private Image ringImage;
@@ -28,6 +28,8 @@ public class ChallengeSystem : MonoBehaviour
     void Start()
     {
         challengeAction.action.Enable();
+        playerStates = GameObject.FindGameObjectWithTag("XROrigin").GetComponent<PlayerStates>();
+
     }
 
     void Update()

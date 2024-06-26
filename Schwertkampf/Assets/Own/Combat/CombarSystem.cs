@@ -13,7 +13,7 @@ public class CombatSystem : MonoBehaviour
     public float arrowMoveSpeed = 1.5f; // Speed at which the arrow moves
 
     private StateController stateController; // Reference to the state controller (for enemy states)
-    public PlayerStates playerStates;
+    private PlayerStates playerStates;
     private bool canHit = true; // Controls if the player can hit the enemy
     private bool canHitDistance = true;
     private Vector3 lastHitPosition; // Position of the last hit
@@ -25,6 +25,12 @@ public class CombatSystem : MonoBehaviour
 
     // Reference to the right hand controller
     public XRBaseController rightHandController;
+
+
+	void Start(){
+			playerStates = GameObject.FindGameObjectWithTag("XROrigin").GetComponent<PlayerStates>();
+
+	}
 
     void Update()
     {
