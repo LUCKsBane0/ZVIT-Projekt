@@ -31,6 +31,8 @@ public class EnemyController : MonoBehaviour
             if (_currentHealth <= 0)
             {
                 playerStates.inCombat = false;
+                GameObject chestMail = GameObject.Find("ChestMail");
+                chestMail.GetComponent<SphereCollider>().enabled = true;
 
                 if (gameObject.GetComponent<MediumEnemy>() != null)
                 {

@@ -115,13 +115,16 @@ public class PlayerDamage : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other)
+{
+	
+    if (other.CompareTag("EnemySword"))
     {
-        if (other.CompareTag("EnemySword"))
-        {
-            Debug.Log("Taking Damage");
-            TakeDamage(10);
-        }
-    }    
+        Debug.Log("Taking Damage");
+        TakeDamage(10);
+    }
+	
+}
+	
 
     void InstantiateVignetteCanvas()
     {
