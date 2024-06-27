@@ -2566,7 +2566,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 100
   HealthBar: {fileID: 4547451992730737104}
-  playerStates: {fileID: 0}
 --- !u!65 &2708844763714165937
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2611,7 +2610,6 @@ MonoBehaviour:
   pushBackDistance: 5
   BlocksDone: 0
   stateController: {fileID: 3504994675387852107}
-  playerStates: {fileID: 0}
 --- !u!1 &4590121326728366036
 GameObject:
   m_ObjectHideFlags: 0

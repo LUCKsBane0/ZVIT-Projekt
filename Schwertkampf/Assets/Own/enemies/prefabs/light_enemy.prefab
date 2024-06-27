@@ -4398,7 +4398,6 @@ MonoBehaviour:
   pushBackDistance: 2
   strafePauseDuration: 3
   stateController: {fileID: 1274314200166203545}
-  playerStates: {fileID: 0}
 --- !u!114 &1274314200166203545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4431,7 +4430,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 100
   HealthBar: {fileID: 5941053251727982103}
-  playerStates: {fileID: 0}
 --- !u!1 &7348576692626418327
 GameObject:
   m_ObjectHideFlags: 0

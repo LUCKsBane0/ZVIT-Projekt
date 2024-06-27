@@ -1794,6 +1794,7 @@ GameObject:
   - component: {fileID: 4158451915823679623}
   - component: {fileID: 2238433987242009076}
   - component: {fileID: 51518885468633726}
+  - component: {fileID: 119177345859122741}
   m_Layer: 0
   m_Name: Sword1_Silver
   m_TagString: EnemySword
@@ -1912,6 +1913,33 @@ CapsuleCollider:
   m_Height: 2.3628895
   m_Direction: 1
   m_Center: {x: -0.000000053134787, y: 0.4795645, z: 0.000000028584257}
+--- !u!54 &119177345859122741
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2500964043965671762}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2530095645117217559
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,7 +2305,6 @@ MonoBehaviour:
   strafePauseDuration: 3
   pushBackDistance: 2
   stateController: {fileID: 4043608196475029769}
-  playerStates: {fileID: 0}
 --- !u!114 &4043608196475029769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2310,7 +2337,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 100
   HealthBar: {fileID: 3260307986786531002}
-  playerStates: {fileID: 0}
 --- !u!1 &3022242005683168582
 GameObject:
   m_ObjectHideFlags: 0
