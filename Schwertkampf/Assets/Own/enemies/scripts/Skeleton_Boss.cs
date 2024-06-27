@@ -270,7 +270,7 @@ public class SkeletonBoss : MonoBehaviour
         }
     }
 
-    void Die()
+    public void Die()
     {
         animator.SetTrigger("TrMoveEndBoss");
         

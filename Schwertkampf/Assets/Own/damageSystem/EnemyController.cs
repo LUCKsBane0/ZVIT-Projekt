@@ -29,6 +29,18 @@ public class EnemyController : MonoBehaviour
             _currentHealth -= damage;
             HealthBar.Change(-damage);
 
+
+            if(_currentHealth <= 150 && gameObject.GetComponent<SkeletonBoss>() != null)
+            {
+                if (gameObject.GetComponent<SkeletonBoss>().hasTwoPhases)
+                {
+                    gameObject.GetComponent<SkeletonBoss>().isInRangedPhase = true;
+                }
+                
+
+            }
+
+
             if (_currentHealth <= 0)
             {
                 playerStates.inCombat = false;
@@ -51,7 +63,11 @@ public class EnemyController : MonoBehaviour
                     StartCoroutine(DeathTimer());
                 }
 
-
+                if (gameObject.GetComponent<HeavyEnemy>() != null)
+                {
+                    gameObject.GetComponent<SkeletonBoss>().Die();
+                    StartCoroutine(DeathTimer());
+                }
 
             }
         }
