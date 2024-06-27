@@ -115,15 +115,42 @@ public class PlayerDamage : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other)
-{
-	
-    if (other.CompareTag("EnemySword"))
     {
-        Debug.Log("Taking Damage");
-        TakeDamage(10);
+
+        if (other.CompareTag("EnemySword"))
+        {
+            if (playerStates.currentEnemy.GetComponent<MediumEnemy>() != null)
+            {
+                Debug.Log("Taking Damage");
+                TakeDamage(10);
+            }
+            if (playerStates.currentEnemy.GetComponent<HeavyEnemy>() != null)
+            {
+                Debug.Log("Taking Damage");
+                TakeDamage(20);
+            }
+            if (playerStates.currentEnemy.GetComponent<LightEnemy>() != null)
+            {
+                Debug.Log("Taking Damage");
+                TakeDamage(5);
+            }
+            if (playerStates.currentEnemy.GetComponent<SkeletonBoss>() != null)
+            {
+                Debug.Log("Taking Damage");
+                TakeDamage(10);
+            }
+
+        }
+
+        if (other.CompareTag("BlueSpell")|| other.CompareTag("OrangeSpell"))
+        {
+            Debug.Log("Taking Damage");
+            TakeDamage(5);
+        }
+        
+
+    
     }
-	
-}
 	
 
     void InstantiateVignetteCanvas()

@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 5866306480922074273}
   m_Layer: 0
   m_Name: Player_Sword
-  m_TagString: Untagged
+  m_TagString: Player_Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -210,7 +210,6 @@ MonoBehaviour:
   swordTip: {fileID: 1612800146994866626}
   progressRingPrefab: {fileID: 841561137270098501, guid: 9197dab9644343b4e92dafcc6eb0c2fe, type: 3}
   handTransform: {fileID: 0}
-  playerStates: {fileID: 0}
 --- !u!114 &5866306480922074273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,7 +228,6 @@ MonoBehaviour:
   minDistanceToRehit: 1
   arrowDespawnTime: 1.5
   arrowMoveSpeed: 5
-  playerStates: {fileID: 0}
   rightHandController: {fileID: 0}
 --- !u!1 &4496180337301082946
 GameObject:

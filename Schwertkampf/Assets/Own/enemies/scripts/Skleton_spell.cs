@@ -29,6 +29,7 @@ public class Spell : MonoBehaviour
         }
         else if (isReflected)
         {
+            Debug.Log("HitSpell!");
             // Move back towards the enemy when reflected
             Vector3 moveDirection = (target.position - transform.position).normalized;
             transform.Translate(moveDirection * speed * reflectSpeedMultiplier * Time.deltaTime, Space.World);
@@ -49,13 +50,14 @@ public class Spell : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         // Example collision logic (destroy spell on impact)
-        if (other.CompareTag("Player")) // Assuming the player has the "Player" tag
+        if (other.CompareTag("ChestMail")) // Assuming the player has the "Player" tag
         {
             Destroy(gameObject);
             //damage system
         }
         else if (other.CompareTag("Player_Sword"))  // Example tag for surface that can reflect spells
         {
+           
             // Reflect the spell
             ReflectSpell();
         }

@@ -63,7 +63,10 @@ public class CombatSystem : MonoBehaviour
                 {
                     Destroy(currentArrow);
                 }
-                stateController.DisableAllColliders();
+                if(playerStates.currentEnemy.GetComponent<SkeletonBoss>() == null){
+                    stateController.DisableAllColliders();
+                }
+               
             }
 
             if (!canHitDistance && lastHitEnemy != null)
@@ -82,6 +85,7 @@ public class CombatSystem : MonoBehaviour
     {
         if (stateController != null)
         {
+
             if (other.CompareTag("EnemySword") && stateController.isAttacking)
             {
                 PushBackEnemy();
@@ -89,7 +93,7 @@ public class CombatSystem : MonoBehaviour
                 Debug.Log("Blocken");
                 SoundEffectsManager.instance.PlayBlockingSound();
             }
-            else if (other.CompareTag("Enemy") && !stateController.isAttacking && !stateController.isBlocking)
+            else if (other.CompareTag("Enemy") && !stateController.isAttacking && !stateController.isBlocking && canHit && canHitDistance)
             {
                 SuccessfulHit(other);
                 TriggerHapticFeedback();
@@ -120,7 +124,10 @@ public class CombatSystem : MonoBehaviour
 					enemyController.GetComponent<EnemyController>().TakeDamage(40);
                     playerStates.currentEnemy.GetComponent<TutorialEnemy>().TakeDamage();
                 }
-
+                if (playerStates.currentEnemy.GetComponent<SkeletonBoss>() != null)
+                {
+                    playerStates.currentEnemy.GetComponent<SkeletonBoss>().TakeDamage();
+                }
                 StartCoroutine(HitCooldown());
             }
             else if (other.CompareTag("LeftHitbox") && stateController.isBlocking && canHit && canHitDistance)
@@ -139,6 +146,7 @@ public class CombatSystem : MonoBehaviour
                 TriggerHapticFeedback();
             }
         }
+
     }
 
     void SuccessfulHit(Collider other)
@@ -165,6 +173,10 @@ public class CombatSystem : MonoBehaviour
             playerStates.currentEnemy.GetComponent<TutorialEnemy>().TakeDamage();
 			enemyController.TakeDamage(40);
         }
+        if (playerStates.currentEnemy.GetComponent<SkeletonBoss>() != null)
+        {
+            playerStates.currentEnemy.GetComponent<SkeletonBoss>().TakeDamage();
+        }
         StartCoroutine(HitCooldown());
         lastHitPosition = swordTip.position;
         lastHitEnemy = other.transform.parent.gameObject;
@@ -189,6 +201,10 @@ public class CombatSystem : MonoBehaviour
 		if (playerStates.currentEnemy.GetComponent<TutorialEnemy>() != null)
         {
             playerStates.currentEnemy.GetComponent<TutorialEnemy>().PushBack();
+        }
+        if (playerStates.currentEnemy.GetComponent<SkeletonBoss>() != null)
+        {
+            playerStates.currentEnemy.GetComponent<SkeletonBoss>().PushBack();
         }
     }
 

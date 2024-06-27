@@ -6,7 +6,7 @@ public class PlayerStates : MonoBehaviour
 {
     public GameObject currentEnemy;
     public bool inCombat;
-
+    public bool hasPassedBoss;
     // Start is called before the first frame update
     void Start()
     {

@@ -44,7 +44,7 @@ public class ChallengeManager : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && (other.GetComponent<SkeletonBoss>() == null))
         {
 			
 			if(other.GetComponent<TutorialEnemy>() == null){
@@ -58,7 +58,7 @@ public class ChallengeManager : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy")&&(other.GetComponent<SkeletonBoss>() == null))
         {
             // Find the index of the enemy in the list
             int index = enemies.IndexOf(other.gameObject);

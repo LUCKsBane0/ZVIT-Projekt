@@ -184,6 +184,8 @@ public class ChallengeSystem : MonoBehaviour
         {
             enemyObject.GetComponent<TutorialEnemy>().EnterCombat();
         }
+        
+
 
         playerStates.currentEnemy = enemyObject;
         isChallenging = false;

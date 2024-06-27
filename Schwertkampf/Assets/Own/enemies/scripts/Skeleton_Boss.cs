@@ -34,9 +34,12 @@ public class SkeletonBoss : MonoBehaviour
     private bool isAlive = true;  // Indicates if the boss is alive
     private bool isElevated = false;  // Indicates if the boss is elevated
     private Vector3 initialPosition;  // Initial position to calculate strafing
+    private PlayerStates playerStates;
+
 
     void Start()
     {
+        playerStates = GameObject.FindGameObjectWithTag("XROrigin").GetComponent<PlayerStates>();
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;  // Find the player (XR Rig) by tag
         lastSpellCastTime = -spellCooldown;  // Set initial cast time to allow immediate first cast
@@ -46,60 +49,73 @@ public class SkeletonBoss : MonoBehaviour
 
     void Update()
     {
-        if (!isAlive) return;  // Stop updating if the boss is dead
-
-        LookAtPlayer();
-
-        // Check distance to player
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-        if (isInRangedPhase)
+        if (playerStates.hasPassedBoss)
         {
-            // Ranged phase logic: Cast spells if within detection range and cooldown period has passed
-            if (Time.time - lastSpellCastTime > spellCooldown)
-            {
-                CastSpell();
-                lastSpellCastTime = Time.time;  // Update last cast time
-            }
 
-            // Move away from the player if within retreat distance
-            if (distanceToPlayer <= retreatDistance)
+
+
+            //look if player is at correct position
+
+            if (!playerStates.inCombat)
             {
-                RetreatFromPlayer();
+                playerStates.inCombat = true;
+                playerStates.currentEnemy = gameObject;
+            }
+            if (!isAlive) return;  // Stop updating if the boss is dead
+
+            LookAtPlayer();
+
+            // Check distance to player
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+            if (isInRangedPhase)
+            {
+                // Ranged phase logic: Cast spells if within detection range and cooldown period has passed
+                if (Time.time - lastSpellCastTime > spellCooldown)
+                {
+                    CastSpell();
+                    lastSpellCastTime = Time.time;  // Update last cast time
+                }
+
+                // Move away from the player if within retreat distance
+                if (distanceToPlayer <= retreatDistance)
+                {
+                    RetreatFromPlayer();
+                }
+                else
+                {
+                    // Strafe left and right with a pause between strafes
+                    if (!isStrafingPaused)
+                    {
+                        Strafe(rangedStrafeDistance);
+                    }
+                }
             }
             else
             {
+                // Melee phase logic: Perform melee attack if within melee range and cooldown period has passed
+                if (distanceToPlayer <= meleeRange && Time.time - lastMeleeAttackTime > meleeCooldown)
+                {
+                    PerformMeleeAttack();
+                    lastMeleeAttackTime = Time.time;  // Update last attack time
+                }
+
+                // Maintain desired melee distance
+                if (distanceToPlayer < desiredMeleeDistance)
+                {
+                    MaintainMeleeDistance();
+                }
+                else if (distanceToPlayer > meleeRange)
+                {
+                    // Move towards the player if not in melee range
+                    MoveTowardsPlayer();
+                }
+
                 // Strafe left and right with a pause between strafes
                 if (!isStrafingPaused)
                 {
-                    Strafe(rangedStrafeDistance);
+                    Strafe(meleeStrafeDistance);
                 }
-            }
-        }
-        else
-        {
-            // Melee phase logic: Perform melee attack if within melee range and cooldown period has passed
-            if (distanceToPlayer <= meleeRange && Time.time - lastMeleeAttackTime > meleeCooldown)
-            {
-                PerformMeleeAttack();
-                lastMeleeAttackTime = Time.time;  // Update last attack time
-            }
-
-            // Maintain desired melee distance
-            if (distanceToPlayer < desiredMeleeDistance)
-            {
-                MaintainMeleeDistance();
-            }
-            else if (distanceToPlayer > meleeRange)
-            {
-                // Move towards the player if not in melee range
-                MoveTowardsPlayer();
-            }
-
-            // Strafe left and right with a pause between strafes
-            if (!isStrafingPaused)
-            {
-                Strafe(meleeStrafeDistance);
             }
         }
     }
@@ -242,7 +258,7 @@ public class SkeletonBoss : MonoBehaviour
     }
 
 
-    public void TakeDamage(int amount)
+    public void TakeDamage()
     {
         if (!isInRangedPhase)
         {

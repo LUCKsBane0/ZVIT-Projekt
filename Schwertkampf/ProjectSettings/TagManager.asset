@@ -16,6 +16,8 @@ TagManager:
   - XROrigin
   - ChestMail
   - Player_Sword
+  - BlueSpell
+  - OrangeSpell
   layers:
   - Default
   - TransparentFX
