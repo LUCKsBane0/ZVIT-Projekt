@@ -50,16 +50,10 @@ public class Spell : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         // Example collision logic (destroy spell on impact)
-        if (other.CompareTag("ChestMail")) // Assuming the player has the "Player" tag
+        if (other.CompareTag("ChestMail")) 
         {
             Destroy(gameObject);
-            //damage system
-        }
-        else if (other.CompareTag("Player_Sword"))  // Example tag for surface that can reflect spells
-        {
-           
-            // Reflect the spell
-            ReflectSpell();
+    
         }
     }
 
