@@ -57,8 +57,12 @@ public class EnemyController : MonoBehaviour
 
                 if (gameObject.GetComponent<HeavyEnemy>() != null)
                 {
+                    if (gameObject.GetComponent<SkeletonBoss>().hasTwoPhases)
+                    {
+                        hasDied = true;
+                    }
                     gameObject.GetComponent<SkeletonBoss>().Die();
-                    if(!hasDied){
+                    if(hasDied){
                         StartCoroutine(DeathTimer());
                     }
                     else
