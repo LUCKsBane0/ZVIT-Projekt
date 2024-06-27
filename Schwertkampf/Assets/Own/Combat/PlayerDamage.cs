@@ -101,7 +101,6 @@ public class PlayerDamage : MonoBehaviour
         string currentLevel = SceneManager.GetActiveScene().name;
         LevelManager.instance.SetLastLevel(currentLevel);
         sceneLoader.ChangeScene("GameOver");
-        SoundEffectsManager.instance.PlayGameOverSound();
     }
 
     void UpdateHandColor()

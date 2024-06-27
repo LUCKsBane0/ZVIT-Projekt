@@ -12,6 +12,17 @@ public class EnemyController : MonoBehaviour
     private HealthBar HealthBar;
     private bool hasDied = false;
     private PlayerStates playerStates;
+    private SceneChanger sceneLoader;
+
+    private void Start()
+    {
+        sceneLoader = FindObjectOfType<SceneChanger>();
+
+        if (sceneLoader == null)
+        {
+            Debug.LogError("SceneChanger not found in the scene.");
+        }
+    }
 
     private void Awake()
     {
@@ -64,6 +75,8 @@ public class EnemyController : MonoBehaviour
                     gameObject.GetComponent<SkeletonBoss>().Die();
                     if(hasDied){
                         StartCoroutine(DeathTimer());
+                        sceneLoader.ChangeScene("LevelCompleted");
+                        SoundEffectsManager.instance.PlaySuccessSound();
                     }
                     else
                     {

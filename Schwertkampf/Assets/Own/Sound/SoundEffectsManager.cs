@@ -13,7 +13,7 @@ public class SoundEffectsManager : MonoBehaviour
     public AudioSource grabSwordAudioSource;
     public AudioSource releaseSwordAudioSource;
     public AudioSource blockingAudioSource;
-    public AudioSource gameOverAudioSource;
+    public AudioSource successAudioSource;
 
 
     void Awake()
@@ -92,9 +92,9 @@ public class SoundEffectsManager : MonoBehaviour
         PlaySound(blockingAudioSource);
     }
 
-    public void PlayGameOverSound()
+    public void PlaySuccessSound()
     {
-        PlaySound(gameOverAudioSource);
+        PlaySound(successAudioSource);
     }
 }
          
