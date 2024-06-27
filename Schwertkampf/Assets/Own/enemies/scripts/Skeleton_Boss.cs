@@ -352,8 +352,9 @@ public class SkeletonBoss : MonoBehaviour
                 gameObject.GetComponent<SkeletonBoss>().TakeDamage();
                 Destroy(other.gameObject);
             }
+          }
         }
     }
-    }
 
-}
+
+
