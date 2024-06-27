@@ -10,7 +10,7 @@ public class Spell : MonoBehaviour
     public Transform enemyTarget;  // Enemy target
     public bool autoDeleteEnabled = false;  // Flag to enable auto deletion
     public float reflectSpeedMultiplier = 1.5f;  // Speed multiplier when spell is reflected
-    private bool isReflected = false;  // Flag to track if the spell has been reflected
+    public bool isReflected = false;  // Flag to track if the spell has been reflected
 
     void Start()
     {

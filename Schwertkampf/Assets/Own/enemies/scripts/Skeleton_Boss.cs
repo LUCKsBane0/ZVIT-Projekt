@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SkeletonBoss : MonoBehaviour
@@ -331,5 +332,28 @@ public class SkeletonBoss : MonoBehaviour
         transform.position = elevatedPosition;
         isElevated = true;  // Mark the boss as elevated
     }
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("BlueSpell"))
+        {
+            if (other.gameObject.GetComponent<Spell>().isReflected)
+            {
+                gameObject.GetComponent<EnemyController>().TakeDamage(5);
+                gameObject.GetComponent<SkeletonBoss>().TakeDamage();
+                Destroy(other.gameObject);
+            }
+        }
+
+        if (other.CompareTag("OrangeSpell"))
+        {
+            if (other.gameObject.GetComponent<Spell>().isReflected)
+            {
+                gameObject.GetComponent<EnemyController>().TakeDamage(5);
+                gameObject.GetComponent<SkeletonBoss>().TakeDamage();
+                Destroy(other.gameObject);
+            }
+        }
+    }
+    }
+
 }
