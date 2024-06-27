@@ -11,6 +11,7 @@ public class SkeletonBoss : MonoBehaviour
     
 
     public Transform player;  // Reference to the player (XR Rig)
+    public Transform boss;
     public float moveSpeed = 2.5f;  // Speed at which the enemy moves towards or away from the player   
     public float meleeRange = 3.0f;  // Range to trigger melee attacks
     public float desiredMeleeDistance = 3.0f;  // Desired distance to maintain from the player in melee mode
@@ -42,17 +43,28 @@ public class SkeletonBoss : MonoBehaviour
         playerStates = GameObject.FindGameObjectWithTag("XROrigin").GetComponent<PlayerStates>();
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;  // Find the player (XR Rig) by tag
+
+        // Find the boss by tag (assuming there's only one boss)
+        GameObject bossObject = GameObject.FindGameObjectWithTag("Boss");
+        if (bossObject != null)
+        {
+            boss = bossObject.transform;
+        }
+        else
+        {
+            Debug.LogWarning("No boss found with tag 'Boss'.");
+        }
+
         lastSpellCastTime = -spellCooldown;  // Set initial cast time to allow immediate first cast
         lastMeleeAttackTime = -meleeCooldown;  // Set initial attack time to allow immediate first attack
         initialPosition = transform.position;  // Store the initial position for strafing
     }
 
+
     void Update()
     {
         if (playerStates.hasPassedBoss)
         {
-
-
 
             //look if player is at correct position
 
@@ -159,7 +171,7 @@ public class SkeletonBoss : MonoBehaviour
         GameObject spell = Instantiate(spellIndex == 0 ? orangeSpellPrefab : blueSpellPrefab, spawnPosition + spawnOffset, Quaternion.identity);
 
         // Initialize the spell with the player's position
-        spell.GetComponent<Spell>().Initialize(player);
+        spell.GetComponent<Spell>().Initialize(player,boss);
     }
 
     void PerformMeleeAttack()

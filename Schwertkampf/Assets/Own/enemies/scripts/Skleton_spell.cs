@@ -5,7 +5,9 @@ using UnityEngine;
 public class Spell : MonoBehaviour
 {
     public float speed = 10f;  // Speed of the spell
-    private Transform target;  // Target to move towards (player or XR Rig)
+    private Transform currentTarget;  // Current target to move towards (player or XR Rig)
+    public Transform playerTarget;  // Player target
+    public Transform enemyTarget;  // Enemy target
     public bool autoDeleteEnabled = false;  // Flag to enable auto deletion
     public float reflectSpeedMultiplier = 1.5f;  // Speed multiplier when spell is reflected
     private bool isReflected = false;  // Flag to track if the spell has been reflected
@@ -17,49 +19,50 @@ public class Spell : MonoBehaviour
             // Enable auto deletion
             Invoke("AutoDelete", 2f);
         }
+        currentTarget = playerTarget; // Set the initial target to the player
     }
 
     void Update()
     {
-        if (target != null && !isReflected)
+        if (currentTarget != null)
         {
-            // Move towards the target
-            Vector3 moveDirection = (target.position - transform.position).normalized;
-            transform.Translate(moveDirection * speed * Time.deltaTime, Space.World);
-        }
-        else if (isReflected)
-        {
-            Debug.Log("HitSpell!");
-            // Move back towards the enemy when reflected
-            Vector3 moveDirection = (target.position - transform.position).normalized;
-            transform.Translate(moveDirection * speed * reflectSpeedMultiplier * Time.deltaTime, Space.World);
+            // Move towards the current target
+            Vector3 moveDirection = (currentTarget.position - transform.position).normalized;
+            float currentSpeed = isReflected ? speed * reflectSpeedMultiplier : speed;
+            transform.Translate(moveDirection * currentSpeed * Time.deltaTime, Space.World);
         }
         else
         {
-            // If target is null (should not happen with current setup)
-            Debug.LogWarning("Spell target is null.");
+            // If current target is null (should not happen with current setup)
+            Debug.LogWarning("Spell current target is null.");
             Destroy(gameObject);
         }
     }
 
-    public void Initialize(Transform newTarget)
+    public void Initialize(Transform newPlayerTarget, Transform newEnemyTarget)
     {
-        target = newTarget;
+        playerTarget = newPlayerTarget;
+        enemyTarget = newEnemyTarget;
+        currentTarget = playerTarget; // Initially target the player
     }
 
     void OnTriggerEnter(Collider other)
     {
         // Example collision logic (destroy spell on impact)
-        if (other.CompareTag("ChestMail")) 
+        if (other.CompareTag("ChestMail"))
         {
             Destroy(gameObject);
-    
+        }
+        else if (other.CompareTag("Player_Sword"))
+        {
+            ReflectSpell();
         }
     }
 
     void ReflectSpell()
     {
         isReflected = true;
+        currentTarget = enemyTarget; // Change target to the enemy when reflected
     }
 
     void AutoDelete()
@@ -68,8 +71,3 @@ public class Spell : MonoBehaviour
         Destroy(gameObject);
     }
 }
-
-
-
-
-

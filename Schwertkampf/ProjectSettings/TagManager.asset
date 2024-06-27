@@ -18,6 +18,7 @@ TagManager:
   - Player_Sword
   - BlueSpell
   - OrangeSpell
+  - Boss
   layers:
   - Default
   - TransparentFX

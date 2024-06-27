@@ -2032,6 +2032,7 @@ Transform:
   - {fileID: 2548449012288782265}
   - {fileID: 7675469527902294636}
   - {fileID: 231149567281579040}
+  - {fileID: 6914964258484218462}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 92.069, z: 0}
 --- !u!95 &5950609595733960397
@@ -2070,6 +2071,7 @@ MonoBehaviour:
   orangeSpellPrefab: {fileID: 6415515185434185187, guid: 0afb3a3bc3b3fdd4f828337f4b8ea2c7, type: 3}
   blueSpellPrefab: {fileID: 3042914401079987679, guid: 89a010c047d2dc64eaba89df9800bd5d, type: 3}
   player: {fileID: 0}
+  boss: {fileID: 0}
   moveSpeed: 2.5
   meleeRange: 2.6
   desiredMeleeDistance: 2
@@ -2082,7 +2084,7 @@ MonoBehaviour:
   rangedElevationHeight: 10
   retreatDistance: 13
   pushBackDistance: 3
-  isInRangedPhase: 0
+  isInRangedPhase: 1
   hasTwoPhases: 1
 --- !u!114 &6549917024932682681
 MonoBehaviour:
@@ -3127,6 +3129,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 882026997667534328}
+  m_Father: {fileID: 2844427942596484993}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7892922219656017478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6914964258484218462}
+  m_Layer: 0
+  m_Name: bosstarget
+  m_TagString: Boss
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6914964258484218462
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7892922219656017478}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.457, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 2844427942596484993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7985773842166731928
