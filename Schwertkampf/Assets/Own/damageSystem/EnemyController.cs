@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField]
     private HealthBar HealthBar;
-
+    private bool hasDied = false;
     private PlayerStates playerStates;
 
     private void Awake()
@@ -30,15 +30,7 @@ public class EnemyController : MonoBehaviour
             HealthBar.Change(-damage);
 
 
-            if(_currentHealth <= 150 && gameObject.GetComponent<SkeletonBoss>() != null)
-            {
-                if (gameObject.GetComponent<SkeletonBoss>().hasTwoPhases)
-                {
-                    gameObject.GetComponent<SkeletonBoss>().isInRangedPhase = true;
-                }
-                
-
-            }
+         
 
 
             if (_currentHealth <= 0)
@@ -66,7 +58,16 @@ public class EnemyController : MonoBehaviour
                 if (gameObject.GetComponent<HeavyEnemy>() != null)
                 {
                     gameObject.GetComponent<SkeletonBoss>().Die();
-                    StartCoroutine(DeathTimer());
+                    if(!hasDied){
+                        StartCoroutine(DeathTimer());
+                    }
+                    else
+                    {
+                        hasDied = true;
+                        _currentHealth = MaxHealth;
+                    }
+
+
                 }
 
             }

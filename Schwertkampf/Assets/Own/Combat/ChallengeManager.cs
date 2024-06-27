@@ -14,7 +14,7 @@ public class ChallengeManager : MonoBehaviour
 		
         // Start the coroutine to periodically challenge enemies
         challengeCoroutine = StartCoroutine(ChallengeEnemyRoutine());
- 	playerStates = GameObject.FindGameObjectWithTag("XROrigin").GetComponent<PlayerStates>();
+ 	    playerStates = GameObject.FindGameObjectWithTag("XROrigin").GetComponent<PlayerStates>();
 	
     }
 

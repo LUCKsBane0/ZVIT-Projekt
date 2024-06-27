@@ -299,7 +299,7 @@ public class SkeletonBoss : MonoBehaviour
         }
     }
 
-    void Revive()
+    public void Revive()
     {
         animator.SetTrigger("TrRevive");
         isInRangedPhase = true;

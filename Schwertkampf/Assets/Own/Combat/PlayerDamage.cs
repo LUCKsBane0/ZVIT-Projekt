@@ -117,7 +117,7 @@ public class PlayerDamage : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
 
-        if (other.CompareTag("EnemySword"))
+        if (other.CompareTag("EnemySword") && playerStates.currentEnemy != null)
         {
             if (playerStates.currentEnemy.GetComponent<MediumEnemy>() != null)
             {
