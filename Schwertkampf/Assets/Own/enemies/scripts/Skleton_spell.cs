@@ -54,7 +54,7 @@ public class Spell : MonoBehaviour
             Destroy(gameObject);
             //damage system
         }
-        else if (other.CompareTag("ReflectSurface"))  // Example tag for surface that can reflect spells
+        else if (other.CompareTag("Player_Sword"))  // Example tag for surface that can reflect spells
         {
             // Reflect the spell
             ReflectSpell();

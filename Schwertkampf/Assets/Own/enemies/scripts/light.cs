@@ -209,6 +209,7 @@ public class LightEnemy : MonoBehaviour
     {
         Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
         directionAwayFromPlayer.y = 0; // Ignore Y axis
+        animator.SetTrigger("TrCancel3"); // Set the cancel trigger if needed
         StartCoroutine(MoveBackOverTime(directionAwayFromPlayer));
     }
 
@@ -219,7 +220,6 @@ public class LightEnemy : MonoBehaviour
         Vector3 startPosition = transform.position;
         Vector3 targetPosition = transform.position + direction * pushBackDistance;
 
-        animator.SetTrigger("TrCancel3"); // Set the cancel trigger if needed
 
         while (elapsedTime < duration)
         {

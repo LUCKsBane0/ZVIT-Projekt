@@ -15,6 +15,7 @@ TagManager:
   - ChallengeHitbox
   - XROrigin
   - ChestMail
+  - Player_Sword
   layers:
   - Default
   - TransparentFX

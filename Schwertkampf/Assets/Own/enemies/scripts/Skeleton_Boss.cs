@@ -8,10 +8,12 @@ public class SkeletonBoss : MonoBehaviour
     public GameObject blueSpellPrefab;    // Prefab for the blue spell
     private string[] spellAnimationTriggers = { "TrLC", "TrRC" };  // Animation triggers for spells
     private string[] meleeAnimationTriggers = { "TrL", "TrR", "TrLR" };  // Animation triggers for melee attacks
+    
 
     public Transform player;  // Reference to the player (XR Rig)
-    public float detectionRange = 30.0f;  // Detection range to trigger spell casting
+    public float moveSpeed = 2.5f;  // Speed at which the enemy moves towards or away from the player   
     public float meleeRange = 3.0f;  // Range to trigger melee attacks
+    public float desiredMeleeDistance = 3.0f;  // Desired distance to maintain from the player in melee mode
     public float spellCooldown = 3.0f;   // Cooldown between spell casts
     public float meleeCooldown = 2.0f;   // Cooldown between melee attacks
     public float strafeSpeed = 2.0f;   // Speed at which the boss strafes left and right
@@ -20,6 +22,7 @@ public class SkeletonBoss : MonoBehaviour
     public float strafePauseDuration = 0.5f;  // Duration of pause between strafes
     public float rangedElevationHeight = 1.0f;  // Height at which the boss hovers in ranged mode
     public float retreatDistance = 13.0f;  // Distance to retreat from the player in ranged mode
+    public float pushBackDistance = 3.0f;  // Distance to push the enemy back from the player
 
     private Animator animator;
     private float lastSpellCastTime;  // Time when the last spell was cast
@@ -45,13 +48,15 @@ public class SkeletonBoss : MonoBehaviour
     {
         if (!isAlive) return;  // Stop updating if the boss is dead
 
+        LookAtPlayer();
+
         // Check distance to player
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
         if (isInRangedPhase)
         {
             // Ranged phase logic: Cast spells if within detection range and cooldown period has passed
-            if (distanceToPlayer <= detectionRange && Time.time - lastSpellCastTime > spellCooldown)
+            if (Time.time - lastSpellCastTime > spellCooldown)
             {
                 CastSpell();
                 lastSpellCastTime = Time.time;  // Update last cast time
@@ -79,6 +84,12 @@ public class SkeletonBoss : MonoBehaviour
                 PerformMeleeAttack();
                 lastMeleeAttackTime = Time.time;  // Update last attack time
             }
+
+            // Maintain desired melee distance
+            if (distanceToPlayer < desiredMeleeDistance)
+            {
+                MaintainMeleeDistance();
+            }
             else if (distanceToPlayer > meleeRange)
             {
                 // Move towards the player if not in melee range
@@ -91,6 +102,14 @@ public class SkeletonBoss : MonoBehaviour
                 Strafe(meleeStrafeDistance);
             }
         }
+    }
+
+    void LookAtPlayer()
+    {
+        Vector3 direction = (player.position - transform.position).normalized;
+        direction.y = 0; // Ignore Y axis
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * moveSpeed);
     }
 
     void CastSpell()
@@ -154,7 +173,7 @@ public class SkeletonBoss : MonoBehaviour
     {
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
         directionToPlayer.y = 0; // Ignore Y axis
-        Vector3 newPosition = transform.position + directionToPlayer * strafeSpeed * Time.deltaTime;
+        Vector3 newPosition = transform.position + directionToPlayer * moveSpeed * Time.deltaTime;
         transform.position = newPosition;
     }
 
@@ -162,7 +181,15 @@ public class SkeletonBoss : MonoBehaviour
     {
         Vector3 directionToPlayer = (transform.position - player.position).normalized;
         directionToPlayer.y = 0; // Ignore Y axis
-        Vector3 newPosition = transform.position + directionToPlayer * strafeSpeed * Time.deltaTime;
+        Vector3 newPosition = transform.position + directionToPlayer * moveSpeed * Time.deltaTime;
+        transform.position = newPosition;
+    }
+
+    void MaintainMeleeDistance()
+    {
+        Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
+        directionAwayFromPlayer.y = 0; // Ignore Y axis
+        Vector3 newPosition = transform.position + directionAwayFromPlayer * moveSpeed * Time.deltaTime;
         transform.position = newPosition;
     }
 
@@ -174,7 +201,7 @@ public class SkeletonBoss : MonoBehaviour
         isStrafingPaused = false;
     }
 
-    void ResetAnimationTriggers()
+    /*void ResetAnimationTriggers()
     {
         // Reset all animation triggers to prevent unintended looping
         foreach (var trigger in spellAnimationTriggers)
@@ -186,7 +213,34 @@ public class SkeletonBoss : MonoBehaviour
         {
             animator.ResetTrigger(trigger);
         }
+    }*/
+
+    public void PushBack()
+    {
+        Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
+        directionAwayFromPlayer.y = 0; // Ignore Y axis
+        animator.SetTrigger("TrCancel"); // Set the cancel trigger if needed
+        StartCoroutine(MoveBackOverTime(directionAwayFromPlayer));
     }
+
+    IEnumerator MoveBackOverTime(Vector3 direction)
+    {
+        float duration = 0.2f; // Duration of the pushback in seconds
+        float elapsedTime = 0f;
+        Vector3 startPosition = transform.position;
+        Vector3 targetPosition = transform.position + direction * pushBackDistance;
+
+
+        while (elapsedTime < duration)
+        {
+            transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = targetPosition;
+    }
+
 
     public void TakeDamage(int amount)
     {
@@ -202,6 +256,8 @@ public class SkeletonBoss : MonoBehaviour
 
     void Die()
     {
+        animator.SetTrigger("TrMoveEndBoss");
+        
         if (!isInRangedPhase)
         {
             animator.SetTrigger("TrDeathMelee");
@@ -219,7 +275,7 @@ public class SkeletonBoss : MonoBehaviour
 
     IEnumerator ReviveAfterDelay()
     {
-        yield return new WaitForSeconds(3.0f); // Adjust delay time as needed
+        yield return new WaitForSeconds(3.0f);
 
         if (hasTwoPhases && !isInRangedPhase)
         {
@@ -247,4 +303,5 @@ public class SkeletonBoss : MonoBehaviour
         transform.position = elevatedPosition;
         isElevated = true;  // Mark the boss as elevated
     }
+    
 }

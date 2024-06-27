@@ -2,26 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeavyEnemy : MonoBehaviour
+public class MediumEnemy : MonoBehaviour
 {
     public Transform player;  // Reference to the player
     public float detectionRange = 30.0f;  // Detection range to engage the player
     public float desiredDistance = 3.0f;  // Desired distance to keep from the player
     public float meleeDistance = 3.5f;    // Melee Range
-    public float meleeCooldown = 2.2f;  // Cooldown between melee attacks MIN 2.2f
+    public float meleeCooldown = 2.0f;  // Cooldown between melee attacks MIN 1.2f
     public float blockCooldown = 5.0f;  // Cooldown between blocks
-    public float blockDuration = 3.0f;  // Duration of the block
-    public float moveSpeed = 2.0f;  // Speed at which the enemy moves towards the player
-    public float strafeSpeed = 1.0f;  // Speed at which the enemy strafes left and right
-    public float strafeDistance = 1.0f;  // Distance the enemy strafes from the center position
-    public float strafePauseDuration = 3.0f;  // Duration of pause between strafes
+    public float blockDuration = 2.0f;  // Duration of the block
+    public float moveSpeed = 2.5f;  // Speed at which the enemy moves towards or away from the player
+    public float strafeSpeed = 2.0f;  // Speed at which the enemy strafes left and right
+    public float strafeDistance = 2.0f;  // Distance the enemy strafes from the center position
+    public float strafePauseDuration = 2.0f;  // Duration of pause between strafes
     public float pushBackDistance = 5.0f;  // Distance to push the enemy back from the player
-
-    private string[] meleeAnimationTriggers = { "TrMelee2", "TrSpin2", "TrReverseHit2" };  // Animation triggers for melee attacks
-    private string blockAnimationTrigger = "TrBlock2";  // Animation trigger for blocking
-    private string combatIdleTrigger = "TrComIdle2";  // Animation trigger for combat idle
-    private string moveTrigger = "TrMove2";  // Animation trigger for moving
-    private string moveEndTrigger = "TrMoveEnd2";  // Animation trigger for stopping moving
+    private string[] meleeAnimationTriggers = { "TrMelee", "TrSpin", "TrPunch" };  // Animation triggers for melee attacks
+    private string blockAnimationTrigger = "TrBlock";  // Animation trigger for blocking
+    private string combatIdleTrigger = "TrComIdle";  // Animation trigger for combat idle
+    private string moveTrigger = "TrMove";  // Animation trigger for moving
+    private string moveEndTrigger = "TrMoveEnd";  // Animation trigger for stopping moving
 
     private Animator animator;
     private float lastMeleeAttackTime;  // Time when the last melee attack was made
@@ -41,11 +40,12 @@ public class HeavyEnemy : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        playerStates = GameObject.FindGameObjectWithTag("XROrigin").GetComponent<PlayerStates>();
         player = GameObject.FindGameObjectWithTag("Player").transform;  // Find the player by tag
         lastMeleeAttackTime = -meleeCooldown;  // Set initial attack time to allow immediate first attack
         lastBlockTime = -blockCooldown;  // Set initial block time to allow immediate first block
         initialPosition = transform.position;  // Store the initial position for strafing
+        playerStates = GameObject.FindGameObjectWithTag("XROrigin").GetComponent<PlayerStates>();
+
     }
 
     void Update()
@@ -106,18 +106,7 @@ public class HeavyEnemy : MonoBehaviour
         animator.SetTrigger(selectedTrigger);
 
         // Waiting time depending on animation
-        if (attackIndex == 2)
-        {
-            yield return new WaitForSeconds(1.5f);
-        }
-        else if (attackIndex == 1)
-        {
-            yield return new WaitForSeconds(1.5f);
-        }
-        else if (attackIndex == 0)
-        {
-            yield return new WaitForSeconds(2.0f);
-        }
+        yield return new WaitForSeconds(1.0f);
 
         isAttacking = false;
         stateController.isAttacking = false;
@@ -125,8 +114,8 @@ public class HeavyEnemy : MonoBehaviour
 
     IEnumerator PerformBlock()
     {
-        isBlocking = true;
         stateController.isBlocking = true;
+        isBlocking = true;
         animator.SetTrigger(blockAnimationTrigger);
 
         // Wait for the duration of the block
@@ -134,8 +123,7 @@ public class HeavyEnemy : MonoBehaviour
 
         isBlocking = false;
         stateController.isBlocking = false;
-        animator.SetTrigger(combatIdleTrigger);  // Transition back to combat idle
-        Debug.Log("Block finished, returning to combat idle.");
+        animator.SetTrigger(combatIdleTrigger); // Transition back to combat idle
     }
 
     void Strafe(float strafeDistance)
@@ -156,7 +144,7 @@ public class HeavyEnemy : MonoBehaviour
     void MaintainDistanceFromPlayer(float distanceToPlayer)
     {
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
-        directionToPlayer.y = 0;  // Ignore Y axis
+        directionToPlayer.y = 0; // Ignore Y axis
 
         if (distanceToPlayer > desiredDistance)
         {
@@ -177,7 +165,7 @@ public class HeavyEnemy : MonoBehaviour
     void LookAtPlayer()
     {
         Vector3 direction = (player.position - transform.position).normalized;
-        direction.y = 0;  // Ignore Y axis
+        direction.y = 0; // Ignore Y axis
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * moveSpeed);
     }
@@ -193,25 +181,25 @@ public class HeavyEnemy : MonoBehaviour
     public void TakeDamage()
     {
         // Handle taking damage normally
-        animator.SetTrigger("TrGetHit2");
+        animator.SetTrigger("TrGetHit");
         Debug.Log("Took damage!");
     }
 
     public void PushBack()
     {
         Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
-        directionAwayFromPlayer.y = 0;  // Ignore Y axis
+        directionAwayFromPlayer.y = 0; // Ignore Y axis
+        animator.SetTrigger("TrCancel"); // Set the cancel trigger if needed
         StartCoroutine(MoveBackOverTime(directionAwayFromPlayer));
     }
 
     IEnumerator MoveBackOverTime(Vector3 direction)
     {
-        float duration = 0.2f;  // Duration of the pushback in seconds
+        float duration = 0.2f; // Duration of the pushback in seconds
         float elapsedTime = 0f;
         Vector3 startPosition = transform.position;
         Vector3 targetPosition = transform.position + direction * pushBackDistance;
 
-        animator.SetTrigger("TrCancel2");  // Set the cancel trigger if needed
 
         while (elapsedTime < duration)
         {
@@ -227,7 +215,7 @@ public class HeavyEnemy : MonoBehaviour
 
     public void Die()
     {
-        animator.SetTrigger("TrDeath2");
+        animator.SetTrigger("TrDeath");
         isAlive = false;  // Mark the enemy as dead
         ExitCombat();
         playerStates.currentEnemy = null;
@@ -237,18 +225,17 @@ public class HeavyEnemy : MonoBehaviour
     {
         isInCombat = true;
         stateController.inCombat = true;
-        animator.SetTrigger("TrCombat2");
-        animator.SetTrigger("TrCombatMove2");
+        animator.SetTrigger("TrCombat");
+        animator.SetTrigger("TrCombatMove");
     }
 
     public void ExitCombat()
     {
         isInCombat = false;
         stateController.inCombat = false;
-        StopMoving();
     }
 
-    private void StartMoving()
+    void StartMoving()
     {
         if (!isMoving)
         {
@@ -257,7 +244,7 @@ public class HeavyEnemy : MonoBehaviour
         }
     }
 
-    private void StopMoving()
+    void StopMoving()
     {
         if (isMoving)
         {
