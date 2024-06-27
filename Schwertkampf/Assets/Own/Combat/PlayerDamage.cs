@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerDamage : MonoBehaviour
@@ -97,6 +98,8 @@ public class PlayerDamage : MonoBehaviour
         SoundEffectsManager.instance.PlayDyingSound();
         StartCoroutine(HandleDeath());
         hasDied = true;
+        string currentLevel = SceneManager.GetActiveScene().name;
+        LevelManager.instance.SetLastLevel(currentLevel);
         sceneLoader.ChangeScene("GameOver");
         SoundEffectsManager.instance.PlayGameOverSound();
     }
