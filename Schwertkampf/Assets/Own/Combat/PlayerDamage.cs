@@ -164,7 +164,7 @@ public class PlayerDamage : MonoBehaviour
         canvasScaler.dynamicPixelsPerUnit = 10f;
 
         RectTransform rectTransform = canvas.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(4000, 4000); // Adjust size to fit your needs
+        rectTransform.sizeDelta = new Vector2(10, 10); // Adjust size to fit your needs
         rectTransform.SetParent(cameraTransform, false);
         rectTransform.localPosition = new Vector3(0, 0, 0.5f); // Adjust position to be in front of the camera
 
