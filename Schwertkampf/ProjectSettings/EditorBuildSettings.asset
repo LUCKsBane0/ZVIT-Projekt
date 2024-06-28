@@ -35,12 +35,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/BasicScene.unity
     guid: 4e9fef26e6adb88479ad1b9834a32d94
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/testScene.unity
     guid: 5100045c8ee2f7a4e8080969569ef7dc
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
-    guid: 60c49c4e73b68ba4a8f32a25646d192e
+    guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/Scenes/LevelCompleted.unity
     guid: 025101a1681d2464898998acf6c3a25c
