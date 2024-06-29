@@ -27,7 +27,7 @@ public class LightEnemy : MonoBehaviour
     private float lastMeleeAttackTime;  // Time when the last melee attack was made
     private float lastBlockTime;  // Time when the last block was made
     private bool isBlocking = false;  // Indicates if the enemy is currently blocking
-    private bool isAlive = true;  // Indicates if the enemy is alive
+    public bool isAlive = true;  // Indicates if the enemy is alive
     private bool isAttacking = false; // Indicates if enemy is in attacking animation
     private bool isInCombat = false;  // Indicates if the enemy is in combat
     private bool isStrafingRight = true;  // Indicates the current strafe direction

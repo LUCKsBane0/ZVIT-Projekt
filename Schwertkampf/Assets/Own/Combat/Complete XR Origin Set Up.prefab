@@ -284,7 +284,7 @@ Transform:
   m_GameObject: {fileID: 6054286747150971045}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -675,13 +675,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8918754095277377660}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cb737a4474383842a87e7537f361c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   waypointManager: {fileID: 0}
-  speed: 2
+  speed: 1
   reachThreshold: 0.1
 --- !u!114 &4475838457649274218
 MonoBehaviour:

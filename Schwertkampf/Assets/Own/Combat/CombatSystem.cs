@@ -85,9 +85,11 @@ public class CombatSystem : MonoBehaviour
     {
         if (stateController != null)
         {
+            Debug.Log(other);
 
             if (other.CompareTag("EnemySword") && stateController.isAttacking)
             {
+                
                 PushBackEnemy();
                 TriggerHapticFeedback();
                 Debug.Log("Blocken");
@@ -155,31 +157,35 @@ public class CombatSystem : MonoBehaviour
         Debug.Log("Successful Hit!");
         enemyController.TakeDamage(10);
         SoundEffectsManager.instance.PlayHitSound();
+        if(playerStates.currentEnemy != null)
+        {
+            if (playerStates.currentEnemy.GetComponent<MediumEnemy>() != null)
+            {
+                playerStates.currentEnemy.GetComponent<MediumEnemy>().TakeDamage();
+            }
+            if (playerStates.currentEnemy.GetComponent<LightEnemy>() != null)
+            {
+                playerStates.currentEnemy.GetComponent<LightEnemy>().TakeDamage();
+            }
+            if (playerStates.currentEnemy.GetComponent<HeavyEnemy>() != null)
+            {
+                playerStates.currentEnemy.GetComponent<HeavyEnemy>().TakeDamage();
+            }
+            if (playerStates.currentEnemy.GetComponent<TutorialEnemy>() != null)
+            {
+                playerStates.currentEnemy.GetComponent<TutorialEnemy>().TakeDamage();
+                enemyController.TakeDamage(40);
+            }
+            if (playerStates.currentEnemy.GetComponent<SkeletonBoss>() != null)
+            {
+                playerStates.currentEnemy.GetComponent<SkeletonBoss>().TakeDamage();
+            }
+            StartCoroutine(HitCooldown());
+            lastHitPosition = swordTip.position;
+            lastHitEnemy = playerStates.currentEnemy;
 
-        if (playerStates.currentEnemy.GetComponent<MediumEnemy>() != null)
-        {
-            playerStates.currentEnemy.GetComponent<MediumEnemy>().TakeDamage();
         }
-        if (playerStates.currentEnemy.GetComponent<LightEnemy>() != null)
-        {
-            playerStates.currentEnemy.GetComponent<LightEnemy>().TakeDamage();
-        }
-        if (playerStates.currentEnemy.GetComponent<HeavyEnemy>() != null)
-        {
-            playerStates.currentEnemy.GetComponent<HeavyEnemy>().TakeDamage();
-        }
-		if (playerStates.currentEnemy.GetComponent<TutorialEnemy>() != null)
-        {
-            playerStates.currentEnemy.GetComponent<TutorialEnemy>().TakeDamage();
-			enemyController.TakeDamage(40);
-        }
-        if (playerStates.currentEnemy.GetComponent<SkeletonBoss>() != null)
-        {
-            playerStates.currentEnemy.GetComponent<SkeletonBoss>().TakeDamage();
-        }
-        StartCoroutine(HitCooldown());
-        lastHitPosition = swordTip.position;
-        lastHitEnemy = other.transform.parent.gameObject;
+       
     }
 
     void PushBackEnemy()

@@ -109,7 +109,7 @@ public class SkeletonBoss : MonoBehaviour
                 // Melee phase logic: Perform melee attack if within melee range and cooldown period has passed
                 if (distanceToPlayer <= meleeRange && Time.time - lastMeleeAttackTime > meleeCooldown)
                 {
-                    PerformMeleeAttack();
+                    StartCoroutine(PerformMeleeAttack());
                     lastMeleeAttackTime = Time.time;  // Update last attack time
                 }
 
@@ -175,14 +175,17 @@ public class SkeletonBoss : MonoBehaviour
         spell.GetComponent<Spell>().Initialize(player,boss);
     }
 
-    void PerformMeleeAttack()
+    IEnumerator PerformMeleeAttack()
     {
         // Select a random melee attack index
         int attackIndex = Random.Range(0, meleeAnimationTriggers.Length);
-
+        gameObject.GetComponent<StateController>().isAttacking = true;
         // Trigger the corresponding animation immediately
         string selectedTrigger = meleeAnimationTriggers[attackIndex];
         animator.SetTrigger(selectedTrigger);
+        yield return new WaitForSeconds(1.0f);
+        gameObject.GetComponent<StateController>().isAttacking = false;
+
     }
 
     void Strafe(float strafeDistance)

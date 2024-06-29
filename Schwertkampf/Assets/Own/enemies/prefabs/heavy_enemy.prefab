@@ -1887,9 +1887,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.12
-  m_Height: 2.3628895
+  m_Height: 1.5
   m_Direction: 1
-  m_Center: {x: -0.000000053134787, y: 0.4795645, z: 0.000000028584257}
+  m_Center: {x: -0.000000053134787, y: 0.9, z: 0.000000028584257}
 --- !u!136 &51518885468633726
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1910,9 +1910,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.14
-  m_Height: 2.3628895
+  m_Height: 1.5
   m_Direction: 1
-  m_Center: {x: -0.000000053134787, y: 0.4795645, z: 0.000000028584257}
+  m_Center: {x: -0.000000053134787, y: 0.9, z: 0.000000028584257}
 --- !u!54 &119177345859122741
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2207,6 +2207,7 @@ GameObject:
   - component: {fileID: 3559001347141361580}
   - component: {fileID: 4043608196475029769}
   - component: {fileID: 7065163361338948317}
+  - component: {fileID: 4641475873586622048}
   m_Layer: 0
   m_Name: heavy_enemy
   m_TagString: Enemy
@@ -2294,7 +2295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   detectionRange: 30
-  desiredDistance: 2.2
+  desiredDistance: 2
   meleeDistance: 3.5
   meleeCooldown: 2.2
   blockCooldown: 7
@@ -2304,6 +2305,7 @@ MonoBehaviour:
   strafeDistance: 1
   strafePauseDuration: 3
   pushBackDistance: 2
+  isAlive: 1
   stateController: {fileID: 4043608196475029769}
 --- !u!114 &4043608196475029769
 MonoBehaviour:
@@ -2337,6 +2339,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 100
   HealthBar: {fileID: 3260307986786531002}
+--- !u!65 &4641475873586622048
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2856228317457634055}
+  m_Material: {fileID: 13400000, guid: 10bde48ef542d6a4fbee12145283824a, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.42, y: 1.83, z: 0.27}
+  m_Center: {x: -0.01558369, y: 0.9406619, z: -0.034534406}
 --- !u!1 &3022242005683168582
 GameObject:
   m_ObjectHideFlags: 0

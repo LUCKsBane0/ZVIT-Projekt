@@ -19,6 +19,8 @@ TagManager:
   - BlueSpell
   - OrangeSpell
   - Boss
+  - BossTrigger
+  - ChallengeManager
   layers:
   - Default
   - TransparentFX

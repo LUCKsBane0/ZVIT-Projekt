@@ -159,8 +159,8 @@ QualitySettings:
     excludedTargetPlatforms:
     - Android
     - Server
-    - Standalone
     - Windows Store Apps
+    - Standalone
   - serializedVersion: 3
     name: High
     pixelLightCount: 2
@@ -318,6 +318,8 @@ QualitySettings:
     excludedTargetPlatforms:
     - Android
     - Server
+    - Standalone
+    - Windows Store Apps
   m_TextureMipmapLimitGroupNames: []
   m_PerPlatformDefaultQuality:
     Android: 0
@@ -329,9 +331,9 @@ QualitySettings:
     PSP2: 2
     Server: 0
     Stadia: 5
-    Standalone: 5
+    Standalone: 0
     WebGL: 3
-    Windows Store Apps: 5
+    Windows Store Apps: 0
     XboxOne: 5
     iPhone: 2
     tvOS: 2

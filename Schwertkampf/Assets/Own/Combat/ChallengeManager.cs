@@ -34,11 +34,26 @@ public class ChallengeManager : MonoBehaviour
         // Remove enemies that are no longer valid
         for (int i = enemies.Count - 1; i >= 0; i--)
         {
-            if (enemies[i] == null)
+            if(enemies.Count != 0)
             {
-                enemies.RemoveAt(i);
-                enemyTimestamps.RemoveAt(i);
+                if (enemies[i].GetComponent<MediumEnemy>() != null && !enemies[i].GetComponent<MediumEnemy>().isAlive)
+                {
+                    enemies.RemoveAt(i);
+                    enemyTimestamps.RemoveAt(i);
+                }
+                if (enemies[i].GetComponent<LightEnemy>() != null && !enemies[i].GetComponent<LightEnemy>().isAlive)
+                {
+                    enemies.RemoveAt(i);
+                    enemyTimestamps.RemoveAt(i);
+                }
+                if (enemies[i].GetComponent<HeavyEnemy>() != null && !enemies[i].GetComponent<HeavyEnemy>().isAlive)
+                {
+                    enemies.RemoveAt(i);
+                    enemyTimestamps.RemoveAt(i);
+                }
             }
+           
+
         }
     }
 
@@ -95,6 +110,7 @@ public class ChallengeManager : MonoBehaviour
                 {
                     // Challenge the enemy with the lowest timestamp
                     Challenge(enemies[minIndex]);
+                    playerStates.currentEnemy.transform.Find("ChallengeHitbox").GetComponent<BoxCollider>().enabled = false;
 
                     // Remove the challenged enemy and its timestamp from the lists
                     enemies.RemoveAt(minIndex);

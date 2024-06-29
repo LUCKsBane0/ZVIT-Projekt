@@ -4297,7 +4297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   detectionRange: 30
-  desiredDistance: 2.3
+  desiredDistance: 1.7
   meleeDistance: 3.5
   meleeCooldown: 1.5
   blockCooldown: 5
@@ -4307,6 +4307,7 @@ MonoBehaviour:
   strafeDistance: 2
   strafePauseDuration: 2
   pushBackDistance: 2
+  isAlive: 1
   stateController: {fileID: 8136952929352552739}
 --- !u!114 &8136952929352552739
 MonoBehaviour:

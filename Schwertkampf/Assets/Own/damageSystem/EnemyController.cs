@@ -47,7 +47,7 @@ public class EnemyController : MonoBehaviour
             if (_currentHealth <= 0)
             {
                 playerStates.inCombat = false;
-                GameObject chestMail = GameObject.Find("ChestMail");
+                GameObject chestMail = GameObject.Find("ChallengeManager");
                 chestMail.GetComponent<SphereCollider>().enabled = true;
 
                 if (gameObject.GetComponent<MediumEnemy>() != null)
@@ -66,23 +66,28 @@ public class EnemyController : MonoBehaviour
                     StartCoroutine(DeathTimer());
                 }
 
-                if (gameObject.GetComponent<HeavyEnemy>() != null)
+                if (gameObject.GetComponent<SkeletonBoss>() != null)
                 {
-                    if (gameObject.GetComponent<SkeletonBoss>().hasTwoPhases)
+                    if (gameObject.GetComponent<SkeletonBoss>().hasTwoPhases && !hasDied)
                     {
+                        gameObject.GetComponent<SkeletonBoss>().Die();
                         hasDied = true;
+                        _currentHealth = MaxHealth;
                     }
-                    gameObject.GetComponent<SkeletonBoss>().Die();
-                    if(hasDied){
+                    else if (!gameObject.GetComponent<SkeletonBoss>().hasTwoPhases)
+                    {
                         StartCoroutine(DeathTimer());
                         sceneLoader.ChangeScene("LevelCompleted");
                         SoundEffectsManager.instance.PlaySuccessSound();
                     }
-                    else
+                    else if (hasDied)
                     {
-                        hasDied = true;
-                        _currentHealth = MaxHealth;
+                        StartCoroutine(DeathTimer());
+                        sceneLoader.ChangeScene("LevelCompleted");
+                        SoundEffectsManager.instance.PlaySuccessSound();
                     }
+                    
+                    
 
 
                 }

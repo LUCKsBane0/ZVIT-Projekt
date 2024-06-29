@@ -3,9 +3,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 public class PlayerDamage : MonoBehaviour
 {
-    public int HealthPoints = 100;
+    public int HealthPoints = 1000;
     public Material handMaterial; // Reference to the hand material
     public Image vignetteImage; // Reference to the vignette image
 
@@ -13,8 +14,9 @@ public class PlayerDamage : MonoBehaviour
     private Color originalColor;
     private Vector3 initialSpawnPosition;
     private Transform cameraTransform;
-    
+    private bool canBeHit = true;
     private bool hasDied = false;
+    public float hitCoolDown = 0.8f;
     private SceneChanger sceneLoader;
 
     void Start()
@@ -119,8 +121,9 @@ public class PlayerDamage : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
 
-        if (other.CompareTag("EnemySword") && playerStates.currentEnemy != null)
+        if (other.CompareTag("EnemySword") && playerStates.currentEnemy != null && canBeHit && playerStates.currentEnemy.GetComponent<StateController>().isAttacking)
         {
+            StartCoroutine(hitTimer());
             if (playerStates.currentEnemy.GetComponent<MediumEnemy>() != null)
             {
                 Debug.Log("Taking Damage");
@@ -251,5 +254,11 @@ public class PlayerDamage : MonoBehaviour
 
         // Ensure the vignette is fully transparent
         vignetteImage.color = new Color(vignetteImage.color.r, vignetteImage.color.g, vignetteImage.color.b, 0);
+    }
+    IEnumerator hitTimer()
+    {
+        canBeHit = false;
+        yield return new WaitForSeconds(hitCoolDown);
+        canBeHit = true;
     }
 }

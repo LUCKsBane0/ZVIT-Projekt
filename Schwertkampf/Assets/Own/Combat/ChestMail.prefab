@@ -1449,6 +1449,59 @@ Transform:
   - {fileID: 6834756399031699715}
   m_Father: {fileID: 3844283131187674965}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3801530989510252219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2733985336312999377}
+  - component: {fileID: 2515652920293175272}
+  m_Layer: 0
+  m_Name: BossTrigger
+  m_TagString: BossTrigger
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2733985336312999377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3801530989510252219}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7814675800975657681}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2515652920293175272
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3801530989510252219}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.2, y: 0.2, z: 0.2}
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!1 &4029393795364139881
 GameObject:
   m_ObjectHideFlags: 0
@@ -1997,6 +2050,7 @@ Transform:
   - {fileID: 3931380821787871672}
   - {fileID: 2103386236309592173}
   - {fileID: 7936365902069723556}
+  - {fileID: 2733985336312999377}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8181346622206745856
@@ -2047,9 +2101,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d2c4c1e7d2d8046aedd797fd46952c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthPoints: 100
+  HealthPoints: 1000
   handMaterial: {fileID: 2100000, guid: 1eed0e546b0063242b1e5bfc8b9fdffd, type: 2}
   vignetteImage: {fileID: 0}
+  hitCoolDown: 0.8
 --- !u!65 &1073386101703485857
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2069,8 +2124,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.4, y: 0.7, z: 0.3}
-  m_Center: {x: 0, y: 1.4, z: 0}
+  m_Size: {x: 0.4, y: 0.7, z: 0.2}
+  m_Center: {x: 0, y: 1.4, z: -0.1}
 --- !u!54 &7568335584165735406
 Rigidbody:
   m_ObjectHideFlags: 0

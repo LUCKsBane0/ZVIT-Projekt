@@ -224,8 +224,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swordTip: {fileID: 1612800146994866626}
   arrowPrefab: {fileID: 2613462060424995206, guid: 101a8868c1adc5b40bdaf7526f47b7b5, type: 3}
-  cooldownTime: 1
-  minDistanceToRehit: 1
+  cooldownTime: 0.8
+  minDistanceToRehit: 0.5
   arrowDespawnTime: 1.5
   arrowMoveSpeed: 5
   rightHandController: {fileID: 0}

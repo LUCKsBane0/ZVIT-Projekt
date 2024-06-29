@@ -28,7 +28,7 @@ public class HeavyEnemy : MonoBehaviour
     private float lastBlockTime;  // Time when the last block was made
     private bool isBlocking = false;  // Indicates if the enemy is currently blocking
     private bool isAttacking = false;  // Indicates if the enemy is in attacking animation
-    private bool isAlive = true;  // Indicates if the enemy is alive
+    public bool isAlive = true;  // Indicates if the enemy is alive
     private bool isInCombat = false;  // Indicates if the enemy is in combat
     private bool isStrafingRight = true;  // Indicates the current strafe direction
     private bool isStrafingPaused = false;  // Indicates if strafing is currently paused

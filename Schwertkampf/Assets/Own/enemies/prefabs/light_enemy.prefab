@@ -4300,6 +4300,7 @@ GameObject:
   - component: {fileID: 7919095636373611326}
   - component: {fileID: 1274314200166203545}
   - component: {fileID: 4166644789353981279}
+  - component: {fileID: 4021348187353171501}
   m_Layer: 0
   m_Name: light_enemy
   m_TagString: Enemy
@@ -4387,7 +4388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   detectionRange: 30
-  desiredDistance: 2
+  desiredDistance: 1.6
   meleeDistance: 3.5
   meleeCooldown: 2
   blockCooldown: 5
@@ -4397,6 +4398,7 @@ MonoBehaviour:
   strafeDistance: 2
   pushBackDistance: 2
   strafePauseDuration: 3
+  isAlive: 1
   stateController: {fileID: 1274314200166203545}
 --- !u!114 &1274314200166203545
 MonoBehaviour:
@@ -4430,6 +4432,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 100
   HealthBar: {fileID: 5941053251727982103}
+--- !u!65 &4021348187353171501
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320005857318849134}
+  m_Material: {fileID: 13400000, guid: 10bde48ef542d6a4fbee12145283824a, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.33, y: 1.85, z: 0.27}
+  m_Center: {x: -0.009419312, y: 0.86885685, z: -0.034534417}
 --- !u!1 &7348576692626418327
 GameObject:
   m_ObjectHideFlags: 0

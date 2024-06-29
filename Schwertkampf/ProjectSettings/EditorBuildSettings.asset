@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/About.unity
     guid: 0335c0e42f30f254a90350850aee5ff3
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainMenuOld.unity
     guid: 513beca0d5367384d8ca2585e9f292f8
   - enabled: 1
@@ -32,10 +32,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/AboutOld.unity
     guid: cc6aa05175b3c744eb01758a3cdbc332
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/BasicScene.unity
     guid: 4e9fef26e6adb88479ad1b9834a32d94
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/testScene.unity
     guid: 5100045c8ee2f7a4e8080969569ef7dc
   - enabled: 1
