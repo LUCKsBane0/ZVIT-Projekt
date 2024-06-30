@@ -143,16 +143,20 @@ public class SkeletonBoss : MonoBehaviour
 
     void CastSpell()
     {
-        // Select a random spell index
-        int spellIndex = Random.Range(0, spellAnimationTriggers.Length);
+        if (isElevated)
+        {
 
-        // Trigger the corresponding animation immediately
-        string selectedTrigger = spellAnimationTriggers[spellIndex];
-        animator.SetTrigger(selectedTrigger);
+            // Select a random spell index
+            int spellIndex = Random.Range(0, spellAnimationTriggers.Length);
 
-        // Delay before spawning the spell (adjust the delay time as needed)
-        float delayTime = 0.3f; // Example delay time in seconds
-        StartCoroutine(SpawnSpellAfterDelay(spellIndex, delayTime));
+            // Trigger the corresponding animation immediately
+            string selectedTrigger = spellAnimationTriggers[spellIndex];
+            animator.SetTrigger(selectedTrigger);
+
+            // Delay before spawning the spell (adjust the delay time as needed)
+            float delayTime = 0.3f; // Example delay time in seconds
+            StartCoroutine(SpawnSpellAfterDelay(spellIndex, delayTime));
+        }
     }
 
     IEnumerator SpawnSpellAfterDelay(int spellIndex, float delayTime)
@@ -324,12 +328,13 @@ public class SkeletonBoss : MonoBehaviour
         // Elevate the boss when reviving in ranged mode
         if (!isElevated)
         {
-            ElevateBoss();
+            StartCoroutine(ElevateBoss());
         }
     }
 
-    void ElevateBoss()
+    IEnumerator ElevateBoss()
     {
+        yield return new WaitForSeconds(1.2f);
         Vector3 elevatedPosition = transform.position;
         elevatedPosition.y += rangedElevationHeight;
         transform.position = elevatedPosition;

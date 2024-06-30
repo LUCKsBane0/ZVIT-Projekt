@@ -2082,8 +2082,8 @@ MonoBehaviour:
   meleeStrafeDistance: 2
   rangedStrafeDistance: 10
   strafePauseDuration: 5
-  rangedElevationHeight: 10
-  retreatDistance: 13
+  rangedElevationHeight: 5
+  retreatDistance: 16
   pushBackDistance: 3
   isInRangedPhase: 0
   hasTwoPhases: 1
@@ -2138,7 +2138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e7f93282a3bc5c48935e912a12c56a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
+  MaxHealth: 30
   HealthBar: {fileID: 2843852841593743606}
 --- !u!65 &7243277047420920506
 BoxCollider:
