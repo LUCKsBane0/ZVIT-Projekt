@@ -29,12 +29,13 @@ public class TutorialEnemy : MonoBehaviour
     private bool isAlive = true;  // Indicates if the enemy is alive
     private bool isInCombat = false;  // Indicates if the enemy is in combat
     private bool isMoving = false;  // Indicates if the enemy is moving
-
+	public TutorialManager tutorialManager;
     public StateController stateController;
     private PlayerStates playerStates;
 
     void Start()
     {
+		tutorialManager = GameObject.FindGameObjectWithTag("TutorialManager").GetComponent<TutorialManager>();
         animator = GetComponent<Animator>();
 		playerStates = GameObject.FindGameObjectWithTag("XROrigin").GetComponent<PlayerStates>();
         player = GameObject.FindGameObjectWithTag("Player").transform;  // Find the player by tag
@@ -55,6 +56,7 @@ public class TutorialEnemy : MonoBehaviour
         if (succesfullBlockCount >= 2)
         {
             BlocksDone = true;
+			tutorialManager.hasBlocked = true;
         }
 
         if (distanceToPlayer <= detectionRange)
@@ -146,6 +148,7 @@ public class TutorialEnemy : MonoBehaviour
     public void TakeDamage()
     {
         // Handle taking damage normally
+        tutorialManager.hasAttacked = true;
         animator.SetTrigger("TrGetHit4");
         Debug.Log("Took damage!");
     }
@@ -195,6 +198,7 @@ public class TutorialEnemy : MonoBehaviour
     {
         isInCombat = true;
         stateController.inCombat = true;
+		tutorialManager.hasChallenged = true;
         animator.SetTrigger("TrCombat4");
         animator.SetTrigger("TrCombatMove4");
     }

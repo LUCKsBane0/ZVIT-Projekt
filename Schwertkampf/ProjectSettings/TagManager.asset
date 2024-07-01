@@ -21,6 +21,8 @@ TagManager:
   - Boss
   - BossTrigger
   - ChallengeManager
+  - Anchor
+  - TutorialManager
   layers:
   - Default
   - TransparentFX
