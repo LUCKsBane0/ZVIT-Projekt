@@ -65,6 +65,11 @@ public class EnemyController : MonoBehaviour
                     gameObject.GetComponent<HeavyEnemy>().Die();
                     StartCoroutine(DeathTimer());
                 }
+                if (gameObject.GetComponent<TutorialEnemy>() != null)
+                {
+                    gameObject.GetComponent<TutorialEnemy>().Die();
+                    StartCoroutine(DeathTimer());
+                }
 
                 if (gameObject.GetComponent<SkeletonBoss>() != null)
                 {
