@@ -192,6 +192,7 @@ public class TutorialEnemy : MonoBehaviour
         isAlive = false;  // Mark the enemy as dead
         ExitCombat();
         playerStates.currentEnemy = null;
+        GameObject.Find("SceneManagement").GetComponent<SceneChanger>().ChangeScene("MainMenu");
     }
 
     public void EnterCombat()
