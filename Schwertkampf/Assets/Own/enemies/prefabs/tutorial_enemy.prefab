@@ -2601,7 +2601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   detectionRange: 30
-  desiredDistance: 3
+  desiredDistance: 1.7
   meleeDistance: 3.5
   meleeCooldown: 2
   blockCooldown: 5
@@ -2609,6 +2609,7 @@ MonoBehaviour:
   moveSpeed: 2.5
   pushBackDistance: 5
   BlocksDone: 0
+  tutorialManager: {fileID: 0}
   stateController: {fileID: 3504994675387852107}
 --- !u!1 &4590121326728366036
 GameObject:
