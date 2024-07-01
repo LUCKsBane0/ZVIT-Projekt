@@ -32,7 +32,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/AboutOld.unity
     guid: cc6aa05175b3c744eb01758a3cdbc332
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BasicScene.unity
     guid: 4e9fef26e6adb88479ad1b9834a32d94
   - enabled: 0
