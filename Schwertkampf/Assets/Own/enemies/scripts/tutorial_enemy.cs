@@ -53,7 +53,7 @@ public class TutorialEnemy : MonoBehaviour
         // Make the enemy look at the player
         LookAtPlayer();
 
-        if (succesfullBlockCount > 2)
+        if (succesfullBlockCount > 3)
         {
             BlocksDone = true;
 			tutorialManager.hasBlocked = true;
