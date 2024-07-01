@@ -2,3 +2,4 @@
 Schwertkampf/Library/ArtifactDB filter=lfs diff=lfs merge=lfs -text
 Schwertkampf/Library/PackageCache/com.unity.burst@1.8.13/.Runtime/libburst-llvm-16.dylib filter=lfs diff=lfs merge=lfs -text
 AbschlussPräsentation.pptx filter=lfs diff=lfs merge=lfs -text
+Valiant_Steel_presentation.apk filter=lfs diff=lfs merge=lfs -text
