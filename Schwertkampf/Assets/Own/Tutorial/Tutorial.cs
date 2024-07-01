@@ -100,9 +100,10 @@ public class TutorialManager : MonoBehaviour
     }
 
     IEnumerator PlayVideo(VideoClip clip)
-    {
+    {	
         videoPlayer.clip = clip;
         videoPlayer.Play();
+        videoPlayer.isLooping = true;
         yield return new WaitForSeconds((float)clip.length);
         videoPlayer.Stop();
     }
