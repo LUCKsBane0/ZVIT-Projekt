@@ -28,9 +28,16 @@ public class SoundEffectsManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        LoadVolume();
     }
 
-    public void SetVolume(float volume)
+private void LoadVolume()
+{
+    float volume = PlayerPrefs.GetFloat("soundEffectsVolume", 1); // Standardwert ist 1
+    SetVolume(volume);
+}
+
+public void SetVolume(float volume)
     {
         footstepAudioSource.volume = volume;
         hitAudioSource.volume = volume;
@@ -43,11 +50,6 @@ public class SoundEffectsManager : MonoBehaviour
     private void PlaySound(AudioSource audioSource)
     {
         audioSource.Play();
-
-        /*if (audioSource != null && !audioSource.isPlaying)
-        {
-            audioSource.Play();
-        }*/
     }
 
     public void PlayFootstepSound()
