@@ -2294,7 +2294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  detectionRange: 30
+  detectionRange: 80
   desiredDistance: 1.8
   meleeDistance: 3.5
   meleeCooldown: 2.2
