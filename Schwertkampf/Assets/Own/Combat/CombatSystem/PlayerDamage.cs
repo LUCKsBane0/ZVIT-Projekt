@@ -88,7 +88,8 @@ public class PlayerDamage : MonoBehaviour
         }
     }
 
-    void Die()
+    /* deprecated
+    void Die()  
     {
         if (!hasDied)
         {
@@ -103,7 +104,18 @@ public class PlayerDamage : MonoBehaviour
         string currentLevel = SceneManager.GetActiveScene().name;
         LevelManager.instance.SetLastLevel(currentLevel);
         sceneLoader.ChangeScene("GameOver");
+    }*/
+
+    void Die()
+    {
+        if (!hasDied)
+        {
+            SoundEffectsManager.instance.PlayDyingSound();
+            StartCoroutine(HandleDeath());
+            hasDied = true;
+        }
     }
+
 
     void UpdateHandColor()
     {
@@ -237,6 +249,19 @@ public class PlayerDamage : MonoBehaviour
         // Ensure the screen is fully black
         vignetteImage.color = new Color(0, 0, 0, 1);
 
+
+        string currentLevel = SceneManager.GetActiveScene().name;
+        LevelManager.instance.SetLastLevel(currentLevel);
+        //yield return new WaitForSeconds(0.5f); //probably not needed, depending on device and speed of loading new scene
+        sceneLoader.ChangeScene("GameOver");
+
+
+        hasDied = false;
+        // Reset health            
+        HealthPoints = 100;
+      
+        
+        /*
         // Teleport the player back to the initial spawn position
         transform.position = initialSpawnPosition;
         hasDied = false;
@@ -254,6 +279,8 @@ public class PlayerDamage : MonoBehaviour
 
         // Ensure the vignette is fully transparent
         vignetteImage.color = new Color(vignetteImage.color.r, vignetteImage.color.g, vignetteImage.color.b, 0);
+        */
+
     }
     IEnumerator hitTimer()
     {

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using TMPro;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class TutorialManager : MonoBehaviour
     public bool hasBlocked = false; // Tracks if the player has blocked an attack
     public bool hasAttacked = false; // Tracks if the player has attacked the enemy
 
+    private int blockCount = 0; // Tracks the number of blocks
     private enum TutorialStep { Start, Challenge, Block, Attack, Complete }
     private TutorialStep currentStep;
 
@@ -26,7 +28,7 @@ public class TutorialManager : MonoBehaviour
     {
         currentStep = TutorialStep.Start;
         ShowMessage("Welcome to the tutorial! Click OK to start.");
-        okButton.onClick.AddListener(OnOkButtonClicked);
+        //okButton.onClick.AddListener(OnOkButtonClicked);
     }
 
     void Update()
@@ -37,16 +39,20 @@ public class TutorialManager : MonoBehaviour
                 if (hasChallenged)
                 {
                     hasChallenged = false;
-                    ShowMessage("Now block the enemy's attack. Click OK to continue.");
-                    currentStep = TutorialStep.Block;
+                    ShowMessage("Now block the enemy's attack. Watch the video and follow the instructions.");
+                    StartCoroutine(PlayVideo(blockVideo, TutorialStep.Block));
                 }
                 break;
             case TutorialStep.Block:
                 if (hasBlocked)
                 {
-                    hasBlocked = false;
-                    ShowMessage("Now attack the enemy while it's blocking. Click OK to continue.");
-                    currentStep = TutorialStep.Attack;
+                    blockCount++;
+                    if (blockCount >= 2)
+                    {
+                        hasBlocked = false;
+                        ShowMessage("Now attack the enemy while it's blocking. Watch the video and follow the instructions.");
+                        StartCoroutine(PlayVideo(attackVideo, TutorialStep.Attack));
+                    }
                 }
                 break;
             case TutorialStep.Attack:
@@ -67,23 +73,13 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    void OnOkButtonClicked()
+    public void OnOkButtonClicked()
     {
         switch (currentStep)
         {
             case TutorialStep.Start:
-                StartCoroutine(PlayVideo(challengeVideo));
-                ShowMessage("Watch how to challenge the enemy. Click OK to continue.");
-                currentStep = TutorialStep.Challenge;
-                break;
-            case TutorialStep.Challenge:
-                StartCoroutine(PlayVideo(blockVideo));
-                break;
-            case TutorialStep.Block:
-                StartCoroutine(PlayVideo(attackVideo));
-                break;
-            case TutorialStep.Attack:
-                tutorialText.text = "Attack the enemy to complete the tutorial.";
+                ShowMessage("Watch how to challenge the enemy.");
+                StartCoroutine(PlayVideo(challengeVideo, TutorialStep.Challenge));
                 break;
             case TutorialStep.Complete:
                 tutorialText.gameObject.SetActive(false);
@@ -96,15 +92,14 @@ public class TutorialManager : MonoBehaviour
     {
         tutorialText.text = message;
         tutorialText.gameObject.SetActive(true);
-        okButton.gameObject.SetActive(true);
     }
 
-    IEnumerator PlayVideo(VideoClip clip)
-    {	
+    IEnumerator PlayVideo(VideoClip clip, TutorialStep nextStep)
+    {
         videoPlayer.clip = clip;
-        videoPlayer.Play();
         videoPlayer.isLooping = true;
+        videoPlayer.Play();
         yield return new WaitForSeconds((float)clip.length);
-        videoPlayer.Stop();
+        currentStep = nextStep;
     }
 }

@@ -21,10 +21,17 @@ public class MusicManager : MonoBehaviour
         }
 
         audioSource = GetComponent<AudioSource>();
+        LoadVolume();
         audioSource.Play();
     }
 
-    public void SetVolume(float volume)
+    private void LoadVolume()
+    {
+        float volume = PlayerPrefs.GetFloat("musicVolume", 1); // Standardwert ist 1
+        SetVolume(volume);
+    }
+
+public void SetVolume(float volume)
     {
         audioSource.volume = volume;
     }
