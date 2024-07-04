@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg contentstyletype="text/css" height="2645px" preserveAspectRatio="none" style="width:729px;height:2645px;background:#FFFFFF;" version="1.1" viewBox="0 0 729 2645" width="729px" zoomAndPan="magnify" xmlns="http://www.w3.org/2000/svg">
+  <defs/>
+  <g transform="matrix(1, 0, 0, 1, -5.010718, 7.237686)">
+    <g id="elem_assets">
+      <rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="67" x="7" y="2495.85"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="47" x="17" y="2518.8451" style="white-space: pre;">Assets</text>
+    </g>
+    <g id="elem_scripts">
+      <rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="67" x="162.5" y="2495.85"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="47" x="172.5" y="2518.8451" style="white-space: pre;">Scripts</text>
+    </g>
+    <g id="elem_own">
+      <rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="51" x="15" y="1379.85"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="31" x="25" y="1402.8451" style="white-space: pre;">Own</text>
+    </g>
+    <g id="elem_combat">
+      <rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="74" x="159" y="687.85"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="54" x="169" y="710.8451" style="white-space: pre;">Combat</text>
+    </g>
+    <g id="elem_challengesystem">
+      <rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="140" x="342" y="134.85"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120" x="352" y="157.8451" style="white-space: pre;">ChallengeSystem</text>
+    </g>
+    <g id="elem_combatsystem">
+      <rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="125" x="349.5" y="413.85"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="105" x="359.5" y="436.8451" style="white-space: pre;">CombatSystem</text>
+    </g>
+    <g id="elem_damagesystem">
+      <rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="129" x="347.5" y="646.85"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="109" x="357.5" y="669.8451" style="white-space: pre;">DamageSystem</text>
+    </g>
+    <g id="elem_BossTrigger.cs">
+      <ellipse cx="412" cy="747" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="104" x="360" y="776.9951" style="white-space: pre;">BossTrigger.cs</text>
+    </g>
+    <g id="elem_SwordPos.cs">
+      <ellipse cx="412" cy="840" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="89" x="367.5" y="869.9951" style="white-space: pre;">SwordPos.cs</text>
+    </g>
+    <g id="elem_ChallengeManager.cs">
+      <ellipse cx="648" cy="14" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="573.5" y="43.9951" style="white-space: pre;">ChallengeManager.cs</text>
+    </g>
+    <g id="elem_ChallengeSystem.cs">
+      <ellipse cx="648" cy="107" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="140" x="578" y="136.9951" style="white-space: pre;">ChallengeSystem.cs</text>
+    </g>
+    <g id="elem_ProgressionRing.cs">
+      <ellipse cx="648" cy="200" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="134" x="581" y="229.9951" style="white-space: pre;">ProgressionRing.cs</text>
+    </g>
+    <g id="elem_Combatsystem.cs">
+      <ellipse cx="648" cy="293" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="124" x="586" y="322.9951" style="white-space: pre;">Combatsystem.cs</text>
+    </g>
+    <g id="elem_PlayerDamage.cs">
+      <ellipse cx="648" cy="386" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="119" x="588.5" y="415.9951" style="white-space: pre;">PlayerDamage.cs</text>
+    </g>
+    <g id="elem_PlayerStates.cs">
+      <ellipse cx="648" cy="479" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="105" x="595.5" y="508.9951" style="white-space: pre;">PlayerStates.cs</text>
+    </g>
+    <g id="elem_Billboard.cs">
+      <ellipse cx="648" cy="572" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="608.5" y="601.9951" style="white-space: pre;">Billboard.cs</text>
+    </g>
+    <g id="elem_EnemyController.cs">
+      <ellipse cx="648" cy="665" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="134" x="581" y="694.9951" style="white-space: pre;">EnemyController.cs</text>
+    </g>
+    <g id="elem_Healthbar.cs">
+      <ellipse cx="648" cy="758" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="86" x="605" y="787.9951" style="white-space: pre;">Healthbar.cs</text>
+    </g>
+    <g id="elem_HitController.cs">
+      <ellipse cx="648" cy="851" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="105" x="595.5" y="880.9951" style="white-space: pre;">HitController.cs</text>
+    </g>
+    <g id="elem_enemies">
+      <rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="80" x="156" y="1220.85"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="60" x="166" y="1243.8451" style="white-space: pre;">Enemies</text>
+    </g>
+    <g id="elem_enemies_scripts">
+      <rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="66" x="379" y="1204.85"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="46" x="389" y="1227.8451" style="white-space: pre;">scripts</text>
+    </g>
+    <g id="elem_heavy.cs">
+      <ellipse cx="648" cy="944" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="60" x="618" y="973.9951" style="white-space: pre;">heavy.cs</text>
+    </g>
+    <g id="elem_light.cs">
+      <ellipse cx="648" cy="1037" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="49" x="623.5" y="1066.9951" style="white-space: pre;">light.cs</text>
+    </g>
+    <g id="elem_medium.cs">
+      <ellipse cx="648" cy="1130" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76" x="610" y="1159.9951" style="white-space: pre;">medium.cs</text>
+    </g>
+    <g id="elem_Skeleton_Boss.cs">
+      <ellipse cx="648" cy="1223" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="123" x="586.5" y="1252.9951" style="white-space: pre;">Skeleton_Boss.cs</text>
+    </g>
+    <g id="elem_Skeleton_spell.cs">
+      <ellipse cx="648" cy="1316" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120" x="588" y="1345.9951" style="white-space: pre;">Skeleton_spell.cs</text>
+    </g>
+    <g id="elem_StateController.cs">
+      <ellipse cx="648" cy="1409" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="123" x="586.5" y="1438.9951" style="white-space: pre;">StateController.cs</text>
+    </g>
+    <g id="elem_tutorial_enemy.cs">
+      <ellipse cx="648" cy="1502" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="121" x="587.5" y="1531.9951" style="white-space: pre;">tutorial_enemy.cs</text>
+    </g>
+    <g id="elem_animators">
+      <rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="88" x="604" y="1565.85"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="68" x="614" y="1588.8451" style="white-space: pre;">animators</text>
+    </g>
+    <g id="elem_fog">
+      <rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="46" x="173" y="1308.85"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="26" x="183" y="1331.8451" style="white-space: pre;">Fog</text>
+    </g>
+    <g id="elem_movement">
+      <rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="93" x="149.5" y="1379.85"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="73" x="159.5" y="1402.8451" style="white-space: pre;">Movement</text>
+    </g>
+    <g id="elem_WaypointFollower.cs">
+      <ellipse cx="412" cy="1305" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="140" x="342" y="1334.9951" style="white-space: pre;">WaypointFollower.cs</text>
+    </g>
+    <g id="elem_WaypointManager.cs">
+      <ellipse cx="412" cy="1398" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="143" x="340.5" y="1427.9951" style="white-space: pre;">WaypointManager.cs</text>
+    </g>
+    <g id="elem_scenemanager">
+      <rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="124" x="134" y="1519.85"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="104" x="144" y="1542.8451" style="white-space: pre;">SceneManager</text>
+    </g>
+    <g id="elem_DelaySceneChanger.cs" transform="matrix(1, 0, 0, 1, -8.151925, -21.160433)">
+      <ellipse cx="412" cy="1491" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="161" x="331.5" y="1520.9951" style="white-space: pre;">DelaySceneChanger.cs</text>
+    </g>
+    <g id="elem_Quit.cs" transform="matrix(1, 0, 0, 1, -6.111895, -64.769465)">
+      <ellipse cx="412" cy="1584" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="388" y="1613.9951" style="white-space: pre;">Quit.cs</text>
+    </g>
+    <g id="elem_SceneLoader.cs" transform="matrix(1, 0, 0, 1, -0.556813, 46.209913)">
+      <ellipse cx="408.485" cy="1645.635" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111" x="355.387" y="1672.477" style="white-space: pre; font-size: 14px;">SceneLoader.cs</text>
+      <ellipse cx="407.286" cy="1584.806" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+    </g>
+    <g id="elem_sound">
+      <rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="65" x="163.5" y="1937.85"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45" x="173.5" y="1960.8451" style="white-space: pre;">Sound</text>
+    </g>
+    <g id="elem_AudioEffectsManager.cs">
+      <ellipse cx="412" cy="1770" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="166" x="329" y="1799.9951" style="white-space: pre;">AudioEffectsManager.cs</text>
+    </g>
+    <g id="elem_GameEffectsManager.cs">
+      <ellipse cx="412" cy="1863" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="168" x="328" y="1892.9951" style="white-space: pre;">GameEffectsManager.cs</text>
+    </g>
+    <g id="elem_MusicManager.cs">
+      <ellipse cx="412" cy="1956" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120" x="352" y="1985.9951" style="white-space: pre;">MusicManager.cs</text>
+    </g>
+    <g id="elem_PlayButtonSound.cs">
+      <ellipse cx="412" cy="2049" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="139" x="342.5" y="2078.9951" style="white-space: pre;">PlayButtonSound.cs</text>
+    </g>
+    <g id="elem_SoundEffectsManager.cs">
+      <ellipse cx="412" cy="2142" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="172" x="326" y="2171.9951" style="white-space: pre;">SoundEffectsManager.cs</text>
+    </g>
+    <g id="elem_Volumesettings.cs">
+      <ellipse cx="412" cy="2235" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="128" x="348" y="2264.9951" style="white-space: pre;">Volumesettings.cs</text>
+    </g>
+    <g id="elem_tutorial">
+      <rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="71" x="160.5" y="2158.85"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="51" x="170.5" y="2181.8451" style="white-space: pre;">Tutorial</text>
+    </g>
+    <g id="elem_Tutorial.cs">
+      <ellipse cx="412" cy="2328" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="71" x="376.5" y="2357.9951" style="white-space: pre;">Tutorial.cs</text>
+    </g>
+    <g id="elem_FollowCam.cs">
+      <ellipse cx="412" cy="2421" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="94" x="365" y="2450.9951" style="white-space: pre;">FollowCam.cs</text>
+    </g>
+    <g id="elem_LevelManager.cs">
+      <ellipse cx="412" cy="2514" fill="#F1F1F1" rx="0" ry="0" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="115" x="354.5" y="2543.9951" style="white-space: pre;"> </text>
+    </g>
+    <g id="elem_RestartButton.cs"/>
+    <g id="link_assets_scripts">
+      <path d="M74.43,2514 C100.33,2514 130.24,2514 156.12,2514 " fill="none" id="assets-to-scripts" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="162.12,2514,153.12,2510,157.12,2514,153.12,2518,162.12,2514" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_own_combat">
+      <path d="M45.61,1379.49 C67.37,1281.37 167.791,828.6877 189.581,730.4277 " fill="none" id="own-to-combat" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="190.88,724.57,185.0264,732.4905,189.7975,729.4514,192.8366,734.2225,190.88,724.57" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_combat_challengesystem">
+      <path d="M204.12,687.6 C236.68,603.45 369.0645,261.3556 401.6845,177.0656 " fill="none" id="combat-to-challengesystem" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.85,171.47,396.8714,178.4197,402.0454,176.133,404.3322,181.307,403.85,171.47" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_combat_combatsystem">
+      <path d="M211.37,687.6 C250.36,637.68 354.0868,504.8687 392.9968,455.0487 " fill="none" id="combat-to-combatsystem" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="396.69,450.32,387.9978,454.9509,393.6124,454.2606,394.3027,459.8751,396.69,450.32" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_combat_damagesystem">
+      <path d="M233.3,699.04 C264.43,693.08 304.0973,685.4794 341.2973,678.3494 " fill="none" id="combat-to-damagesystem" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="347.19,677.22,337.5979,674.9857,342.2794,678.1612,339.1039,682.8427,347.19,677.22" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_combat_BossTrigger.cs">
+      <path d="M233.3,712.96 C284.82,722.82 370.0171,739.1513 397.2171,744.3613 " fill="none" id="combat-to-BossTrigger.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.11,745.49,395.0232,739.8683,398.1993,744.5494,393.5182,747.7255,403.11,745.49" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_combat_SwordPos.cs">
+      <path d="M220.36,724.46 C244.19,742.9 282.61,771.52 318,793 C348.31,811.4 381.2443,826.727 397.5843,834.047 " fill="none" id="combat-to-SwordPos.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.06,836.5,396.4818,829.1701,398.497,834.4558,393.2112,836.471,403.06,836.5" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_challengesystem_ChallengeManager.cs">
+      <path d="M443.03,134.38 C473.77,115.42 522.99,85.28 566,60 C592.77,44.27 619.7073,29.1779 634.1173,21.1579 " fill="none" id="challengesystem-to-ChallengeManager.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.36,18.24,629.5507,19.1217,634.9911,20.6716,633.4412,26.1119,639.36,18.24" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_challengesystem_ChallengeSystem.cs">
+      <path d="M482.26,139.39 C539.4,128.15 608.9923,114.4652 633.2523,109.7052 " fill="none" id="challengesystem-to-ChallengeSystem.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.14,108.55,629.5382,106.3577,634.2336,109.5127,631.0785,114.208,639.14,108.55" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_challengesystem_ProgressionRing.cs">
+      <path d="M482.26,166.91 C539.4,178.39 608.9974,192.3691 633.2574,197.2391 " fill="none" id="challengesystem-to-ProgressionRing.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.14,198.42,631.1033,192.7269,634.2378,197.4359,629.5288,200.5704,639.14,198.42" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_combatsystem_Combatsystem.cs">
+      <path d="M443.03,413.38 C473.77,394.42 522.99,364.28 566,339 C592.77,323.27 619.7073,308.1779 634.1173,300.1579 " fill="none" id="combatsystem-to-Combatsystem.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.36,297.24,629.5507,298.1217,634.9911,299.6716,633.4412,305.1119,639.36,297.24" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_combatsystem_PlayerDamage.cs">
+      <path d="M474.79,419.85 C532.74,408.46 608.2529,393.6187 633.4029,388.6687 " fill="none" id="combatsystem-to-PlayerDamage.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.29,387.51,629.687,385.3233,634.3841,388.4756,631.2319,393.1727,639.29,387.51" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_combatsystem_PlayerStates.cs">
+      <path d="M474.79,444.41 C532.74,456.05 608.2574,471.2188 633.4074,476.2688 " fill="none" id="combatsystem-to-PlayerStates.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.29,477.45,631.2536,471.7565,634.3878,476.4657,629.6787,479.5999,639.29,477.45" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_damagesystem_Billboard.cs">
+      <path d="M459.79,646.4 C517.68,623.4 606.3641,588.1457 633.7441,577.2657 " fill="none" id="damagesystem-to-Billboard.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.32,575.05,629.479,574.6563,634.6734,576.8964,632.4333,582.0908,639.32,575.05" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_damagesystem_EnemyController.cs">
+      <path d="M476.94,665 C534.59,665 608.03,665 633.1,665 " fill="none" id="damagesystem-to-EnemyController.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.1,665,630.1,661,634.1,665,630.1,669,639.1,665" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_damagesystem_Healthbar.cs">
+      <path d="M463.3,683.61 C477.17,688.83 492.2,694.56 506,700 C556.98,720.07 612.1832,743.2746 633.5532,752.3046 " fill="none" id="damagesystem-to-Healthbar.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.08,754.64,632.3467,747.4524,634.4743,752.6938,629.2328,754.8215,639.08,754.64" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_damagesystem_HitController.cs">
+      <path d="M476.78,682.26 C487.25,686.92 497.45,692.74 506,700 C546.69,734.53 528.31,766.22 566,804 C588.5,826.56 618.4445,839.9386 633.8645,845.9886 " fill="none" id="damagesystem-to-HitController.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.45,848.18,632.5328,841.1692,634.7954,846.3538,629.6108,848.6165,639.45,848.18" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_own_enemies">
+      <path d="M56.09,1379.46 C73.67,1357.51 104.55,1320.24 134,1291 C145.85,1279.23 155.3532,1270.8778 167.0432,1261.2778 " fill="none" id="own-to-enemies" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="171.68,1257.47,162.1862,1260.0905,167.816,1260.6432,167.2633,1266.273,171.68,1257.47" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_enemies_enemies_scripts">
+      <path d="M236.25,1236.07 C277.16,1233.01 334.5167,1228.7171 372.6567,1225.8671 " fill="none" id="enemies-to-enemies_scripts" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="378.64,1225.42,369.367,1222.1018,373.6539,1225.7926,369.9631,1230.0795,378.64,1225.42" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_enemies_scripts_heavy.cs">
+      <path d="M421.33,1204.57 C441.19,1162.22 495.04,1056.52 566,990 C588.89,968.54 618.0277,955.4146 633.5077,949.2346 " fill="none" id="enemies_scripts-to-heavy.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.08,947.01,629.2384,946.632,634.4364,948.8638,632.2046,954.0618,639.08,947.01" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_enemies_scripts_light.cs">
+      <path d="M430.23,1204.79 C457.43,1176.64 512.71,1121.75 566,1083 C591.11,1064.74 618.7199,1050.6051 633.6499,1043.3751 " fill="none" id="enemies_scripts-to-light.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.05,1040.76,629.2064,1041.0825,634.5499,1042.9392,632.6932,1048.2827,639.05,1040.76" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_enemies_scripts_medium.cs">
+      <path d="M445.05,1210.26 C500.12,1188.38 604.1039,1147.0451 633.8339,1135.2351 " fill="none" id="enemies_scripts-to-medium.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.41,1133.02,629.5691,1132.6252,634.7632,1134.8659,632.5225,1140.0601,639.41,1133.02" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_enemies_scripts_Skeleton_Boss.cs">
+      <path d="M445.05,1223 C500.12,1223 603.68,1223 633.41,1223 " fill="none" id="enemies_scripts-to-Skeleton_Boss.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.41,1223,630.41,1219,634.41,1223,630.41,1227,639.41,1223" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_enemies_scripts_Skeleton_spell.cs">
+      <path d="M445.37,1234.91 C463.29,1241.57 485.94,1250.1 506,1258 C556.98,1278.07 612.1832,1301.2746 633.5532,1310.3046 " fill="none" id="enemies_scripts-to-Skeleton_spell.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.08,1312.64,632.3467,1305.4524,634.4743,1310.6938,629.2328,1312.8215,639.08,1312.64" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_enemies_scripts_StateController.cs">
+      <path d="M445.1,1229.31 C464.45,1234.42 488.64,1243.27 506,1258 C546.69,1292.53 528.31,1324.22 566,1362 C588.5,1384.56 618.4445,1397.9386 633.8645,1403.9886 " fill="none" id="enemies_scripts-to-StateController.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.45,1406.18,632.5328,1399.1692,634.7954,1404.3538,629.6108,1406.6165,639.45,1406.18" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_enemies_scripts_tutorial_enemy.cs">
+      <path d="M445.46,1227.78 C465.45,1232.34 490.19,1241.14 506,1258 C568.6,1324.77 509.14,1383.28 566,1455 C586,1480.23 617.8138,1492.6956 633.7838,1497.8856 " fill="none" id="enemies_scripts-to-tutorial_enemy.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="639.49,1499.74,632.1669,1493.1542,634.7348,1498.1946,629.6944,1500.7625,639.49,1499.74" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_enemies_scripts_animators">
+      <path d="M445.1,1227.11 C465.46,1231.4 490.75,1240.17 506,1258 C591.54,1358.03 483.41,1445.52 566,1548 C575.56,1559.86 584.2516,1565.746 598.1716,1571.186 " fill="none" id="enemies_scripts-to-animators" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="603.76,1573.37,596.8334,1566.3684,599.103,1571.55,593.9214,1573.8196,603.76,1573.37" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_own_fog">
+      <path d="M66.16,1386.59 C95.65,1372.95 139.134,1352.8381 167.444,1339.7481 " fill="none" id="own-to-fog" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="172.89,1337.23,163.0422,1337.3765,168.3517,1339.3284,166.3997,1344.6379,172.89,1337.23" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_own_movement">
+      <path d="M66.16,1398 C88.45,1398 115.84,1398 143.04,1398 " fill="none" id="own-to-movement" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="149.04,1398,140.04,1394,144.04,1398,140.04,1402,149.04,1398" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_movement_WaypointFollower.cs">
+      <path d="M239.79,1379.4 C292.24,1356.61 371.8468,1322.0106 397.7668,1310.7506 " fill="none" id="movement-to-WaypointFollower.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.27,1308.36,393.4215,1308.2772,398.684,1310.3522,396.609,1315.6147,403.27,1308.36" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_movement_WaypointManager.cs">
+      <path d="M242.91,1398 C295.47,1398 371.62,1398 397.16,1398 " fill="none" id="movement-to-WaypointManager.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.16,1398,394.16,1394,398.16,1398,394.16,1402,403.16,1398" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_own_scenemanager">
+      <path d="M61.88,1416.59 C91.41,1443.52 141.2974,1489.0163 170.5874,1515.7363 " fill="none" id="own-to-scenemanager" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="175.02,1519.78,171.0668,1510.7593,171.3261,1516.4102,165.6752,1516.6695,175.02,1519.78" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_scenemanager_DelaySceneChanger.cs" style="transform-origin: 321.778px 1507.66px;" transform="matrix(0.868477, -0.075982, 0.111287, 1.272018, 4.683511, -8.157497)">
+      <path d="M 240.545 1524.53 C 265.616 1519.592 292.04 1503.392 317.473 1498.38 C 353.046 1491.373 385.711 1495.933 401.465 1492.834" fill="none" id="scenemanager-to-DelaySceneChanger.cs" style="stroke: rgb(24, 24, 24); stroke-width: 1;"/>
+      <polygon fill="#181818" points="403.01,1492.76,393.3622,1490.78,398.126,1493.8307,395.0753,1498.5944,403.01,1492.76" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_scenemanager_Quit.cs" transform="matrix(0.883242, -0.321474, 0.370616, 1.018262, -2.66226, -44.170583)" style="transform-origin: 353.179px 1575.09px;">
+      <path d="M258.32,1551.18 C310.2,1562.33 373.834,1576.0092 397.144,1581.0192 " fill="none" id="scenemanager-to-Quit.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.01,1582.28,395.0515,1576.4781,398.1216,1581.2293,393.3704,1584.2995,403.01,1582.28" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_scenemanager_SceneLoader.cs" style="" transform="matrix(0.981861, 0, 0, 1.109406, 3.970295, -170.298635)">
+      <path d="M218.87,1556.57 C242.45,1576.13 281.53,1607.19 318,1630 C348.06,1648.8 381.1144,1663.9621 397.5244,1671.1521 " fill="none" id="scenemanager-to-SceneLoader.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.02,1673.56,396.3818,1666.2844,398.4403,1671.5534,393.1713,1673.6119,403.02,1673.56" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_own_sound">
+      <path d="M46.61,1416.57 C69.96,1501.47 164.889,1846.5248 188.279,1931.5748 " fill="none" id="own-to-sound" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="189.87,1937.36,191.3403,1927.6215,188.5442,1932.539,183.6267,1929.7429,189.87,1937.36" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_sound_AudioEffectsManager.cs">
+      <path d="M209.24,1937.59 C229.2,1908.68 271.26,1852.18 318,1816 C346.2,1794.17 380.7539,1780.5922 397.5339,1774.6522 " fill="none" id="sound-to-AudioEffectsManager.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.19,1772.65,393.3711,1771.8826,398.4766,1774.3185,396.0407,1779.424,403.19,1772.65" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_sound_GameEffectsManager.cs">
+      <path d="M228.58,1942.28 C279.04,1920.35 369.5273,1881.0216 397.5973,1868.8216 " fill="none" id="sound-to-GameEffectsManager.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.1,1866.43,393.2515,1866.349,398.5144,1868.423,396.4403,1873.6859,403.1,1866.43" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_sound_MusicManager.cs">
+      <path d="M228.58,1956 C279.04,1956 369.03,1956 397.1,1956 " fill="none" id="sound-to-MusicManager.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.1,1956,394.1,1952,398.1,1956,394.1,1960,403.1,1956" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_sound_PlayButtonSound.cs">
+      <path d="M228.58,1969.72 C279.04,1991.65 369.5273,2030.9784 397.5973,2043.1784 " fill="none" id="sound-to-PlayButtonSound.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.1,2045.57,396.4403,2038.3141,398.5144,2043.577,393.2515,2045.651,403.1,2045.57" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_sound_SoundEffectsManager.cs">
+      <path d="M209.3,1974.22 C229.36,2002.86 271.54,2058.85 318,2095 C346.27,2117 380.8083,2131.0101 397.5683,2137.1701 " fill="none" id="sound-to-SoundEffectsManager.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.2,2139.24,396.1324,2132.3808,398.5069,2137.5151,393.3726,2139.8896,403.2,2139.24" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_sound_Volumesettings.cs">
+      <path d="M202.36,1974.64 C215.49,2017.41 253.02,2123.85 318,2188 C343.62,2213.29 379.8459,2225.9599 397.2759,2231.1099 " fill="none" id="sound-to-Volumesettings.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.03,2232.81,395.5323,2226.4237,398.2349,2231.3932,393.2654,2234.0958,403.03,2232.81" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_own_tutorial">
+      <path d="M43.23,1416.19 C50.42,1489.27 80.08,1768.27 134,1992 C148.98,2054.14 172.9456,2119.7563 185.5856,2152.7863 " fill="none" id="own-to-tutorial" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="187.73,2158.39,188.2491,2148.5548,185.943,2153.7203,180.7776,2151.4141,187.73,2158.39" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_tutorial_Tutorial.cs">
+      <path d="M215.53,2195.47 C238.33,2217.56 278.84,2254.84 318,2281 C347.63,2300.8 381.1922,2315.6506 397.6422,2322.5106 " fill="none" id="tutorial-to-Tutorial.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.18,2324.82,396.4129,2317.6641,398.5652,2322.8955,393.3338,2325.0478,403.18,2324.82" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_scripts_FollowCam.cs">
+      <path d="M229.97,2499.67 C280.85,2477.56 370.0475,2438.8023 397.7175,2426.7723 " fill="none" id="scripts-to-FollowCam.cs" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.22,2424.38,393.3715,2424.3001,398.6346,2426.3736,396.5612,2431.6367,403.22,2424.38" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="link_scripts_LevelManager.cs"/>
+    <g id="link_scripts_RestartButton.cs"/>
+    <g id="g-1" transform="matrix(0, 0, 0, 1.974312, 259.269508, -1236.149695)" style="">
+      <path d="M 244.842 1398.621 C 297.403 1398.621 373.553 1398.62 399.093 1398.62" fill="none" id="path-1" style="stroke: rgb(24, 24, 24); stroke-width: 1; transform-box: fill-box; transform-origin: 50% 50%;"/>
+      <polygon fill="#181818" points="403.16,1398,394.16,1394,398.16,1398,394.16,1402,403.16,1398" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="g-2" transform="matrix(1, 0, 0, 1, -6.483191, -103.100566)">
+      <ellipse cx="412" cy="1677" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111" x="356.5" y="1706.9951" style="white-space: pre;">Restart Button</text>
+    </g>
+    <g id="g-3" transform="matrix(0.868073, 0.153065, -0.19751, 1.120126, 3.599321, 160.187612)" style="transform-origin: 323.035px 1398px;">
+      <path d="M242.91,1398 C295.47,1398 371.62,1398 397.16,1398 " fill="none" id="path-2" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.16,1398,394.16,1394,398.16,1398,394.16,1402,403.16,1398" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+    <g id="g-4" transform="matrix(0.874981, 0.445825, -0.567095, 1.11298, 4.287002, 193.742056)" style="transform-origin: 323.035px 1398px;">
+      <path d="M 242.91 1398 C 293.65 1403.108 371.62 1398 397.16 1398" fill="none" id="path-3" style="stroke:#181818;stroke-width:1.0;"/>
+      <polygon fill="#181818" points="403.16,1398,394.16,1394,398.16,1398,394.16,1402,403.16,1398" style="stroke:#181818;stroke-width:1.0;"/>
+    </g>
+  </g>
+  <text x="98%" y="98%" text-anchor="end" font-size="5vh" fill="#cccccc" opacity="0.5" transform="translate(-10,-10)" font-family="Roboto, Arial, Helvetica, sans-serif" style="white-space: pre;">pladitor.com</text>
+  <text lengthAdjust="spacing" textLength="111" style="white-space: pre; font-size: 14px;" x="349.564" y="1664.422" font-size="14" font-family="sans-serif" fill="#000000">Level Manager</text>
+</svg>
