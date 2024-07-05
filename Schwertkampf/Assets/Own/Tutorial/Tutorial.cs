@@ -46,13 +46,11 @@ public class TutorialManager : MonoBehaviour
             case TutorialStep.Block:
                 if (hasBlocked)
                 {
-                    blockCount++;
-                    if (blockCount >= 2)
-                    {
+                    
                         hasBlocked = false;
                         ShowMessage("Now attack the enemy while it's blocking. Watch the video and follow the instructions.");
                         StartCoroutine(PlayVideo(attackVideo, TutorialStep.Attack));
-                    }
+                    
                 }
                 break;
             case TutorialStep.Attack:
